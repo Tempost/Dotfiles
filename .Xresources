@@ -1,0 +1,101 @@
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintfull
+
+*shell: /usr/bin/zsh
+*termname : st
+*font: Caskaydia Cove Nerd Font Mono:size=12:style=Regular:antialias=true:autohint=true
+*borderpx: 1
+
+/* ! Gruvbox */
+/* *foreground:   #d4be98 */
+/* *background:   #282828 */
+/* *cursorColor:  #d4be98 */
+
+/* ! black */
+/* *color0:       #1d2021 */
+/* *color8:       #32302f */
+
+/* ! red */
+/* *color1:       #cc241d */
+/* *color9:       #fb4934 */
+
+/* ! green */
+/* *color2:       #98971a */
+/* *color10:      #b8bb26 */
+
+/* ! yellow */
+/* *color3:       #d79921 */
+/* *color11:      #fabd2f */
+
+/* ! blue */
+/* *color4:       #458588 */
+/* *color12:      #83a598 */
+
+/* ! magenta */
+/* *color5:       #b16286 */
+/* *color13:      #d3869b */
+
+/* ! aqua */
+/* *color6:       #b89d6a */
+/* *color14:      #8ec07c */
+
+/* ! white */
+/* *color7:       #a89984 */
+/* *color15:      #928374 */
+
+!! Catppuccin !!
+*.background: #1E1E28
+*.foreground: #DADAE8
+
+! Black
+*.color0:     #6E6C7E
+
+! Indigo
+*.color8:     #F2CDCD
+
+! Red
+*.color1:     #E38C8F
+!
+! Purple
+*.color9:     #DDB6F2
+
+! Green
+*.color2:     #B1E3AD
+
+! Lime
+*.color10:    #F8BD96
+
+! Yellow
+*.color3:     #EBDDAA
+
+! Amber
+*.color11:    #E8A2AF
+
+! Blue
+*.color4:     #A4B9EF
+
+! Teal
+*.color12:    #B5E8E0
+
+! Magenta
+*.color5:     #C6AAE8
+
+! Orange
+*.color13:    #DDB6F2
+
+! Pink
+*.color6:     #E5B4E2
+
+! Alt-Pink
+*.color14:    #F5C2E7
+
+! Whites
+*.color7:     #DADAE8
+*.color15:    #DADAE8
+
+!*.focusColor   : 0
+!*.UnfocusColor : 0
+*alpha          : 0.95

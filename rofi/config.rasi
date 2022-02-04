@@ -1,0 +1,12 @@
+configuration {
+    modi                : "window,ssh,drun";
+    font                : "Caskaydia Cove Nerd Font 12";
+    show-icons          : true;
+    disable-history     : false;
+    fullscreen          : false;
+    hide-scrollbar      : true;
+    sidebar-mode        : true;
+}
+
+@import "colorscheme.rasi"
+@import "fluent.rasi"
