@@ -1,5 +1,4 @@
 export EDITOR="nvim"
-export TERM="tmux-256color"
 export BROWSER="firefox"
 export SHELL="zsh"
 export PS2DEV=/usr/local/ps2dev
