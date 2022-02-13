@@ -1,7 +1,6 @@
 local catppuccin = require("catppuccin")
 
 catppuccin.setup({
-  colorscheme = 'neon_latte',
   transparent_background = true,
   term_colors = true,
   styles = {
