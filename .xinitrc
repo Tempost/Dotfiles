@@ -3,5 +3,7 @@ xrandr --auto
 xrdb -merge $HOME/.Xresources
 xset +fp /home/tempost/.local/share/fonts
 xset fp rehash
+setxkbmap -option caps:escape
 
+/home/tempost/.fehbg
 exec i3

@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --no-fehbg --bg-fill '/home/tempost/Pictures/aegis-pointing.png' 
+feh --no-fehbg --bg-center '/home/tempost/Pictures/arseniy-chebynkin-96.jpg' 
