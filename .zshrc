@@ -6,6 +6,7 @@ ZSH_THEME="fwalch"
 plugins=(git)
 
 export GOPATH=$HOME/Source/go/
+export PATH=${PATH}":/home/tempost/.local/share/gem/ruby/3.0.0/bin"
 
 if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
   [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1

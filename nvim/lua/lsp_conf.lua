@@ -29,8 +29,8 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-require('lspconfig').ccls.setup {
-    cmd = { 'ccls' },
+require('lspconfig').clangd.setup {
+    cmd = { 'clangd' },
     on_attach = on_attach,
     capabilities = capabilities
 }
@@ -85,6 +85,11 @@ nvim_lsp.html.setup {
     cmd          = { "vscode-html-languageserver", "--stdio" },
     on_attach    = on_attach,
     capabilities = capabilities
+}
+
+nvim_lsp.solargraph.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 
 -- Example custom server
