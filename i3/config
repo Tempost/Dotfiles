@@ -103,6 +103,9 @@ bindsym $mod+g exec --no-startup-id st -e glow
 # open file manager
 bindsym $mod+n exec --no-startup-id nautilus
 
+# open document viewer
+bindsym $mod+shift+z exec zathura
+
 # kill focused window
 bindsym $mod+q kill
 
