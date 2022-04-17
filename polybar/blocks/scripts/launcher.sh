@@ -9,4 +9,4 @@ AC="${COLORS[$(( $RANDOM % 14 ))]}"
 sed -i -e "s/ac: .*/ac:   ${AC}FF;/g" $FILE
 sed -i -e "s/se: .*/se:   ${AC}40;/g" $FILE
 
-rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/config.rasi
+rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/polybar/blocks/scripts/rofi/launcher.rasi
