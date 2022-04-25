@@ -87,11 +87,6 @@ nvim_lsp.html.setup {
     capabilities = capabilities
 }
 
-nvim_lsp.solargraph.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
 -- Example custom server
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
@@ -99,7 +94,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 nvim_lsp.sumneko_lua.setup {
-  cmd          = {  vim.fn.exepath('lua-language-server') },
+  cmd          = {  '/home/cody/lua-language-server/bin/lua-language-server' },
   on_attach    = on_attach,
   capabilities = capabilities,
   settings     = {
@@ -120,6 +115,7 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
+
 require('fidget').setup {
   text = {
     spinner = "dots",         -- animation shown when tasks are ongoing
