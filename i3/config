@@ -80,7 +80,7 @@ client.focused_inative  $bg     $bg     $fg     $fg         $bg
 
 # autostart some programs
 exec --no-startup-id dunst
-exec --no-startup-id picom --config /home/tempost/.config/picom.conf --experimental-backends -b
+exec --no-startup-id picom --config /home/cody/.config/picom.conf --experimental-backends -b
 exec --no-startup-id unclutter -idle 5
 exec ~/.config/polybar/launch.sh --blocks
 exec discord-canary
@@ -91,14 +91,14 @@ exec tixati
 bindsym $mod+o scratchpad show
 bindsym $mod+shift+o move scratchpad
 
+# Screenshot
+bindsym $mod+shift+s exec bash /home/cody/.local/scripts/scmenu
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec st
-bindsym $mod+shift+t exec --no-startup-id st -e gtop 
-bindsym $mod+g exec --no-startup-id st -e glow
 
 # open file manager
 bindsym $mod+n exec --no-startup-id nautilus
@@ -118,7 +118,7 @@ bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# move focused window
+    # move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up

@@ -32,6 +32,7 @@ require('packer').startup(function()
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use 'nvim-treesitter/nvim-treesitter'
+  use 'folke/trouble.nvim'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp'
@@ -39,6 +40,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-buffer'
   use 'j-hui/fidget.nvim'
   use {"akinsho/toggleterm.nvim"}
+  use 'folke/tokyonight.nvim'
   use {
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -47,8 +49,6 @@ require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
 end)
-
-require('colors_conf')
 
 vim.o.hlsearch        = false
 vim.wo.number         = true
@@ -69,6 +69,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
 vim.o.termguicolors = true
+
 vim.cmd [[
   set nu
   set hidden

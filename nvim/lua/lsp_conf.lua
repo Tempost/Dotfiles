@@ -75,12 +75,6 @@ nvim_lsp.gopls.setup {
   end
 }
 
-nvim_lsp.tailwindcss.setup {
-    cmd          = { 'tailwindcss-language-server' },
-    on_attach    = on_attach,
-    capabilities = capabilities
-}
-
 nvim_lsp.html.setup {
     cmd          = { "vscode-html-languageserver", "--stdio" },
     on_attach    = on_attach,
@@ -99,7 +93,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 nvim_lsp.sumneko_lua.setup {
-  cmd          = {  vim.fn.exepath('lua-language-server') },
+  cmd          = {"/home/cody/lua-language-server/bin/lua-language-server" },
   on_attach    = on_attach,
   capabilities = capabilities,
   settings     = {
@@ -163,5 +157,3 @@ require('fidget').setup {
     logging = false,          -- whether to enable logging, for debugging
   },
 }
-
-

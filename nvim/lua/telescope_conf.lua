@@ -1,3 +1,5 @@
+require("trouble").setup {}
+
 -- Telescope
 require('telescope').setup {
   defaults = {
@@ -63,3 +65,7 @@ vim.api.nvim_set_keymap('n', '<leader>sd',      [[<cmd>lua require('telescope.bu
 vim.api.nvim_set_keymap('n', '<leader>sr',      [[<cmd>lua require('telescope.builtin').reloader()<CR>]],                         { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sk',      [[<cmd>lua require('telescope.builtin').keymaps()<CR>]],                          { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sca',     [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]],                 { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>TroubleToggle document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
