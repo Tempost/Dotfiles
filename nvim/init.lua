@@ -17,15 +17,11 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
   use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
   use 'catppuccin/nvim'
-  use 'tpope/vim-fugitive' -- Git commands in nvim
-  use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
+  use 'shaunsingh/nord.nvim'
   use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
-  use 'mfussenegger/nvim-dap'
-  use 'theHamsta/nvim-dap-virtual-text'
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'nvim-telescope/telescope-dap.nvim' }
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
@@ -40,7 +36,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-buffer'
   use 'j-hui/fidget.nvim'
   use {"akinsho/toggleterm.nvim"}
-  use 'folke/tokyonight.nvim'
+  use 'akinsho/bufferline.nvim'
   use {
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -70,16 +66,18 @@ vim.opt.expandtab = true
 
 vim.o.termguicolors = true
 
+require('colors_conf')
 vim.cmd [[
   set nu
   set hidden
   autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType typescript      setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType javascript      setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType javascriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType json            setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType html            setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType lua             setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  colorscheme catppuccin
+  colorscheme nord
 
   augroup configurationFiles
     autocmd! BufWritePost init.lua      source %
@@ -88,27 +86,34 @@ vim.cmd [[
   augroup END
 ]]
 
+require("bufferline").setup{
+    options = {
+        indicator_icon = '▎',
+        buffer_close_icon = '',
+        modified_icon = '●',
+        close_icon = '',
+        left_trunc_marker = '',
+        right_trunc_marker = '',
+        seperator_style = "thick"
+    }
+}
+
 --Set statusbar
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'catppuccin',
+    theme = 'nord',
     component_separators = { left = '|', right = '|'},
-    section_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
     disabled_filetypes = {},
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff'},
-    lualine_c = {{
-      'buffers',
-      show_filename_only = true,
-      show_modified_status = true,
-      mode = 2
-    }},
-    lualine_x = {'encoding'},
-    lualine_y = {'diagnostics'},
+    lualine_a = {'branch', 'mode'},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {'diagnostics'},
+    lualine_y = {},
     lualine_z = {'filesize'}
   },
   inactive_sections = {
@@ -132,9 +137,9 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 -- Gitsigns
 require('gitsigns').setup {
   signs = {
-    add          = { hl = 'GitGutterAdd',    text = '＋' },
-    change       = { hl = 'GitGutterChange', text = '~'  },
-    delete       = { hl = 'GitGutterDelete', text = '－' },
+    add          = { hl = 'GitGutterAdd',    text = '' },
+    change       = { hl = 'GitGutterChange', text = 'ﰣ'  },
+    delete       = { hl = 'GitGutterDelete', text = '' },
     topdelete    = { hl = 'GitGutterDelete', text = '⎴'  },
     changedelete = { hl = 'GitGutterChange', text = '≂'  },
   },
@@ -184,6 +189,5 @@ require('remaps_conf')
 require('telescope_conf')
 require('treesitter_conf')
 require('lsp_conf')
-require('debugger_conf')
 require('luasnip_conf')
 require('completion_conf')

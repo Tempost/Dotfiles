@@ -3,8 +3,8 @@ require("trouble").setup {}
 -- Telescope
 require('telescope').setup {
   defaults = {
-    prompt_prefix   = "❯ ",
-    selection_caret = "❯ ",
+    prompt_prefix   = "",
+    selection_caret = "",
     winblend        = 0,
     layout_strategy = "horizontal",
     layout_config = {

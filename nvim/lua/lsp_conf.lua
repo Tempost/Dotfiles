@@ -29,7 +29,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-require('lspconfig').clangd.setup {
+nvim_lsp.clangd.setup {
     cmd = { 'clangd' },
     on_attach = on_attach,
     capabilities = capabilities
@@ -81,11 +81,6 @@ nvim_lsp.html.setup {
     capabilities = capabilities
 }
 
-nvim_lsp.solargraph.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
 -- Example custom server
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
@@ -117,7 +112,7 @@ nvim_lsp.sumneko_lua.setup {
 require('fidget').setup {
   text = {
     spinner = "dots",         -- animation shown when tasks are ongoing
-    done = "✔",               -- character shown when all tasks are complete
+    done = "",               -- character shown when all tasks are complete
     commenced = "Started",    -- message shown when task starts
     completed = "Completed",  -- message shown when task completes
   },

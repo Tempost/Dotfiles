@@ -82,8 +82,8 @@ client.focused_inative  $bg     $bg     $fg     $fg         $bg
 exec --no-startup-id dunst
 exec --no-startup-id picom --config /home/cody/.config/picom.conf --experimental-backends -b
 exec --no-startup-id unclutter -idle 5
-exec ~/.config/polybar/launch.sh --blocks
-exec discord-canary
+exec ~/.config/polybar/blocks/launch.sh
+exec discord
 exec tixati
 
 
@@ -98,7 +98,7 @@ bindsym $mod+shift+s exec bash /home/cody/.local/scripts/scmenu
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec alacritty
 
 # open file manager
 bindsym $mod+n exec --no-startup-id nautilus

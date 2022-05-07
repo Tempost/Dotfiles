@@ -9,93 +9,43 @@ termname : tmux-256color
 *font: Caskaydia Cove Nerd Font Mono:size=12:style=Regular:antialias=true:autohint=true
 *borderpx: 1
 
-/* ! Gruvbox */
-/* *foreground:   #d4be98 */
-/* *background:   #282828 */
-/* *cursorColor:  #d4be98 */
+#define nord0 #2E3440
+#define nord1 #3B4252
+#define nord2 #434C5E
+#define nord3 #4C566A
+#define nord4 #D8DEE9
+#define nord5 #E5E9F0
+#define nord6 #ECEFF4
+#define nord7 #8FBCBB
+#define nord8 #88C0D0
+#define nord9 #81A1C1
+#define nord10 #5E81AC
+#define nord11 #BF616A
+#define nord12 #D08770
+#define nord13 #EBCB8B
+#define nord14 #A3BE8C
+#define nord15 #B48EAD
 
-/* ! black */
-/* *color0:       #1d2021 */
-/* *color8:       #32302f */
+*.foreground:   #D8DEE9
+*.background:   #2E3440
+*.cursorColor:  #D8DEE9
+*fading: 35
+*fadeColor: nord3
 
-/* ! red */
-/* *color1:       #cc241d */
-/* *color9:       #fb4934 */
-
-/* ! green */
-/* *color2:       #98971a */
-/* *color10:      #b8bb26 */
-
-/* ! yellow */
-/* *color3:       #d79921 */
-/* *color11:      #fabd2f */
-
-/* ! blue */
-/* *color4:       #458588 */
-/* *color12:      #83a598 */
-
-/* ! magenta */
-/* *color5:       #b16286 */
-/* *color13:      #d3869b */
-
-/* ! aqua */
-/* *color6:       #b89d6a */
-/* *color14:      #8ec07c */
-
-/* ! white */
-/* *color7:       #a89984 */
-/* *color15:      #928374 */
-
-!! Catppuccin !!
-*.background: #1E1E28
-*.foreground: #DADAE8
-
-! Black
-*.color0:     #6E6C7E
-
-! Indigo
-*.color8:     #F2CDCD
-
-! Red
-*.color1:     #E38C8F
-!
-! Purple
-*.color9:     #DDB6F2
-
-! Green
-*.color2:     #B1E3AD
-
-! Lime
-*.color10:    #F8BD96
-
-! Yellow
-*.color3:     #EBDDAA
-
-! Amber
-*.color11:    #E8A2AF
-
-! Blue
-*.color4:     #A4B9EF
-
-! Teal
-*.color12:    #B5E8E0
-
-! Magenta
-*.color5:     #C6AAE8
-
-! Orange
-*.color13:    #DDB6F2
-
-! Pink
-*.color6:     #E5B4E2
-
-! Alt-Pink
-*.color14:    #F5C2E7
-
-! Whites
-*.color7:     #DADAE8
-*.color15:    #DADAE8
-
-!*.focusColor   : 0
-!*.UnfocusColor : 0
+*.color0: #3B4252
+*.color1: #BF616A
+*.color2: #A3BE8C
+*.color3: #EBCB8B
+*.color4: #81A1C1
+*.color5: #B48EAD
+*.color6: #88C0D0
+*.color7: #E5E9F0
+*.color8: #4C566A
+*.color9: #BF616A
+*.color10: #A3BE8C
+*.color11: #EBCB8B
+*.color12: #81A1C1
+*.color13: #B48EAD
+*.color14: #8FBCBB
+*.color15: #ECEFF4
 *alpha          : 0.95
