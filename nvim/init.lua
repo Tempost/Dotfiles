@@ -15,13 +15,12 @@ vim.cmd [[
 require('packer').startup(function()
   local use = require('packer').use
   use 'wbthomason/packer.nvim' -- Package manager
-  use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+  use 'rktjmp/lush.nvim'
   use 'catppuccin/nvim'
-  use 'shaunsingh/nord.nvim'
   use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
-  -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { "nvim-telescope/telescope-file-browser.nvim" }
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
@@ -35,7 +34,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-buffer'
   use 'j-hui/fidget.nvim'
-  use {"akinsho/toggleterm.nvim"}
+  use 'akinsho/toggleterm.nvim'
   use 'akinsho/bufferline.nvim'
   use {
   'nvim-lualine/lualine.nvim',
@@ -57,7 +56,6 @@ vim.o.updatetime      = 30
 vim.wo.signcolumn     = 'yes'
 vim.opt.scrolloff     = 10
 vim.opt.wrap          = true
-vim.opt.cursorline    = true
 vim.opt.pumheight     = 20
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -77,7 +75,7 @@ vim.cmd [[
   autocmd FileType json            setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType html            setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType lua             setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  colorscheme nord
+  colorscheme catppuccin
 
   augroup configurationFiles
     autocmd! BufWritePost init.lua      source %
@@ -94,17 +92,19 @@ require("bufferline").setup{
         close_icon = '',
         left_trunc_marker = '',
         right_trunc_marker = '',
-        seperator_style = "thick"
-    }
+        seperator_style = "thin"
+    },
+    show_buffer_icons = true,
+    color_icons = true
 }
 
 --Set statusbar
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'nord',
+    theme = 'catppuccin',
     component_separators = { left = '|', right = '|'},
-    section_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
     disabled_filetypes = {},
     always_divide_middle = true,
   },
@@ -184,7 +184,6 @@ require("toggleterm").setup {
 }
 
 require('nvim-web-devicons').setup { default = true; }
-
 require('remaps_conf')
 require('telescope_conf')
 require('treesitter_conf')

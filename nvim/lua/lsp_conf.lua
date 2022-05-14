@@ -21,13 +21,33 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = {'pyright', 'tsserver', 'bashls'}
+local servers = {'pyright'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
+nvim_lsp.tsserver.setup {
+  cmd = { "typescript-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+}
+
+nvim_lsp.cssls.setup {
+  cmd = { "vscode-css-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"css", "scss"}
+}
+
+nvim_lsp.tailwindcss.setup {
+  cmd = {"tailwindcss-language-server", "--stdio"},
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+}
 
 nvim_lsp.clangd.setup {
     cmd = { 'clangd' },
