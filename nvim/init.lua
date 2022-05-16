@@ -15,27 +15,27 @@ vim.cmd [[
 require('packer').startup(function()
   local use = require('packer').use
   use 'wbthomason/packer.nvim' -- Package manager
-  use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
-  use ({'catppuccin/nvim', as ="catppuccin"})
-  use 'tpope/vim-fugitive' -- Git commands in nvim
-  use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
+  use 'rktjmp/lush.nvim'
+  use 'catppuccin/nvim'
   use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
-  -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { "nvim-telescope/telescope-file-browser.nvim" }
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use 'nvim-treesitter/nvim-treesitter'
+  use 'folke/trouble.nvim'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-buffer'
   use 'j-hui/fidget.nvim'
-  use {"akinsho/toggleterm.nvim"}
+  use 'akinsho/toggleterm.nvim'
+  use 'akinsho/bufferline.nvim'
   use {
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -44,8 +44,6 @@ require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
 end)
-
-require('colors_conf')
 
 vim.o.hlsearch        = false
 vim.wo.number         = true
@@ -58,7 +56,6 @@ vim.o.updatetime      = 30
 vim.wo.signcolumn     = 'yes'
 vim.opt.scrolloff     = 10
 vim.opt.wrap          = true
-vim.opt.cursorline    = true
 vim.opt.pumheight     = 20
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -66,10 +63,13 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
 vim.o.termguicolors = true
+
+require('colors_conf')
 vim.cmd [[
   set nu
   set hidden
   autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType typescript      setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType javascript      setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType javascriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType json            setlocal shiftwidth=2 softtabstop=2 tabstop=2
@@ -79,9 +79,24 @@ vim.cmd [[
 
   augroup configurationFiles
     autocmd! BufWritePost init.lua      source %
+    autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
     autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
   augroup END
 ]]
+
+require("bufferline").setup{
+    options = {
+        indicator_icon = '▎',
+        buffer_close_icon = '',
+        modified_icon = '●',
+        close_icon = '',
+        left_trunc_marker = '',
+        right_trunc_marker = '',
+        seperator_style = "thin"
+    },
+    show_buffer_icons = true,
+    color_icons = true
+}
 
 --Set statusbar
 require('lualine').setup {
@@ -89,21 +104,16 @@ require('lualine').setup {
     icons_enabled = true,
     theme = 'catppuccin',
     component_separators = { left = '|', right = '|'},
-    section_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
     disabled_filetypes = {},
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff'},
-    lualine_c = {{
-      'buffers',
-      show_filename_only = true,
-      show_modified_status = true,
-      mode = 2
-    }},
-    lualine_x = {'encoding'},
-    lualine_y = {'diagnostics'},
+    lualine_a = {'branch', 'mode'},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {'diagnostics'},
+    lualine_y = {},
     lualine_z = {'filesize'}
   },
   inactive_sections = {
@@ -127,9 +137,9 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 -- Gitsigns
 require('gitsigns').setup {
   signs = {
-    add          = { hl = 'GitGutterAdd',    text = '＋' },
-    change       = { hl = 'GitGutterChange', text = '~'  },
-    delete       = { hl = 'GitGutterDelete', text = '－' },
+    add          = { hl = 'GitGutterAdd',    text = '' },
+    change       = { hl = 'GitGutterChange', text = 'ﰣ'  },
+    delete       = { hl = 'GitGutterDelete', text = '' },
     topdelete    = { hl = 'GitGutterDelete', text = '⎴'  },
     changedelete = { hl = 'GitGutterChange', text = '≂'  },
   },
@@ -174,7 +184,6 @@ require("toggleterm").setup {
 }
 
 require('nvim-web-devicons').setup { default = true; }
-
 require('remaps_conf')
 require('telescope_conf')
 require('treesitter_conf')

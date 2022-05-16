@@ -1,5 +1,5 @@
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = {"menu", "menuone", "noselect"}
+vim.opt.completeopt = {"menu", "menuone", "noselect", "preview"}
 
 -- nvim-cmp setup
 local cmp = require ('cmp')
@@ -11,12 +11,16 @@ cmp.setup {
         require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       end,
   },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   mapping = {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.close(),
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item()),
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item()),
     ['<C-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select   = true,
@@ -31,25 +35,16 @@ cmp.setup {
   experimental = {
     ghost_text  = true
   },
-  window = {
-    completion = {
-      border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-    },
-    documentation = {
-      border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+  view = {
+    entries = {
+      name = 'custom',
+      selection_order = 'near_cursor',
     },
   },
   formatting = {
     format = lspkind.cmp_format({
       with_text = false, -- do not show text alongside icons
       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      -- before = function (entry, vim_item)
-      --   ...
-      --   return vim_item
-      -- end
     })
   }
 }

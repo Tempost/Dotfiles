@@ -74,10 +74,10 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  catppuccin = {
+  ["bufferline.nvim"] = {
     loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/catppuccin",
-    url = "https://github.com/catppuccin/nvim"
+    path = "/home/cody/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
   },
   ["cmp-buffer"] = {
     loaded = true,
@@ -109,11 +109,6 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
-  ["gruvbox.nvim"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
-    url = "https://github.com/ellisonleao/gruvbox.nvim"
-  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -133,6 +128,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/lush.nvim",
     url = "https://github.com/rktjmp/lush.nvim"
+  },
+  nvim = {
+    loaded = true,
+    path = "/home/cody/.local/share/nvim/site/pack/packer/start/nvim",
+    url = "https://github.com/catppuccin/nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -164,6 +164,11 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["telescope-file-browser.nvim"] = {
+    loaded = true,
+    path = "/home/cody/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
+  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
@@ -179,20 +184,15 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/home/cody/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
-  },
-  ["vim-fugitive"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
-  },
-  ["vim-rhubarb"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
-    url = "https://github.com/tpope/vim-rhubarb"
   }
 }
 

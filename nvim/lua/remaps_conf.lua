@@ -21,7 +21,6 @@ vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true,
 vim.api.nvim_set_keymap('n', '<leader>w', '<cmd>w<cr>',                                          { noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>q<cr>',                                          { noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>`', '<cmd>source /home/tempost/.config/nvim/init.lua<cr>', { noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>below 10split term://bash<cr>',                  { noremap = true, silent = true})
 -- swap between prev and next buffer in the list
 vim.api.nvim_set_keymap('n', '<leader>bn', '<cmd>bn<cr>',                                        { noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd>bp<cr>',                                        { noremap = true, silent = true})

@@ -1,8 +1,10 @@
+require("trouble").setup {}
+
 -- Telescope
 require('telescope').setup {
   defaults = {
-    prompt_prefix   = "❯ ",
-    selection_caret = "❯ ",
+    prompt_prefix   = "",
+    selection_caret = "",
     winblend        = 0,
     layout_strategy = "horizontal",
     layout_config = {
@@ -35,7 +37,7 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
-    file_ignore_patterns = { "node_modules", "target", ".git", "wwwroot", "obj/", "env" },
+    file_ignore_patterns = { "node_modules", "target", ".git" },
   },
     file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
     grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,
@@ -49,10 +51,11 @@ require('telescope').setup {
     }
   }
 }
+require("telescope").load_extension "file_browser"
 require('telescope').load_extension('fzf')
 
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]],                          { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>Telescope file_browser<CR>]],       { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sf',      [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]],    { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sb',      [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],        { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sh',      [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],                        { noremap = true, silent = true })
@@ -63,3 +66,7 @@ vim.api.nvim_set_keymap('n', '<leader>sd',      [[<cmd>lua require('telescope.bu
 vim.api.nvim_set_keymap('n', '<leader>sr',      [[<cmd>lua require('telescope.builtin').reloader()<CR>]],                         { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sk',      [[<cmd>lua require('telescope.builtin').keymaps()<CR>]],                          { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sca',     [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]],                 { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>TroubleToggle document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)

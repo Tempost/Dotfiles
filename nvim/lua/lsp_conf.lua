@@ -21,26 +21,38 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = {'tsserver', 'bashls'}
+local servers = {'pyright'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
-
-nvim_lsp.pyright.setup {
+nvim_lsp.tsserver.setup {
+  cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "off",
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true
-      }
-    }
-  }
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+}
+
+nvim_lsp.cssls.setup {
+  cmd = { "vscode-css-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"css", "scss"}
+}
+
+nvim_lsp.tailwindcss.setup {
+  cmd = {"tailwindcss-language-server", "--stdio"},
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+}
+
+nvim_lsp.clangd.setup {
+    cmd = { 'clangd' },
+    on_attach = on_attach,
+    capabilities = capabilities
 }
 
 nvim_lsp.rust_analyzer.setup {
@@ -63,6 +75,7 @@ nvim_lsp.rust_analyzer.setup {
     vim.keymap.set("n", "<leader>bt", '<cmd>w | make test --lib -- --show-output<cr>',    {buffer = 0})
   end,
   capabilities = capabilities,
+
 }
 
 nvim_lsp.gopls.setup {
@@ -82,21 +95,10 @@ nvim_lsp.gopls.setup {
   end
 }
 
-local pid = vim.fn.getpid()
-local omnisharp_bin = "/opt/omnisharp/OmniSharp"
-require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-    ...
-}
-
 nvim_lsp.html.setup {
+    cmd          = { "vscode-html-languageserver", "--stdio" },
     on_attach    = on_attach,
     capabilities = capabilities
-}
-
-nvim_lsp.cssls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
 }
 
 -- Example custom server
@@ -106,7 +108,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 nvim_lsp.sumneko_lua.setup {
-  cmd          = {  '/home/cody/lua-language-server/bin/lua-language-server' },
+  cmd          = {"/home/cody/lua-language-server/bin/lua-language-server" },
   on_attach    = on_attach,
   capabilities = capabilities,
   settings     = {
@@ -127,11 +129,10 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
-
 require('fidget').setup {
   text = {
     spinner = "dots",         -- animation shown when tasks are ongoing
-    done = "✔",               -- character shown when all tasks are complete
+    done = "",               -- character shown when all tasks are complete
     commenced = "Started",    -- message shown when task starts
     completed = "Completed",  -- message shown when task completes
   },
@@ -171,5 +172,3 @@ require('fidget').setup {
     logging = false,          -- whether to enable logging, for debugging
   },
 }
-
-
