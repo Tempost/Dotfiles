@@ -4,5 +4,5 @@ xrdb -merge $HOME/.Xresources
 xset +fp /home/tempost/.local/share/fonts
 xset fp rehash
 
-/home/cody/.fehbg
+feh --bg-fill --randomzie /home/cody/Pictures/*
 exec i3

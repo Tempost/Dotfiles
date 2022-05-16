@@ -18,12 +18,11 @@
     ~/.config/gtk-2.0: gtk-2.0
     ~/.config/gtk-3.0: gtk-3.0
     ~/.config/i3: i3
-    ~/.config/kitty: kitty
     ~/.config/nvim: nvim
     ~/.config/picom.conf: picom.conf
     ~/.config/polybar: polybar
     ~/.config/rofi: rofi
-    ~/.config/zathura: zathura
+    ~/.config/alacritty.yml: alacritty.yml
 
 - create:
 
