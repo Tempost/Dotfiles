@@ -35,7 +35,7 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
-    file_ignore_patterns = { "node_modules", "target", ".git" },
+    file_ignore_patterns = { "node_modules", "target", ".git", "wwwroot", "obj/", "env" },
   },
     file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
     grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,

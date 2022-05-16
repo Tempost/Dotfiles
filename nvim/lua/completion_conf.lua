@@ -12,6 +12,8 @@ cmp.setup {
       end,
   },
   mapping = {
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.close(),
@@ -21,14 +23,21 @@ cmp.setup {
     },
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp', max_item_count = 15 },
+    { name = 'nvim_lsp', max_item_count = 20 },
     { name = 'luasnip'                       },
     { name = 'path'                          },
     { name = 'buffer',   keyword_length = 2  },
   }),
   experimental = {
-    native_menu = false,
     ghost_text  = true
+  },
+  window = {
+    completion = {
+      border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+    },
+    documentation = {
+      border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+    },
   },
   formatting = {
     format = lspkind.cmp_format({

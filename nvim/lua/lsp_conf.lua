@@ -21,7 +21,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = {'pyright', 'tsserver', 'bashls'}
+local servers = {'tsserver', 'bashls'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -29,10 +29,18 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-require('lspconfig').clangd.setup {
-    cmd = { 'clangd' },
-    on_attach = on_attach,
-    capabilities = capabilities
+nvim_lsp.pyright.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "off",
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true
+      }
+    }
+  }
 }
 
 nvim_lsp.rust_analyzer.setup {
@@ -55,7 +63,6 @@ nvim_lsp.rust_analyzer.setup {
     vim.keymap.set("n", "<leader>bt", '<cmd>w | make test --lib -- --show-output<cr>',    {buffer = 0})
   end,
   capabilities = capabilities,
-
 }
 
 nvim_lsp.gopls.setup {
@@ -75,16 +82,21 @@ nvim_lsp.gopls.setup {
   end
 }
 
-nvim_lsp.tailwindcss.setup {
-    cmd          = { 'tailwindcss-language-server' },
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/opt/omnisharp/OmniSharp"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+    ...
+}
+
+nvim_lsp.html.setup {
     on_attach    = on_attach,
     capabilities = capabilities
 }
 
-nvim_lsp.html.setup {
-    cmd          = { "vscode-html-languageserver", "--stdio" },
-    on_attach    = on_attach,
-    capabilities = capabilities
+nvim_lsp.cssls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 -- Example custom server

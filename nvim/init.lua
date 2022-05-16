@@ -16,16 +16,13 @@ require('packer').startup(function()
   local use = require('packer').use
   use 'wbthomason/packer.nvim' -- Package manager
   use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
-  use 'catppuccin/nvim'
+  use ({'catppuccin/nvim', as ="catppuccin"})
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
-  use 'mfussenegger/nvim-dap'
-  use 'theHamsta/nvim-dap-virtual-text'
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'nvim-telescope/telescope-dap.nvim' }
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
@@ -82,7 +79,6 @@ vim.cmd [[
 
   augroup configurationFiles
     autocmd! BufWritePost init.lua      source %
-    autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
     autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
   augroup END
 ]]
@@ -183,6 +179,5 @@ require('remaps_conf')
 require('telescope_conf')
 require('treesitter_conf')
 require('lsp_conf')
-require('debugger_conf')
 require('luasnip_conf')
 require('completion_conf')

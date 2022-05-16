@@ -2,7 +2,7 @@ local catppuccin = require("catppuccin")
 
 catppuccin.setup({
   transparent_background = true,
-  term_colors = true,
+  term_colors = false,
   styles = {
     comments = "bold",
     functions = "bold",
@@ -16,7 +16,7 @@ catppuccin.setup({
       enabled = true,
       virtual_text = {
         errors = "bold",
-        hints = "NONE",
+        hints = "italic",
         warnings = "bold",
         information = "italic",
       },
