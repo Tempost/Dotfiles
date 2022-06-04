@@ -1,19 +1,20 @@
 -- LSP keybind settings
 local nvim_lsp = require('lspconfig')
+local saga = require('lspsaga')
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set("n", "gD",         vim.lsp.buf.declaration,     {buffer = 0}) -- zero means current buffer
-    vim.keymap.set("n", "K",          vim.lsp.buf.hover,           {buffer = 0})
+    vim.keymap.set("n", "K",          '<cmd>Lspsaga hover_doc<cr>',           {buffer = 0})
     vim.keymap.set("n", "gi",         vim.lsp.buf.implementation,  {buffer = 0})
     vim.keymap.set("n", "<leader>D",  vim.lsp.buf.type_definition, {buffer = 0})
-    vim.keymap.set("n", "<leader>r",  vim.lsp.buf.rename,          {buffer = 0})
+    vim.keymap.set("n", "<leader>r",  '<cmd>Lspsaga rename<cr>',   {buffer = 0, silent = true})
     vim.keymap.set("n", "gr",         vim.lsp.buf.references,      {buffer = 0})
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,     {buffer = 0})
-    vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float,   {buffer = 0})
-    vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next,    {buffer = 0})
-    vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev,    {buffer = 0})
+    vim.keymap.set("n", "<leader>ga", '<cmd>Lspsaga code_action<cr>',     {buffer = 0, silent = true})
+    vim.keymap.set("n", "<leader>gf", '<cmd>Lspsaga show_line_diagnostics<cr>',   {buffer = 0, silent = true})
+    vim.keymap.set("n", "<leader>gj", '<cmd>Lspsaga diagnostic_jump_next<cr>',    {buffer = 0, silent = true})
+    vim.keymap.set("n", "<leader>gk", '<cmd>Lspsaga diagnostic_jump_prev<cr>',    {buffer = 0, silent = true})
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -28,12 +29,20 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
 nvim_lsp.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 }
+
+-- nvim_lsp.eslint.setup {
+--   cmd = { "vscode-eslint-language-server", "--stdio" },
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+-- }
 
 nvim_lsp.cssls.setup {
   cmd = { "vscode-css-language-server", "--stdio" },
@@ -42,12 +51,19 @@ nvim_lsp.cssls.setup {
   filetypes = {"css", "scss"}
 }
 
-nvim_lsp.tailwindcss.setup {
-  cmd = {"tailwindcss-language-server", "--stdio"},
+nvim_lsp.jsonls.setup {
+  cmd = {'vscode-json-language-server', '--stdio'},
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  filetype = {"json"}
 }
+
+-- nvim_lsp.tailwindcss.setup {
+--   cmd = {"tailwindcss-language-server", "--stdio"},
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+-- }
 
 nvim_lsp.clangd.setup {
     cmd = { 'clangd' },
@@ -129,6 +145,57 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
+
+saga.setup { -- defaults ...
+  debug = false,
+  use_saga_diagnostic_sign = false,
+  -- diagnostic sign
+  error_sign = "",
+  warn_sign = "",
+  hint_sign = "",
+  infor_sign = "",
+  diagnostic_header_icon = "   ",
+  -- code action title icon
+  code_action_icon = " ",
+  code_action_prompt = {
+    enable = true,
+    sign = true,
+    sign_priority = 40,
+    virtual_text = false,
+  },
+  finder_definition_icon = "  ",
+  finder_reference_icon = "  ",
+  max_preview_lines = 10,
+  finder_action_keys = {
+    open = "o",
+    vsplit = "s",
+    split = "i",
+    quit = "q",
+    scroll_down = "<C-f>",
+    scroll_up = "<C-b>",
+  },
+  code_action_keys = {
+    quit = "q",
+    exec = "<CR>",
+  },
+  rename_action_keys = {
+    quit = "<C-c>",
+    exec = "<CR>",
+  },
+
+  definition_preview_icon = "  ",
+  border_style = "single",
+  rename_prompt_prefix = "➤",
+  rename_output_qflist = {
+    enable = false,
+    auto_open_qflist = false,
+  },
+  server_filetype_map = {},
+  diagnostic_prefix_format = "%d. ",
+  diagnostic_message_format = "%m %c",
+  highlight_prefix = false,
+}
+
 require('fidget').setup {
   text = {
     spinner = "dots",         -- animation shown when tasks are ongoing

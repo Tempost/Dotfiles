@@ -29,6 +29,7 @@ catppuccin.setup({
     },
     cmp = true,
     gitsigns = true,
+    lsp_saga = true,
     telescope = true,
     nvimtree = {
       enabled = true,

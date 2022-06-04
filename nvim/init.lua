@@ -5,6 +5,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
 end
 
+
 vim.cmd [[
   augroup Packer
     autocmd!
@@ -17,6 +18,7 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
   use 'rktjmp/lush.nvim'
   use 'catppuccin/nvim'
+  use 'tami5/lspsaga.nvim'
   use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -45,26 +47,26 @@ require('packer').startup(function()
   use 'saadparwaiz1/cmp_luasnip'
 end)
 
-vim.o.hlsearch        = false
 vim.wo.number         = true
 vim.wo.relativenumber = true
+vim.o.hlsearch        = false
 vim.o.mouse           = 'a'
-vim.opt.undofile      = true
 vim.o.ignorecase      = true
 vim.o.smartcase       = true
 vim.o.updatetime      = 30
+vim.o.termguicolors   = true
 vim.wo.signcolumn     = 'yes'
 vim.opt.scrolloff     = 10
 vim.opt.wrap          = true
+vim.opt.undofile      = true
 vim.opt.pumheight     = 20
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
-
-vim.o.termguicolors = true
+vim.opt.tabstop       = 4
+vim.opt.shiftwidth    = 4
+vim.opt.softtabstop   = 4
+vim.opt.expandtab     = true
 
 require('colors_conf')
+vim.g.catppuccin_flavour = "mocha"
 vim.cmd [[
   set nu
   set hidden
@@ -86,7 +88,7 @@ vim.cmd [[
 
 require("bufferline").setup{
     options = {
-        indicator_icon = '▎',
+        indicator_icon   = " ",
         buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',

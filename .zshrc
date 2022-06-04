@@ -5,6 +5,8 @@ ZSH=~/.oh-my-zsh
 ZSH_THEME="fwalch"
 plugins=(git)
 
+TERM="alacritty"
+
 export GOPATH=$HOME/Source/go/
 export PATH=${PATH}":/home/cody/.local/bin"
 

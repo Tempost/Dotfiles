@@ -8,8 +8,8 @@ require('telescope').setup {
     winblend        = 0,
     layout_strategy = "horizontal",
     layout_config = {
-      width           = 0.95,
-      height          = 0.85,
+      width           = 0.75,
+      height          = 0.90,
       prompt_position = "top",
       horizontal = {
         preview_width = function(_, cols, _)
@@ -37,7 +37,14 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
-    file_ignore_patterns = { "node_modules", "target", ".git" },
+    file_ignore_patterns = {
+      "node_modules",
+      "target",
+      ".git",
+      "python/",
+      "translation/",
+      "%.jpg", "%.png", "%.svg", "%.jpeg"
+    },
   },
     file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
     grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,
