@@ -1,6 +1,7 @@
 export EDITOR="nvim"
 export BROWSER="firefox"
 export SHELL="zsh"
+export TERM=alacritty
 export PS2DEV=/usr/local/ps2dev
 export PS2SDK=$PS2DEV/ps2sdk
 export GSKIT=$PS2DEV/gsKit

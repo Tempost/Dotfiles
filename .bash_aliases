@@ -4,7 +4,7 @@
 
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+alias ls='lsd --color=auto'
 alias brc='nvim ~/.bashrc'
 alias rex='nvim ~/.Xresources'
 alias urex='xrdb ~/.Xresources'

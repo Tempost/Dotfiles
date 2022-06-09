@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --no-fehbg --bg-fill --randomize /home/cody/Pictures/*
+feh --no-fehbg --bg-fill '/home/cody/Pictures/blue_green.png' '/home/cody/Pictures/red_bkg5.png' 
