@@ -1,15 +1,15 @@
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = {"menu", "menuone", "noselect", "preview"}
+vim.opt.completeopt = { "menu", "menuone", "noselect", "preview" }
 
 -- nvim-cmp setup
-local cmp = require ('cmp')
+local cmp = require('cmp')
 local lspkind = require('lspkind')
 
 cmp.setup {
   snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      end,
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
   },
   window = {
     completion = cmp.config.window.bordered(),
@@ -28,12 +28,12 @@ cmp.setup {
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp', max_item_count = 20 },
-    { name = 'luasnip'                       },
-    { name = 'path'                          },
-    { name = 'buffer',   keyword_length = 2  },
+    { name = 'luasnip' },
+    { name = 'path' },
+    { name = 'buffer', keyword_length = 2 },
   }),
   experimental = {
-    ghost_text  = true
+    ghost_text = true
   },
   view = {
     entries = {
