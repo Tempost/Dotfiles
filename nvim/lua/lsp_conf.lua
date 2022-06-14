@@ -28,6 +28,7 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
 nvim_lsp.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
