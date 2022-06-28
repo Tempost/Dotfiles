@@ -1,5 +1,9 @@
 -- LSP keybind settings
 local nvim_lsp = require('lspconfig')
+
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
 local border = {
   { "╭", "FloatBorder" },
   { "─", "FloatBorder" }, -- top
@@ -11,8 +15,18 @@ local border = {
   { "│", "FloatBorder" }, -- left
 }
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  float = { border = border },
+})
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
@@ -29,21 +43,6 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "<leader>gf", vim.diagnostic.open_float, bufopts)
   vim.keymap.set("n", "<leader>gj", vim.diagnostic.goto_next, bufopts)
   vim.keymap.set("n", "<leader>gk", vim.diagnostic.goto_prev, bufopts)
-
-  vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
-    callback = function()
-      local opts = {
-        focusable = false,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = 'rounded',
-        source = 'always',
-        prefix = ' ',
-        scope = 'cursor',
-      }
-      vim.diagnostic.open_float(nil, opts)
-    end
-  })
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -85,48 +84,6 @@ nvim_lsp.jsonls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetype = { "json" }
-}
-
--- nvim_lsp.tailwindcss.setup {
---   cmd = {"tailwindcss-language-server", "--stdio"},
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
--- }
-
-nvim_lsp.clangd.setup {
-  cmd = { 'clangd' },
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.rust_analyzer.setup {
-  cmd          = { 'rust-analyzer' },
-  on_attach    = function()
-    vim.keymap.set("n", "<leader>br", '<cmd>w | make run<cr>', { buffer = 0 })
-    vim.keymap.set("n", "<leader>bb", '<cmd>w | make build<cr>', { buffer = 0 })
-    vim.keymap.set("n", "<leader>bc", '<cmd>w | make check<cr>', { buffer = 0 })
-    vim.keymap.set("n", "<leader>bt", '<cmd>w | make test --lib -- --show-output<cr>', { buffer = 0 })
-  end,
-  capabilities = capabilities,
-
-}
-
-nvim_lsp.gopls.setup {
-  capabilities = capabilities,
-  cmd          = { 'gopls' },
-  on_attach    = function()
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 }) -- zero means current buffer
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = 0 })
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
-    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = 0 })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = 0 })
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
-    vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { buffer = 0 })
-    vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { buffer = 0 })
-    vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { buffer = 0 })
-  end
 }
 
 nvim_lsp.html.setup {

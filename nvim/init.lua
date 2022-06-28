@@ -21,13 +21,10 @@ require('packer').startup(function()
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { "nvim-telescope/telescope-file-browser.nvim" }
-  -- Add indentation guides even on blank lines
-  use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use 'nvim-treesitter/nvim-treesitter'
-  use 'folke/trouble.nvim'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp'
@@ -51,7 +48,7 @@ vim.o.hlsearch        = false
 vim.o.mouse           = 'a'
 vim.o.ignorecase      = true
 vim.o.smartcase       = true
-vim.o.updatetime      = 30
+vim.o.updatetime      = 10
 vim.o.termguicolors   = true
 vim.wo.signcolumn     = 'yes'
 vim.opt.scrolloff     = 10
