@@ -1,15 +1,15 @@
 -- Telescope
 require('telescope').setup {
-  defaults = {
-    prompt_prefix   = "",
-    selection_caret = "",
-    winblend        = 0,
-    layout_strategy = "horizontal",
-    layout_config = {
+  defaults         = {
+    prompt_prefix        = "",
+    selection_caret      = "",
+    winblend             = 0,
+    layout_strategy      = "horizontal",
+    layout_config        = {
       width           = 0.75,
       height          = 0.90,
       prompt_position = "top",
-      horizontal = {
+      horizontal      = {
         preview_width = function(_, cols, _)
           if cols > 200 then
             return math.floor(cols * 0.4)
@@ -18,18 +18,18 @@ require('telescope').setup {
           end
         end,
       },
-      vertical = {
+      vertical        = {
         width          = 0.9,
         height         = 0.95,
         preview_height = 0.5,
       },
-      flex = {
+      flex            = {
         horizontal = {
           preview_width = 0.9,
         },
       },
     },
-    mappings = {
+    mappings             = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
@@ -44,10 +44,10 @@ require('telescope').setup {
       "%.jpg", "%.png", "%.svg", "%.jpeg"
     },
   },
-    file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
-    grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,
-    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-  extensions = {
+  file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
+  grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,
+  qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+  extensions       = {
     fzf = {
       fuzzy                   = true,
       override_generic_sorter = true,
@@ -60,14 +60,14 @@ require("telescope").load_extension('file_browser')
 require('telescope').load_extension('fzf')
 
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>Telescope file_browser<CR>]],       { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf',      [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]],    { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sb',      [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],        { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sh',      [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],                        { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>st',      [[<cmd>lua require('telescope.builtin').tags()<CR>]],                             { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>ss',      [[<cmd>lua require('telescope.builtin').grep_string()<CR>]],                      { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sg',      [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],                        { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd',      [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]],                         { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sr',      [[<cmd>lua require('telescope.builtin').reloader()<CR>]],                         { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sk',      [[<cmd>lua require('telescope.builtin').keymaps()<CR>]],                          { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sca',     [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]],                 { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>Telescope file_browser<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ss', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sr', [[<cmd>lua require('telescope.builtin').reloader()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sk', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sca', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]], { noremap = true, silent = true })
