@@ -25,6 +25,7 @@
     ~/.config/alacritty.yml: alacritty.yml
 
 - create:
+  ~/.config/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

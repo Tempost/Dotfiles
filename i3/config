@@ -4,24 +4,21 @@
 set $mod Mod4
 
 # i3 style config
-workspace 1 output DP-0
-workspace 2 output DP-0
-workspace 3 output DP-0
-workspace 4 output DP-0
-workspace 5 output HDMI-0
+workspace 1 output DP-2
+workspace 2 output DP-2
+workspace 3 output DP-2
+workspace 4 output DP-2
+workspace 5 output DP-2
 for_window [class="^.*"] border pixel 1
 for_window [class="^PCSX2"] border pixel 0 floating enable
 for_window [class="Pavucontrol"] border pixel 0 floating enable
 for_window [class="Org.gnome.Nautilus"] border pixel 0 floating enable
 for_window [class="Spotify"] border pixel 0 floating enable
-for_window [class="Nm-connection-editor"] border pixel 0 floating enable
 for_window [class="runelite"] floating enable
 for_window [class="Steam"] border pixel 0
-for_window [class="Dwarf_Fortress"] floating enable
 for_window [title="RuneLite Launcher"] border pixel 0 floating enable
 for_window [title="gtop"] floating enable move position 2560 950 
-for_window [title="^glow"] floating enable border pixel 0
-for_window [title="Snake Game"] floating enable
+for_window [title="NoiseTorch"] border pixel 0 floating enable
 
 assign [class="discord"] 2
 assign [class="Tixati"] 3
@@ -72,10 +69,10 @@ set_from_resource $color15 color15
 font pango:JetBrains Mono Regular Nerd Font Complete 10
 
 # Setting i3 colors
-#class                  border  backgr. text    indicator   child_border
-client.focused          $fg     $bg     $fg     $fg         $fg     
-client.unfocused        $fg     $bg     $fg     $bg         $bg     
-client.focused_inative  $bg     $bg     $fg     $fg         $bg
+#class                   border  backgr. text    indicator   child_border
+client.focused           $fg     $bg     $fg     $fg         $color4     
+client.unfocused         $fg     $bg     $fg     $bg         $bg     
+client.focused_inactive  $bg     $bg     $fg     $fg         $bg
 
 
 # Programs to run on start up
@@ -90,6 +87,7 @@ exec tixati
 # scratch pad
 bindsym $mod+o scratchpad show
 bindsym $mod+shift+o move scratchpad
+bindsym $mod+shift+e exit
 
 # Screenshot
 bindsym $mod+shift+s exec bash /home/cody/.local/scripts/scmenu
@@ -102,6 +100,9 @@ bindsym $mod+Return exec alacritty
 
 # open file manager
 bindsym $mod+n exec --no-startup-id nautilus
+
+# Load Layouts
+bindsym $mod+shift+d exec bash /home/cody/.config/i3/load-layout.sh
 
 # kill focused window
 bindsym $mod+q kill
