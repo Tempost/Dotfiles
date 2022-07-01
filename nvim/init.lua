@@ -30,6 +30,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-buffer'
+  use 'saadparwaiz1/cmp_luasnip'
   use 'j-hui/fidget.nvim'
   use 'akinsho/toggleterm.nvim'
   use 'akinsho/bufferline.nvim'
@@ -39,7 +40,6 @@ require('packer').startup(function()
   }
   use 'onsails/lspkind-nvim'
   use 'L3MON4D3/LuaSnip'
-  use 'saadparwaiz1/cmp_luasnip'
 end)
 
 vim.wo.number         = true
@@ -76,7 +76,6 @@ vim.cmd [[
 
   augroup configurationFiles
     autocmd! BufWritePost init.lua      source %
-    autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
     autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
   augroup END
 ]]
@@ -124,12 +123,6 @@ require('lualine').setup {
   tabline = {},
   extensions = {}
 }
-
---Map blankline
-vim.g.indent_blankline_char                           = '┃'
-vim.g.indent_blankline_filetype_exclude               = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude                = { 'terminal', 'nofile' }
-vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 -- Gitsigns
 require('gitsigns').setup {
