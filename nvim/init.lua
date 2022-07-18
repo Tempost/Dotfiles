@@ -17,7 +17,7 @@ require('packer').startup(function()
     local use = require('packer').use
     use 'wbthomason/packer.nvim' -- Package manager
     use 'rktjmp/lush.nvim'
-    use 'catppuccin/nvim'
+    use 'luisiacc/gruvbox-baby'
     use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -53,7 +53,7 @@ vim.o.mouse           = 'a'
 vim.o.ignorecase      = true
 vim.o.smartcase       = true
 vim.o.updatetime      = 30
-vim.o.termguicolors   = true
+vim.o.termguicolors   = false
 vim.wo.signcolumn     = 'yes'
 vim.opt.scrolloff     = 10
 vim.opt.wrap          = true
@@ -65,7 +65,6 @@ vim.opt.softtabstop   = 4
 vim.opt.expandtab     = true
 
 require('colors_conf')
-vim.g.catppuccin_flavour = "frappe"
 vim.cmd [[
   set nu
   set hidden
@@ -76,7 +75,7 @@ vim.cmd [[
   autocmd FileType json            setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType html            setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType lua             setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  colorscheme catppuccin
+  colorscheme gruvbox-baby
 
   augroup configurationFiles
     autocmd! BufWritePost init.lua      source %
@@ -103,7 +102,7 @@ require("bufferline").setup {
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = 'catppuccin',
+        theme = 'gruvbox-baby',
         component_separators = { left = '|', right = '|' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {},

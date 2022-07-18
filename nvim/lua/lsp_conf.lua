@@ -9,26 +9,21 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+  border = "single"
+  }
+)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signatureHelp, {
+  border = "single"
+  }
+)
+vim.diagnostic.config({ float = { border = "single" } })
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
-  vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
-    callback = function()
-      local opts = {
-        focusable = false,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = 'rounded',
-        source = 'always',
-        prefix = ' ',
-        scope = 'cursor',
-      }
-      vim.diagnostic.open_float(nil, opts)
-    end
-  })
-
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
@@ -96,7 +91,7 @@ nvim_lsp.prismals.setup {
 }
 
 nvim_lsp.tailwindcss.setup {
-  cmd = {"tailwindcss-language-server", "--stdio"},
+  cmd = { "tailwindcss-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascriptreact", "javascript.jsx", "typescriptreact", "typescript.tsx" },
