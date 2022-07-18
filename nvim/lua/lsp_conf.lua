@@ -1,48 +1,51 @@
 -- LSP keybind settings
 local nvim_lsp = require('lspconfig')
 
-vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
-
-local border = {
-  { "╭", "FloatBorder" },
-  { "─", "FloatBorder" }, -- top
-  { "╮", "FloatBorder" },
-  { "│", "FloatBorder" }, -- right
-  { "╯", "FloatBorder" },
-  { "─", "FloatBorder" }, -- bottom
-  { "╰", "FloatBorder" },
-  { "│", "FloatBorder" }, -- left
-}
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
 vim.diagnostic.config({
   virtual_text = true,
   signs = true,
-  float = { border = border },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
 })
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
-  local bufopts = { buffer = bufnr, silent = true }
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end
+  })
+
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts) -- zero means current buffer
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
+  vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
-  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
   vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "<leader>gf", vim.diagnostic.open_float, bufopts)
   vim.keymap.set("n", "<leader>gj", vim.diagnostic.goto_next, bufopts)
   vim.keymap.set("n", "<leader>gk", vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ll', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -87,7 +90,7 @@ nvim_lsp.jsonls.setup {
 }
 
 nvim_lsp.html.setup {
-  cmd          = { "vscode-html-languageserver", "--stdio" },
+  cmd          = { "vscode-html-language-server", "--stdio" },
   on_attach    = on_attach,
   capabilities = capabilities
 }
@@ -99,7 +102,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 nvim_lsp.sumneko_lua.setup {
-  cmd          = { "/home/cody/lua-language-server/bin/lua-language-server" },
+  cmd          = { "lua-language-server" },
   on_attach    = on_attach,
   capabilities = capabilities,
   settings     = {

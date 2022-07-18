@@ -1,31 +1,9 @@
 local dap = require('dap')
-dap.adapters.lldb = {
-  type    = 'executable',
-  command = '/usr/bin/lldb-vscode',
-  name    = 'lldb'
-}
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 
-dap.configurations.cpp = {
-  {
-    name    = "Launch",
-    type    = "lldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd          = '${workspaceFolder}',
-    stopOnEntry  = false,
-    args         = {},
-    runInTerminal = true,
-  },
-}
+require("nvim-dap-virtual-text").setup(debug_py_python_path, { console = 'externalTerminal' })
 
-dap.configurations.c    = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
-
-require("nvim-dap-virtual-text").setup()
-
-vim.fn.sign_define('DapBreakpoint', {text='⚫', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
 
 require('telescope').load_extension('dap')
 

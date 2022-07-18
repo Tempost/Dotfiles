@@ -8,7 +8,7 @@ ls.config.set_config {
   ext_opts = {
     [types.choiceNode] = {
       active = {
-        virt_text = { { "<--", "Error" } },
+        virt_text = { { "<--", "Error"} },
       },
     },
   },
@@ -34,3 +34,5 @@ vim.keymap.set({ "i" }, "<c-l>", function()
     ls.change_choice()
   end
 end)
+
+require("luasnip.loaders.from_vscode").lazy_load()

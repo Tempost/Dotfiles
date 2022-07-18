@@ -24,3 +24,4 @@ vim.api.nvim_set_keymap('n', '<leader>`', '<cmd>source /home/tempost/.config/nvi
 -- swap between prev and next buffer in the list
 vim.api.nvim_set_keymap('n', '<leader>bn', '<cmd>bn<cr>',                                        { noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd>bp<cr>',                                        { noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>bd', '<cmd>bd<cr>',                                        { noremap = true, silent = true})

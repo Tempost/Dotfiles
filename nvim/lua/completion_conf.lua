@@ -31,6 +31,7 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer', keyword_length = 2 },
+    { name = 'cmp_tabnine' }
   }),
   experimental = {
     ghost_text = true
@@ -44,7 +45,7 @@ cmp.setup {
   formatting = {
     format = lspkind.cmp_format({
       with_text = false, -- do not show text alongside icons
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      maxwidth = 75, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
     })
   }
 }
