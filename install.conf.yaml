@@ -23,9 +23,11 @@
     ~/.config/polybar: polybar
     ~/.config/rofi: rofi
     ~/.config/alacritty.yml: alacritty.yml
+    ~/.config/bspwm: bspwm
+    ~/.config/sxhkd: sxhkd
 
 - create:
-  ~/.config/
+  - ~/.config/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

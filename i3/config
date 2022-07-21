@@ -78,10 +78,9 @@ client.focused_inactive  $bg     $bg     $fg     $fg         $bg
 # Programs to run on start up
 exec --no-startup-id dunst -conf /home/cody/.config/dunst/dunstrc
 exec --no-startup-id picom --config /home/cody/.config/picom.conf --experimental-backends -b
-exec --no-startup-id /home/cody/.dotfiles/.fehbg
-exec ~/.config/polybar/blocks/launch.sh
+exec --no-startup-id /home/cody/.fehbg
+exec_always --no-startup-id /home/cody/.config/polybar/launch.sh --forest
 exec discord
-exec tixati
 
 
 # scratch pad
