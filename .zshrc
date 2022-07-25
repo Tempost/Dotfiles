@@ -6,7 +6,7 @@ ZSH_THEME="fwalch"
 plugins=(git)
 
 export GOPATH=$HOME/Source/go/
-export PATH=${PATH}":/home/cody/.local/bin"
+export PATH=${PATH}:$HOME/credenti/.local/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 
 if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
   [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1

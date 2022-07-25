@@ -9,11 +9,12 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "gi",         vim.lsp.buf.implementation,  {buffer = 0})
     vim.keymap.set("n", "<leader>D",  vim.lsp.buf.type_definition, {buffer = 0})
     vim.keymap.set("n", "<leader>r",  vim.lsp.buf.rename,          {buffer = 0})
+    vim.keymap.set("n", "f",          vim.lsp.buf.format,          {buffer = 0})
     vim.keymap.set("n", "gr",         vim.lsp.buf.references,      {buffer = 0})
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,     {buffer = 0})
-    vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float,   {buffer = 0})
-    vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next,    {buffer = 0})
-    vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev,    {buffer = 0})
+    vim.keymap.set("n", "<leader>gf", vim.diagnostic.open_float,   {buffer = 0})
+    vim.keymap.set("n", "<leader>gj", vim.diagnostic.goto_next,    {buffer = 0})
+    vim.keymap.set("n", "<leader>gk", vim.diagnostic.goto_prev,    {buffer = 0})
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -36,18 +37,18 @@ nvim_lsp.tsserver.setup {
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 }
 
+nvim_lsp.eslint.setup {
+  cmd = { "vscode-eslint-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+}
+
 nvim_lsp.cssls.setup {
   cmd = { "vscode-css-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {"css", "scss"}
-}
-
-nvim_lsp.tailwindcss.setup {
-  cmd = {"tailwindcss-language-server", "--stdio"},
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 }
 
 nvim_lsp.clangd.setup {
@@ -109,7 +110,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 nvim_lsp.sumneko_lua.setup {
-  cmd          = {"/home/cody/lua-language-server/bin/lua-language-server" },
+  cmd          = {"lua-language-server" },
   on_attach    = on_attach,
   capabilities = capabilities,
   settings     = {
