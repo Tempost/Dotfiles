@@ -6,7 +6,11 @@ ZSH_THEME="fwalch"
 plugins=(git)
 
 export GOPATH=$HOME/Source/go/
-export PATH=${PATH}:$HOME/.local/bin:$HOME/.yarn/bin
+export PATH=${PATH}:$HOME/.local/bin
+# pnpm
+export PNPM_HOME="/home/cody/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
 
 if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
   [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1

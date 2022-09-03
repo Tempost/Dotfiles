@@ -55,7 +55,7 @@ alt + {Tab, shift + Tab}
 	bspc {desktop next.occupied -f, desktop prev.occupied -f}
 
 # focus the last node/desktop
-super + {grave,Tab}
+super + {Tab,grave}
 	bspc {node,desktop} -f last
 
 #----~ Workspace Management ~----#
@@ -165,8 +165,6 @@ super + t; {Left,Down,Up,Right}
 # Remove current tab from tabbed
 super + t; r
         tabc.sh $(bspc query -N -n focused) remove
-
-
 
 ###################################
 ########### System Keys ###########
