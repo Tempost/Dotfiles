@@ -73,5 +73,4 @@ nnoremap('<leader>sg', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]]
 nnoremap('<leader>sd', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 nnoremap('<leader>sr', [[<cmd>lua require('telescope.builtin').reloader()<CR>]])
 nnoremap('<leader>sk', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
-nnoremap('<leader>sca', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
 nnoremap("<leader>tt", "<cmd>TroubleToggle document_diagnostics<cr>")

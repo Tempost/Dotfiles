@@ -51,4 +51,5 @@ require('packer').startup(function()
     use 'mfussenegger/nvim-dap-python'
     use 'mfussenegger/nvim-dap'
     use 'nvim-telescope/telescope-dap.nvim'
+    use 'kyazdani42/nvim-web-devicons'
 end)

@@ -21,7 +21,7 @@ table.insert(require('dap').configurations.python, {
   }
 })
 
-require("nvim-dap-virtual-text").setup()
+require("nvim-dap-virtual-text").setup({})
 
 vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
 

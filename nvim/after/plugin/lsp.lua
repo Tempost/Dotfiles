@@ -1,29 +1,31 @@
 require("mason").setup({
-    ui = {
-        border = 'single'
-    }
+  ui = {
+    border = 'single'
+  }
 })
+
 require("mason-lspconfig").setup({
-    ensure_installed = {
-        "sumneko_lua",
-        "tsserver",
-        "cssls",
-        "jsonls",
-        "html",
-        "eslint",
-        "jedi_language_server"
-    }
+  ensure_installed = {
+    "sumneko_lua",
+    "tsserver",
+    "cssls",
+    "jsonls",
+    "html",
+    "eslint",
+    "jedi_language_server",
+    "gopls"
+  }
 })
 
 -- LSP keybind settings
 local nvim_lsp = require('lspconfig')
 
 vim.diagnostic.config({
-  virtual_text = true,
   signs = true,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  float = { border = "single" }
 })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
@@ -37,7 +39,6 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   border = "single"
 }
 )
-vim.diagnostic.config({ float = { border = "single" } })
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
@@ -78,8 +79,35 @@ nvim_lsp.jedi_language_server.setup {
   capabilities = capabilities,
 }
 
+nvim_lsp.sqls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "sql", "mysql", "psql" }
+}
+
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
 nvim_lsp.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  commands = {
+    OrganizeImports = {
+      organize_imports,
+      description = "Organize Imports"
+    }
+  }
+}
+
+nvim_lsp.eslint.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -213,13 +241,13 @@ require('fidget').setup {
 }
 
 
--- Linter config --
-require('lint').linters_by_ft = {
-  python = { 'flake8' }
-}
+-- -- Linter config --
+-- require('lint').linters_by_ft = {
+--   python = { 'pylint' }
+-- }
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint()
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--   callback = function()
+--     require("lint").try_lint()
+--   end,
+-- })

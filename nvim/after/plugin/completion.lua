@@ -6,6 +6,7 @@ local cmp = require('cmp')
 local lspkind = require('lspkind')
 
 local winhighlight = {
+  border = {'┌', '─', '┐', '│', '┘', '─', '└', '│'},
   winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel",
 }
 
