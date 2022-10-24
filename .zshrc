@@ -6,7 +6,9 @@ ZSH_THEME="fwalch"
 plugins=(git)
 
 export GOPATH=$HOME/Source/go/
-export PATH=${PATH}:$HOME/.local/bin
+export PATH=${PATH}:$HOME/.local/bin:~/.local/scripts/bspwm/:$GOPATH/bin/
+export GREENLIGHT_DB_DSN='postgres://greenlight:password@localhost/greenlight?sslmode=disable'
+
 # pnpm
 export PNPM_HOME="/home/cody/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"

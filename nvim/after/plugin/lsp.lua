@@ -59,7 +59,7 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- Enable the following language servers
 -- local servers = { 'pyright' }
@@ -77,6 +77,12 @@ nvim_lsp.jedi_language_server.setup({
 
 nvim_lsp.tsserver.setup({
 	cmd = { "typescript-language-server", "--stdio" },
+	on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+})
+
+nvim_lsp.eslint.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -124,18 +130,7 @@ nvim_lsp.rust_analyzer.setup({
 nvim_lsp.gopls.setup({
 	capabilities = capabilities,
 	cmd = { "gopls" },
-	on_attach = function()
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 }) -- zero means current buffer
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = 0 })
-		vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = 0 })
-		vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
-		vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { buffer = 0 })
-		vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { buffer = 0 })
-		vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { buffer = 0 })
-	end,
+	on_attach = on_attach,
 })
 
 nvim_lsp.html.setup({
@@ -218,7 +213,3 @@ require("fidget").setup({
 
 -- Formatter --
 vim.g.neoformat_try_node_exe = 1
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	command = "Neoformat",
-})

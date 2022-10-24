@@ -66,7 +66,9 @@ bspc rule -a *:SPLASH state=floating
 bspc rule -a NoiseTorch state=floating
 bspc rule -a net-runelite-client-RuneLite state=floating
 bspc rule -a net-runelite-launcher-Launcher state=floating
+bspc rule -a '*:*:Picture-in-Picture' state=floating
 bspc desktop -f 1
+bspc config external_rules_command "$(which windowrules)"
 
 # INIT-DAEMONS
 sxhkd &
@@ -78,5 +80,5 @@ xsetroot -cursor_name left_ptr
 
 # AUTOSTART
 # set wallpaper using hsetroot
-feh --bg-fill --randomize /home/cody/Pictures/*
+feh --bg-fill --randomize /home/cody/Pictures/blue_green.png
 ~/.config/bspwm/autostart &
