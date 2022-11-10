@@ -25,37 +25,39 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   severity_sort = true,
-  float = { border = "single" }
+  float = {
+    border = "rounded",
+  }
 })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
   vim.lsp.handlers.hover, {
-  border = "single"
-}
-)
+  border = "rounded",
+})
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   vim.lsp.handlers.signatureHelp, {
-  border = "single"
-}
-)
+  border = "rounded"
+})
+
+local nnoremap = require('keymap').nnoremap
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
-  vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set("n", "<leader>gf", vim.diagnostic.open_float, bufopts)
-  vim.keymap.set("n", "<leader>gj", vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set("n", "<leader>gk", vim.diagnostic.goto_prev, bufopts)
-  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ll', function()
+  nnoremap("K", vim.lsp.buf.hover, bufopts)
+  nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
+  nnoremap("gs", vim.lsp.buf.signature_help, bufopts)
+  nnoremap("gi", vim.lsp.buf.implementation, bufopts)
+  nnoremap("gr", vim.lsp.buf.references, bufopts)
+  nnoremap("<leader>ga", vim.lsp.buf.code_action, bufopts)
+  nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
+  nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
+  nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
+  nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
+  nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
+  nnoremap("<space>lw", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
@@ -63,20 +65,30 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Enable the following language servers
--- local servers = { 'pyright' }
--- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---   }
--- end
-
-nvim_lsp.jedi_language_server.setup {
+require('lspconfig').pylsp.setup {
+  cmd = { "pylsp" },
   on_attach = on_attach,
   capabilities = capabilities,
+  settings = {
+    pylsp = {
+      plugins = {
+        black = {
+          enabled = true,
+          line_length = 100,
+        },
+        pycodestyle = {
+          maxLineLength = 100
+        },
+        rope_completion = {
+          enable = true,
+          eager = true,
+        },
+      }
+    }
+  }
 }
 
 nvim_lsp.sqls.setup {
@@ -85,29 +97,15 @@ nvim_lsp.sqls.setup {
   filetypes = { "sql", "mysql", "psql" }
 }
 
-local function organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = {vim.api.nvim_buf_get_name(0)},
-    title = ""
-  }
-  vim.lsp.buf.execute_command(params)
-end
-
-nvim_lsp.tsserver.setup {
-  cmd = { "typescript-language-server", "--stdio" },
+nvim_lsp.tailwindcss.setup {
+  cmd = { "tailwindcss-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-  commands = {
-    OrganizeImports = {
-      organize_imports,
-      description = "Organize Imports"
-    }
-  }
 }
 
-nvim_lsp.eslint.setup {
+nvim_lsp.tsserver.setup {
+  cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -127,48 +125,25 @@ nvim_lsp.jsonls.setup {
   filetype = { "json" }
 }
 
-nvim_lsp.clangd.setup {
-  cmd = { 'clangd' },
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
 nvim_lsp.rust_analyzer.setup {
   cmd          = { 'rust-analyzer' },
-  on_attach    = function()
-    vim.keymap.set("n", "<leader>br", '<cmd>w | make run<cr>', { buffer = 0 })
-    vim.keymap.set("n", "<leader>bb", '<cmd>w | make build<cr>', { buffer = 0 })
-    vim.keymap.set("n", "<leader>bc", '<cmd>w | make check<cr>', { buffer = 0 })
-    vim.keymap.set("n", "<leader>bt", '<cmd>w | make test --lib -- --show-output<cr>', { buffer = 0 })
-  end,
+  on_attach    = on_attach,
   capabilities = capabilities,
 
 }
 
 nvim_lsp.gopls.setup {
   capabilities = capabilities,
+  on_attach    = on_attach,
   cmd          = { 'gopls' },
-  on_attach    = function()
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 }) -- zero means current buffer
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = 0 })
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
-    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = 0 })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = 0 })
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
-    vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { buffer = 0 })
-    vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { buffer = 0 })
-    vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { buffer = 0 })
-  end
 }
 
 nvim_lsp.html.setup {
   cmd          = { "vscode-html-language-server", "--stdio" },
   on_attach    = on_attach,
-  capabilities = capabilities
+  capabilities = capabilities,
 }
 
--- Example custom server
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
@@ -208,14 +183,14 @@ require('fidget').setup {
     right = true, -- align fidgets along right edge of buffer
   },
   timer = {
-    spinner_rate = 125, -- frame rate of spinner animation, in ms
+    spinner_rate = 144, -- frame rate of spinner animation, in ms
     fidget_decay = 2000, -- how long to keep around empty fidget, in ms
     task_decay = 1000, -- how long to keep around completed task, in ms
   },
   window = {
     relative = "editor", -- where to anchor, either "win" or "editor"
     blend = 0, -- &winblend for the window
-    zindex = nil, -- the zindex value for the window
+    zindex = 10, -- the zindex value for the window
   },
   fmt = {
     leftpad = true, -- right-justify text in fidget box
@@ -239,15 +214,3 @@ require('fidget').setup {
     logging = false, -- whether to enable logging, for debugging
   },
 }
-
-
--- -- Linter config --
--- require('lint').linters_by_ft = {
---   python = { 'pylint' }
--- }
-
--- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
---   callback = function()
---     require("lint").try_lint()
---   end,
--- })

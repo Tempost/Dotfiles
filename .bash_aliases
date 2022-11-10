@@ -12,6 +12,12 @@ alias vrc='nvim ~/.config/nvim/init.lua'
 alias vim='nvim'
 alias update-pkgs='sudo apt-get update && sudo apt-get -y upgrade'
 alias api-activate='. ~/.virtualenvs/credenti-apis/bin/activate'
+alias line-count='find . -name \*.py | xargs wc -l'
+alias kgp='kubectl get pods'
+alias kcl='kubectl logs'
+alias kc='kubectl'
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
 alias nvimconf=neovim_config()
 neovim_config() {
@@ -19,18 +25,34 @@ neovim_config() {
     nvim
 }
 
+VENV_COLOR="#74d494"
+
+venv_colors() {
+    text=$1
+    gum style --foreground "$VENV_COLOR" "$text"
+}
+
 activate() {
-    if [ $# = 0 ]; then
-        printf "Enter a env.\n"
-        return
-    fi
+    gum style \
+        --border rounded \
+        --margin "1" \
+        --padding "1" \
+        --border-foreground "$VENV_COLOR" \
+        "Choose a $(venv_colors "🐍Python VENV") to activate."
+    choice=$(gum choose "api" "migration" "scheduler")
 
-    if [ $1 = "api" ]; then
-        .  ~/.virtualenvs/credenti-apis/bin/activate
-    elif [ $1 = "migration" ]; then
-        . ~/.virtualenvs/credenti-migration/bin/activate
-    else
-        printf "Not a env.\n"
-    fi
-
+    case $choice in
+        api)
+            .  ~/.virtualenvs/credenti-apis/bin/activate;
+            clear
+            ;;
+        migration)
+            . ~/.virtualenvs/credenti-migration/bin/activate;
+            clear
+            ;;
+        scheduler)
+            . ~/.virtualenvs/scheduler/bin/activate;
+            clear
+            ;;
+    esac
 }

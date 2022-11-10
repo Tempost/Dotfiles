@@ -32,3 +32,8 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 if [ -e /home/cody/.nix-profile/etc/profile.d/nix.sh ]; then . /home/cody/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# pnpm
+export PNPM_HOME="/home/cody/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end

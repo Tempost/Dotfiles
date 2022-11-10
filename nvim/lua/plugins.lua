@@ -47,9 +47,5 @@ require('packer').startup(function()
     }
     use 'onsails/lspkind-nvim'
     use 'L3MON4D3/LuaSnip'
-    use 'theHamsta/nvim-dap-virtual-text'
-    use 'mfussenegger/nvim-dap-python'
-    use 'mfussenegger/nvim-dap'
-    use 'nvim-telescope/telescope-dap.nvim'
     use 'kyazdani42/nvim-web-devicons'
 end)
