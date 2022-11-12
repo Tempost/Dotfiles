@@ -1,60 +1,61 @@
 require("mason").setup({
-	ui = {
-		border = "single",
-	},
+  ui = {
+    border = "single",
+  },
 })
 require("mason-lspconfig").setup({
-	ensure_installed = {
-		"sumneko_lua",
-		"tsserver",
-		"cssls",
-		"jsonls",
-		"html",
-		"eslint",
-		"jedi_language_server",
-		"rust_analyzer",
-	},
+  ensure_installed = {
+    "sumneko_lua",
+    "tsserver",
+    "cssls",
+    "jsonls",
+    "html",
+    "eslint",
+    "jedi_language_server",
+    "rust_analyzer",
+  },
 })
 
 -- LSP keybind settings
 local nvim_lsp = require("lspconfig")
 
 vim.diagnostic.config({
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	border = "single",
+  border = "single",
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signatureHelp, {
-	border = "single",
+  border = "single",
 })
 vim.diagnostic.config({ float = { border = "single" } })
 
+local nnoremap = require("keymap").nnoremap
 -- some generic keybinds
 local on_attach = function(_, bufnr)
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
-	vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-	vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set("n", "<leader>gf", vim.diagnostic.open_float, bufopts)
-	vim.keymap.set("n", "<leader>gj", vim.diagnostic.goto_next, bufopts)
-	vim.keymap.set("n", "<leader>gk", vim.diagnostic.goto_prev, bufopts)
-	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("n", "<space>ll", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, bufopts)
-	vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  nnoremap("K", vim.lsp.buf.hover, bufopts)
+  nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
+  nnoremap("gs", vim.lsp.buf.signature_help, bufopts)
+  nnoremap("gi", vim.lsp.buf.implementation, bufopts)
+  nnoremap("gr", vim.lsp.buf.references, bufopts)
+  nnoremap("<leader>ga", vim.lsp.buf.code_action, bufopts)
+  nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
+  nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
+  nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
+  nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
+  nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
+  nnoremap("<leader>ll", function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  nnoremap("<leader>f", vim.lsp.buf.format, bufopts)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -71,72 +72,93 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- end
 
 nvim_lsp.jedi_language_server.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
+  on_attach = on_attach,
+  capabilities = capabilities,
 })
 
 nvim_lsp.tsserver.setup({
-	cmd = { "typescript-language-server", "--stdio" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 })
 
-nvim_lsp.eslint.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-})
+-- nvim_lsp.eslint.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+-- })
 
 nvim_lsp.prismals.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetype = { "prisma" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetype = { "prisma" },
 })
 
 nvim_lsp.tailwindcss.setup({
-	cmd = { "tailwindcss-language-server", "--stdio" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "javascriptreact", "javascript.jsx", "typescriptreact", "typescript.tsx" },
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascriptreact", "javascript.jsx", "typescriptreact", "typescript.tsx" },
 })
 
 nvim_lsp.cssls.setup({
-	cmd = { "vscode-css-language-server", "--stdio" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "css", "scss" },
+  cmd = { "vscode-css-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "css", "scss" },
 })
 
 nvim_lsp.jsonls.setup({
-	cmd = { "vscode-json-language-server", "--stdio" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetype = { "json" },
+  cmd = { "vscode-json-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetype = { "json" },
 })
 
 nvim_lsp.clangd.setup({
-	cmd = { "clangd" },
-	on_attach = on_attach,
-	capabilities = capabilities,
+  cmd = { "clangd" },
+  on_attach = on_attach,
+  capabilities = capabilities,
 })
 
 nvim_lsp.rust_analyzer.setup({
-	cmd = { "rust-analyzer" },
-	on_attach = on_attach,
-	capabilities = capabilities,
+  cmd = { "rust-analyzer" },
+  on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    nnoremap("K", vim.lsp.buf.hover, bufopts)
+    nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
+    nnoremap("gs", vim.lsp.buf.signature_help, bufopts)
+    nnoremap("gi", vim.lsp.buf.implementation, bufopts)
+    nnoremap("gr", vim.lsp.buf.references, bufopts)
+    nnoremap("<leader>ga", vim.lsp.buf.code_action, bufopts)
+    nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
+    nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
+    nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
+    nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
+    nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
+    nnoremap("<leader>ll", function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    nnoremap("<leader>f", vim.lsp.buf.format, bufopts)
+    nnoremap("<leader>do", "[[<cmd>!cargo doc --open<CR>]]")
+    nnoremap("<leader>cd", "[[<cmd>!cargo build<CR>]]")
+    nnoremap("<leader>cr", "[[<cmd>!cargo build --release<CR>]]")
+  end,
+  capabilities = capabilities,
 })
 
 nvim_lsp.gopls.setup({
-	capabilities = capabilities,
-	cmd = { "gopls" },
-	on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "gopls" },
+  on_attach = on_attach,
 })
 
 nvim_lsp.html.setup({
-	cmd = { "vscode-html-language-server", "--stdio" },
-	on_attach = on_attach,
-	capabilities = capabilities,
+  cmd = { "vscode-html-language-server", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
 })
 
 -- Example custom server
@@ -146,69 +168,69 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 nvim_lsp.sumneko_lua.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = runtime_path,
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+        path = runtime_path,
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
 })
 
 require("fidget").setup({
-	text = {
-		spinner = "dots", -- animation shown when tasks are ongoing
-		done = "", -- character shown when all tasks are complete
-		commenced = "Started", -- message shown when task starts
-		completed = "Completed", -- message shown when task completes
-	},
-	align = {
-		bottom = true, -- align fidgets along bottom edge of buffer
-		right = true, -- align fidgets along right edge of buffer
-	},
-	timer = {
-		spinner_rate = 125, -- frame rate of spinner animation, in ms
-		fidget_decay = 2000, -- how long to keep around empty fidget, in ms
-		task_decay = 1000, -- how long to keep around completed task, in ms
-	},
-	window = {
-		relative = "editor", -- where to anchor, either 'win' or 'editor'
-		blend = 0, -- &winblend for the window
-		zindex = nil, -- the zindex value for the window
-	},
-	fmt = {
-		leftpad = true, -- right-justify text in fidget box
-		stack_upwards = true, -- list of tasks grows upwards
-		max_width = 0, -- maximum width of the fidget box
-		-- function to format fidget title
-		fidget = function(fidget_name, spinner)
-			return string.format("%s %s", spinner, fidget_name)
-		end,
-		-- function to format each task line
-		task = function(task_name, message, percentage)
-			return string.format(
-				"%s%s [%s]",
-				message,
-				percentage and string.format(" (%s%%)", percentage) or "",
-				task_name
-			)
-		end,
-	},
-	debug = {
-		logging = false, -- whether to enable logging, for debugging
-	},
+  text = {
+    spinner = "dots", -- animation shown when tasks are ongoing
+    done = "", -- character shown when all tasks are complete
+    commenced = "Started", -- message shown when task starts
+    completed = "Completed", -- message shown when task completes
+  },
+  align = {
+    bottom = true, -- align fidgets along bottom edge of buffer
+    right = true, -- align fidgets along right edge of buffer
+  },
+  timer = {
+    spinner_rate = 125, -- frame rate of spinner animation, in ms
+    fidget_decay = 2000, -- how long to keep around empty fidget, in ms
+    task_decay = 1000, -- how long to keep around completed task, in ms
+  },
+  window = {
+    relative = "editor", -- where to anchor, either 'win' or 'editor'
+    blend = 0, -- &winblend for the window
+    zindex = nil, -- the zindex value for the window
+  },
+  fmt = {
+    leftpad = true, -- right-justify text in fidget box
+    stack_upwards = true, -- list of tasks grows upwards
+    max_width = 0, -- maximum width of the fidget box
+    -- function to format fidget title
+    fidget = function(fidget_name, spinner)
+      return string.format("%s %s", spinner, fidget_name)
+    end,
+    -- function to format each task line
+    task = function(task_name, message, percentage)
+      return string.format(
+        "%s%s [%s]",
+        message,
+        percentage and string.format(" (%s%%)", percentage) or "",
+        task_name
+      )
+    end,
+  },
+  debug = {
+    logging = false, -- whether to enable logging, for debugging
+  },
 })
 
 -- Formatter --

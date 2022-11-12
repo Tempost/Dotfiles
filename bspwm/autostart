@@ -1,7 +1,3 @@
 #!/bin/sh
-# Applications
-
-# ~/.local/scripts/mpd_start &
-
 ~/.config/polybar/serenade/launch.sh &
 discord &

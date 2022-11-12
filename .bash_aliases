@@ -10,6 +10,7 @@ alias rex='nvim ~/.Xresources'
 alias urex='xrdb ~/.Xresources'
 alias vrc='nvim ~/.config/nvim/init.lua'
 alias vim='nvim'
+alias gdb-arm='arm-none-eabi-gdb'
 
 function stea () {
     cd /home/cody/Source/ts/stea

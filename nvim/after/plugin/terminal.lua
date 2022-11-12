@@ -35,14 +35,17 @@ local lazygit = Terminal:new({
 	direction = "float",
 	hidden = true,
 })
+
+local on_open = function(term)
+		vim.cmd("stopinsert")
+		vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+	end
+
 local studio = Terminal:new({
 	cmd = "pnpm studio",
 	direction = "float",
 	hidden = true,
-	on_open = function(term)
-		vim.cmd("stopinsert")
-		vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
-	end,
+	on_open = on_open,
 	count = 2,
 })
 
@@ -53,6 +56,7 @@ end
 function studio_toggle()
 	studio:spawn()
 end
+
 
 nnoremap("<leader>tg", "<cmd>lua lazygit_toggle()<cr>")
 nnoremap("<leader>ty", "<cmd>lua studio_toggle()<cr>")
