@@ -48,4 +48,6 @@ require('packer').startup(function()
     use 'onsails/lspkind-nvim'
     use 'L3MON4D3/LuaSnip'
     use 'kyazdani42/nvim-web-devicons'
+    use 'ThePrimeagen/vim-be-good'
+    use 'ggandor/leap.nvim'
 end)
