@@ -68,6 +68,24 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local null_ls_status_ok, null_ls = pcall(require, "null-ls")
+if not null_ls_status_ok then
+  return
+end
+
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+
+null_ls.setup {
+  debug = false,
+  sources = {
+    diagnostics.djlint,
+    diagnostics.tidy,
+    formatting.prettier,
+    formatting.black.with({ extra_args = { "--fast" } })
+  },
+}
+
 require('lspconfig').pylsp.setup {
   cmd = { "pylsp" },
   on_attach = on_attach,
@@ -75,6 +93,9 @@ require('lspconfig').pylsp.setup {
   settings = {
     pylsp = {
       plugins = {
+        jedi_completion = {
+          eager = true
+        },
         black = {
           enabled = true,
           line_length = 100,

@@ -27,9 +27,7 @@ vim.g.indent_blankline_buftype_exclude                = { 'terminal', 'nofile' }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 vim.g.gruvbox_baby_highlights = {visual = {fg = "#123123", bg = "#665c54", style="NONE"}}
-vim.cmd [[
-colorscheme gruvbox-baby
-]]
+vim.cmd.colorscheme "gruvbox-baby"
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {

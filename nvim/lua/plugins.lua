@@ -50,4 +50,6 @@ require('packer').startup(function()
     use 'kyazdani42/nvim-web-devicons'
     use 'ThePrimeagen/vim-be-good'
     use 'ggandor/leap.nvim'
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'mfussenegger/nvim-jdtls'
 end)
