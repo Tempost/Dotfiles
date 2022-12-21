@@ -6,7 +6,9 @@ ZSH_THEME="fwalch"
 plugins=(git)
 
 export GOPATH="$HOME/.local/share/go/bin"
-export PATH="$PATH:/home/cody/.local/bin:$GOPATH"
+export JAVA_HOME=/opt/jdk-19.0.1
+export JAVA_LSP=/opt/eclipse.jdt.ls
+export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin"
 export AWS_PROFILE=823298410396_AWSPowerUserAccess
 
 if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then

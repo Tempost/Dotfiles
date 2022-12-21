@@ -39,7 +39,7 @@ activate() {
         --padding "1" \
         --border-foreground "$VENV_COLOR" \
         "Choose a $(venv_colors "🐍Python VENV") to activate."
-    choice=$(gum choose "api" "migration" "scheduler")
+    choice=$(gum choose "api" "migration" "scheduler" "django-poc")
 
     case $choice in
         api)
@@ -52,6 +52,10 @@ activate() {
             ;;
         scheduler)
             . ~/.virtualenvs/scheduler/bin/activate;
+            clear
+            ;;
+        django-poc)
+            . ~/.virtualenvs/django-poc/bin/activate;
             clear
             ;;
     esac

@@ -1,7 +1,7 @@
 require("mason").setup({
   ui = {
-    border = 'single'
-  }
+    border = "single",
+  },
 })
 
 require("mason-lspconfig").setup({
@@ -13,12 +13,12 @@ require("mason-lspconfig").setup({
     "html",
     "eslint",
     "jedi_language_server",
-    "gopls"
-  }
+    "gopls",
+  },
 })
 
 -- LSP keybind settings
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = require("lspconfig")
 
 vim.diagnostic.config({
   signs = true,
@@ -27,24 +27,23 @@ vim.diagnostic.config({
   severity_sort = true,
   float = {
     border = "rounded",
-  }
+  },
 })
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
 
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signatureHelp, {
-  border = "rounded"
-})
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(vim.lsp.handlers.signatureHelp, {
+    border = "rounded",
+  })
 
-local nnoremap = require('keymap').nnoremap
+local nnoremap = require("keymap").nnoremap
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   nnoremap("K", vim.lsp.buf.hover, bufopts)
   nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
@@ -57,15 +56,17 @@ local on_attach = function(_, bufnr)
   nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
   nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
   nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
-  nnoremap("<space>lw", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
+  nnoremap(
+    "<space>lw",
+    function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+    bufopts
+  )
+  vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
 end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
@@ -76,17 +77,19 @@ end
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
-null_ls.setup {
+null_ls.setup({
   debug = false,
   sources = {
     diagnostics.djlint,
     diagnostics.tidy,
+    diagnostics.ruff,
     formatting.prettier,
-    formatting.black.with({ extra_args = { "--fast" } })
+    formatting.stylua,
+    formatting.black.with({ extra_args = { "--fast" } }),
   },
-}
+})
 
-require('lspconfig').pylsp.setup {
+require("lspconfig").pylsp.setup({
   cmd = { "pylsp" },
   on_attach = on_attach,
   capabilities = capabilities,
@@ -94,105 +97,111 @@ require('lspconfig').pylsp.setup {
     pylsp = {
       plugins = {
         jedi_completion = {
-          eager = true
-        },
-        black = {
-          enabled = true,
-          line_length = 100,
-        },
-        pycodestyle = {
-          maxLineLength = 100
+          eager = true,
         },
         rope_completion = {
           enable = true,
           eager = true,
         },
-      }
-    }
-  }
-}
+      },
+    },
+  },
+})
 
-nvim_lsp.sqls.setup {
+nvim_lsp.sqls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "sql", "mysql", "psql" }
-}
+  filetypes = { "sql", "mysql", "psql" },
+})
 
-nvim_lsp.tailwindcss.setup {
+nvim_lsp.tailwindcss.setup({
   cmd = { "tailwindcss-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-}
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+})
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.tsserver.setup({
   cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-}
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+})
 
-nvim_lsp.cssls.setup {
+nvim_lsp.cssls.setup({
   cmd = { "vscode-css-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "css", "scss" }
-}
+  filetypes = { "css", "scss" },
+})
 
-nvim_lsp.jsonls.setup {
-  cmd = { 'vscode-json-language-server', '--stdio' },
+nvim_lsp.jsonls.setup({
+  cmd = { "vscode-json-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
-  filetype = { "json" }
-}
+  filetype = { "json" },
+})
 
-nvim_lsp.rust_analyzer.setup {
-  cmd          = { 'rust-analyzer' },
-  on_attach    = on_attach,
+nvim_lsp.rust_analyzer.setup({
+  cmd = { "rust-analyzer" },
+  on_attach = on_attach,
   capabilities = capabilities,
+})
 
-}
-
-nvim_lsp.gopls.setup {
+nvim_lsp.gopls.setup({
   capabilities = capabilities,
-  on_attach    = on_attach,
-  cmd          = { 'gopls' },
-}
+  on_attach = on_attach,
+  cmd = { "gopls" },
+})
 
-nvim_lsp.html.setup {
-  cmd          = { "vscode-html-language-server", "--stdio" },
-  on_attach    = on_attach,
+nvim_lsp.html.setup({
+  cmd = { "vscode-html-language-server", "--stdio" },
+  on_attach = on_attach,
   capabilities = capabilities,
-}
+})
 
 -- Make runtime files discoverable to the server
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
 
-nvim_lsp.sumneko_lua.setup {
-  on_attach    = on_attach,
+nvim_lsp.sumneko_lua.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
-  settings     = {
+  settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',
-        path    = runtime_path,
+        version = "LuaJIT",
+        path = runtime_path,
       },
       diagnostics = {
-        globals = { 'vim' },
+        globals = { "vim" },
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
+        library = vim.api.nvim_get_runtime_file("", true),
       },
       telemetry = {
         enable = false,
       },
     },
   },
-}
+})
 
-require('fidget').setup {
+require("fidget").setup({
   text = {
     spinner = "dots", -- animation shown when tasks are ongoing
     done = "", -- character shown when all tasks are complete
@@ -217,12 +226,12 @@ require('fidget').setup {
     leftpad = true, -- right-justify text in fidget box
     stack_upwards = true, -- list of tasks grows upwards
     max_width = 0, -- maximum width of the fidget box
-    fidget = -- function to format fidget title
-    function(fidget_name, spinner)
+    -- function to format fidget title
+    fidget = function(fidget_name, spinner)
       return string.format("%s %s", spinner, fidget_name)
     end,
-    task = -- function to format each task line
-    function(task_name, message, percentage)
+    -- function to format each task line
+    task = function(task_name, message, percentage)
       return string.format(
         "%s%s [%s]",
         message,
@@ -234,4 +243,4 @@ require('fidget').setup {
   debug = {
     logging = false, -- whether to enable logging, for debugging
   },
-}
+})
