@@ -202,4 +202,4 @@ super + shift + Return
 
 # General app shortcuts
 super + o; {w, p, r}
-	{google-chrome-stable, pavucontrol, tdrop_c -n 3 alacritty -e gtop}
+	{google-chrome-stable, pavucontrol, zdrop_c -n 3 alacritty}

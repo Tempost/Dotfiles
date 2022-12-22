@@ -57,3 +57,4 @@ require("gitsigns").setup({
 })
 
 require("nvim-web-devicons").setup({ default = true })
+require('leap').add_default_mappings()

@@ -61,12 +61,15 @@ bspc rule -a Steam desktop=4
 bspc rule -a feh state=floating
 bspc rule -a mpv state=floating
 bspc rule -a Pavucontrol state=floating
-bspc rule -a Org.gnome.Nautilus state=floating
+bspc rule -a org.gnome.Nautilus state=floating
 bspc rule -a *:SPLASH state=floating
 bspc rule -a NoiseTorch state=floating
 bspc rule -a net-runelite-client-RuneLite state=floating
 bspc rule -a net-runelite-launcher-Launcher state=floating
+bspc rule -a bevy-crash-course state=floating
 bspc rule -a '*:*:Picture-in-Picture' state=floating
+bspc rule -a LariLauncher state=floating
+bspc rule -a battle.net.exe state=floating
 bspc desktop -f 1
 bspc config external_rules_command "$(which windowrules)"
 
