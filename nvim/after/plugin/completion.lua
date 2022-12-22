@@ -20,7 +20,7 @@ if cmp ~= nil then
 			completion = cmp.config.window.bordered(winhighlight),
 			documentation = cmp.config.window.bordered(winhighlight),
 		},
-		mapping = {
+		mapping = cmp.mapping.preset.insert({
 			["<C-d>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-e>"] = cmp.mapping.close(),
@@ -30,13 +30,12 @@ if cmp ~= nil then
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = true,
 			}),
-		},
+		}),
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp", max_item_count = 20 },
 			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "buffer", keyword_length = 2 },
-			{ name = "cmp_tabnine" },
 		}),
 		experimental = {
 			ghost_text = true,

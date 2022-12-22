@@ -3,6 +3,7 @@ require("mason").setup({
     border = "single",
   },
 })
+
 require("mason-lspconfig").setup({
   ensure_installed = {
     "sumneko_lua",
@@ -10,14 +11,13 @@ require("mason-lspconfig").setup({
     "cssls",
     "jsonls",
     "html",
-    "eslint",
-    "jedi_language_server",
     "rust_analyzer",
+    "prismals",
+    "bashls",
+    "sqls",
+    "tailwindcss",
   },
 })
-
--- LSP keybind settings
-local nvim_lsp = require("lspconfig")
 
 vim.diagnostic.config({
   virtual_text = true,
@@ -25,6 +25,7 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  float = { border = "single" },
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -34,65 +35,65 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signatureHelp, {
   border = "single",
 })
-vim.diagnostic.config({ float = { border = "single" } })
 
 local nnoremap = require("keymap").nnoremap
--- some generic keybinds
-local on_attach = function(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+local inoremap = require("keymap").inoremap
+
+local completion = require("cmp_nvim_lsp")
+local on_attach = function(client, bufnr)
+  -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  nnoremap("K", vim.lsp.buf.hover, bufopts)
-  nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
-  nnoremap("gs", vim.lsp.buf.signature_help, bufopts)
-  nnoremap("gi", vim.lsp.buf.implementation, bufopts)
-  nnoremap("gr", vim.lsp.buf.references, bufopts)
-  nnoremap("<leader>ga", vim.lsp.buf.code_action, bufopts)
-  nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
-  nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
-  nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
-  nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
-  nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
-  nnoremap("<leader>ll", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
+  local key_mappings = {
+    { "referencesProvider", "n", "gr", vim.lsp.buf.references },
+    { "hoverProvider", "n", "K", vim.lsp.buf.hover },
+    { "implementationProvider", "n", "gi", vim.lsp.buf.implementation },
+    { "signatureHelpProvider", "i", "<c-space>", vim.lsp.buf.signature_help },
+    { "workspaceSymbolProvider", "n", "gW", vim.lsp.buf.workspace_symbol },
+    { "codeActionProvider", { "n", "v" }, "<a-CR>", vim.lsp.buf.code_action },
+    { "codeActionProvider", "n", "<leader>r",
+      "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>" },
+    { "codeActionProvider", "v", "<leader>r",
+      "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>" },
+    { "codeLensProvider", "n", "<leader>gr", vim.lsp.codelens.refresh },
+    { "codeLensProvider", "n", "<leader>ge", vim.lsp.codelens.run },
+  }
+
+
+  nnoremap("grr", vim.lsp.buf.rename, bufopts)
   nnoremap("<leader>f", vim.lsp.buf.format, bufopts)
+
+  for _, mappings in pairs(key_mappings) do
+    local capability, mode, lhs, rhs = unpack(mappings)
+    if client.server_capabilities[capability] then
+      vim.keymap.set(mode, lhs, rhs, bufopts)
+    end
+  end
 end
 
--- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  vim.lsp.protocol.make_client_capabilities(),
+  completion.default_capabilities()
+)
 
--- Enable the following language servers
--- local servers = { 'pyright' }
--- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---   }
--- end
+local lsp_flags = {
+  debounce_text_changes = 80,
+}
 
-nvim_lsp.jedi_language_server.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
+local nvim_lsp = require("lspconfig")
 nvim_lsp.tsserver.setup({
   cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  flags = lsp_flags,
 })
-
--- nvim_lsp.eslint.setup({
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
--- })
 
 nvim_lsp.prismals.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetype = { "prisma" },
+  flags = lsp_flags,
 })
 
 nvim_lsp.tailwindcss.setup({
@@ -100,6 +101,7 @@ nvim_lsp.tailwindcss.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascriptreact", "javascript.jsx", "typescriptreact", "typescript.tsx" },
+  flags = lsp_flags,
 })
 
 nvim_lsp.cssls.setup({
@@ -107,6 +109,7 @@ nvim_lsp.cssls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "css", "scss" },
+  flags = lsp_flags,
 })
 
 nvim_lsp.jsonls.setup({
@@ -114,53 +117,35 @@ nvim_lsp.jsonls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetype = { "json" },
+  flags = lsp_flags,
 })
 
 nvim_lsp.clangd.setup({
   cmd = { "clangd" },
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
 })
 
 nvim_lsp.rust_analyzer.setup({
   cmd = { "rust-analyzer" },
-  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    nnoremap("K", vim.lsp.buf.hover, bufopts)
-    nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
-    nnoremap("gs", vim.lsp.buf.signature_help, bufopts)
-    nnoremap("gi", vim.lsp.buf.implementation, bufopts)
-    nnoremap("gr", vim.lsp.buf.references, bufopts)
-    nnoremap("<leader>ga", vim.lsp.buf.code_action, bufopts)
-    nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
-    nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
-    nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
-    nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
-    nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
-    nnoremap("<leader>ll", function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    nnoremap("<leader>f", vim.lsp.buf.format, bufopts)
-    nnoremap("<leader>do", "[[<cmd>!cargo doc --open<CR>]]")
-    nnoremap("<leader>cd", "[[<cmd>!cargo build<CR>]]")
-    nnoremap("<leader>cr", "[[<cmd>!cargo build --release<CR>]]")
-
-    require("virtualtypes").on_attach()
-  end,
+  on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
 })
 
 nvim_lsp.gopls.setup({
   capabilities = capabilities,
   cmd = { "gopls" },
   on_attach = on_attach,
+  flags = lsp_flags,
 })
 
 nvim_lsp.html.setup({
   cmd = { "vscode-html-language-server", "--stdio" },
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
 })
 
 -- Example custom server
@@ -249,6 +234,3 @@ require("fidget").setup({
     logging = false, -- whether to enable logging, for debugging
   },
 })
-
--- Formatter --
-vim.g.neoformat_try_node_exe = 1
