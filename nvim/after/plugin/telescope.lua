@@ -1,5 +1,4 @@
 local nnoremap = require("keymap").nnoremap
-require("trouble").setup({})
 
 -- Telescope
 require("telescope").setup({
@@ -65,7 +64,6 @@ require("telescope").setup({
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("fzf")
 
---Add leader shortcuts
 nnoremap("<leader><space>", [[<cmd>Telescope file_browser<CR>]])
 nnoremap("<leader>sf", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]])
 nnoremap("<leader>sb", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
@@ -77,4 +75,4 @@ nnoremap("<leader>sd", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 nnoremap("<leader>sr", [[<cmd>lua require('telescope.builtin').reloader()<CR>]])
 nnoremap("<leader>sk", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 nnoremap("<leader>sca", [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
-nnoremap("<leader>tt", "<cmd>TroubleToggle document_diagnostics<cr>")
+nnoremap("<leader>tt", [[<cmd>lua require('telescope.builtin').diagnostics()<CR>]])
