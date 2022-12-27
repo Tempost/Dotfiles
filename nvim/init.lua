@@ -47,4 +47,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.g.python3_host_prog = "~/.virtualenvs/neovim/bin/python3"
+vim.g.python3_host_prog = "~/.virtualenvs/neovim/bin/python3.9"

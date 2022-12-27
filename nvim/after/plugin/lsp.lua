@@ -12,7 +12,6 @@ require("mason-lspconfig").setup({
     "jsonls",
     "html",
     "eslint",
-    "jedi_language_server",
     "gopls",
   },
 })
@@ -35,9 +34,9 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(vim.lsp.handlers.signatureHelp, {
-    border = "rounded",
-  })
+vim.lsp.with(vim.lsp.handlers.signatureHelp, {
+  border = "rounded",
+})
 
 local nnoremap = require("keymap").nnoremap
 
@@ -82,7 +81,6 @@ null_ls.setup({
   sources = {
     diagnostics.djlint,
     diagnostics.tidy,
-    diagnostics.ruff,
     formatting.prettier,
     formatting.stylua,
     formatting.black.with({ extra_args = { "--fast" } }),
@@ -102,6 +100,10 @@ require("lspconfig").pylsp.setup({
         rope_completion = {
           enable = true,
           eager = true,
+        },
+        ruff = {
+          enabled = true,
+          lineLength = 100,
         },
       },
     },
