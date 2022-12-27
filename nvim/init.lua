@@ -8,7 +8,6 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.updatetime = 30
 vim.o.termguicolors = true
-vim.g.gruvbox_baby_transparent_mode = 1
 vim.wo.signcolumn = "yes"
 vim.opt.scrolloff = 10
 vim.opt.wrap = true
@@ -19,6 +18,7 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.hidden = true
+vim.o.background = "dark"
 
 --Map blankline
 vim.g.indent_blankline_char = "|"
@@ -26,8 +26,8 @@ vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
 vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
-vim.g.gruvbox_baby_highlights =
-  { visual = { fg = "#123123", bg = "#665c54", style = "NONE" } }
+vim.g.gruvbox_baby_transparent_mode = 1
+
 vim.cmd.colorscheme("gruvbox-baby")
 
 vim.api.nvim_create_autocmd("FileType", {

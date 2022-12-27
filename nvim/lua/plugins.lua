@@ -18,9 +18,16 @@ vim.cmd([[
 require("packer").startup(function()
   local use = require("packer").use
   use("wbthomason/packer.nvim") -- Package manager
+
+  -- Colors
   use("rktjmp/lush.nvim")
   use("luisiacc/gruvbox-baby")
+  use("EdenEast/nightfox.nvim")
+  use("folke/tokyonight.nvim")
+  use("ellisonleao/gruvbox.nvim")
+
   use("tpope/vim-commentary") -- 'gc' to comment visual regions/lines
+  use("tpope/vim-fugitive")
   use({
     "nvim-telescope/telescope.nvim",
     requires = { "nvim-lua/plenary.nvim" },
@@ -34,19 +41,25 @@ require("packer").startup(function()
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use("nvim-treesitter/nvim-treesitter")
   use("folke/trouble.nvim")
-  use("tpope/vim-fugitive")
   use("neovim/nvim-lspconfig") -- Collection of configurations for built-in LSP client
+
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
+
   use("mfussenegger/nvim-lint")
+  use("mfussenegger/nvim-jdtls")
+
   use("hrsh7th/nvim-cmp") -- Autocompletion plugin
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-path")
   use("hrsh7th/cmp-buffer")
+
   use("saadparwaiz1/cmp_luasnip")
   use("j-hui/fidget.nvim")
+
   use("akinsho/toggleterm.nvim")
   use("akinsho/bufferline.nvim")
+
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -57,5 +70,4 @@ require("packer").startup(function()
   use("ThePrimeagen/vim-be-good")
   use("ggandor/leap.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
-  use("mfussenegger/nvim-jdtls")
 end)
