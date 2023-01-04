@@ -31,6 +31,7 @@ M.on_attach = function(client, bufnr)
 
   nnoremap("grr", vim.lsp.buf.rename, bufopts)
   nnoremap("<leader>f", vim.lsp.buf.format, bufopts)
+  nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
   nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
   nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
   nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
@@ -41,6 +42,61 @@ M.on_attach = function(client, bufnr)
     if client.server_capabilities[capability] then
       vim.keymap.set(mode, lhs, rhs, bufopts)
     end
+  end
+
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = "single",
+        source = "always",
+        prefix = " ",
+        scope = "cursor",
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end,
+  })
+
+  if client.server_capabilities.documentHighlightProvider then
+    local colors = require("gruvbox-baby.colors").config()
+    vim.api.nvim_set_hl(
+      0,
+      "LspReferenceRead",
+      { bg = colors.medium_gray, bold = true }
+    )
+    vim.api.nvim_set_hl(
+      0,
+      "LspReferenceText",
+      { bg = colors.medium_gray, bold = true }
+    )
+    vim.api.nvim_set_hl(
+      0,
+      "LspReferenceWrite",
+      { bg = colors.medium_gray, bold = true }
+    )
+
+    vim.api.nvim_create_augroup("lsp_document_highlight", {
+      clear = false,
+    })
+
+    vim.api.nvim_clear_autocmds({
+      buffer = bufnr,
+      group = "lsp_document_highlight",
+    })
+
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
   end
 end
 
@@ -62,18 +118,6 @@ M.servers = {
   { "clangd" },
   { "bashls", { "bash-language-server", "start" } },
   { "rust_analyzer", { "rust-analyzer" }, { "rust" } },
-  {
-    "tsserver",
-    { "typescript-language-server", "--stdio" },
-    {
-      "javascript",
-      "javascriptreact",
-      "javascript.jsx",
-      "typescript",
-      "typescriptreact",
-      "typescript.tsx",
-    },
-  },
   { "prismals", { "prisma-language-server", "--stdio" }, { "prisma" } },
   {
     "tailwindcss",
@@ -86,11 +130,10 @@ M.servers = {
     },
   },
   { "gopls", { "gopls" }, { ".go" } },
-  { "pylsp", { "pylsp" }, { "python" } },
   {
-    "sqls",
+    "pylsp",
     { "pylsp" },
-    { "sql", "mysql", "psql" },
+    { "python" },
     {
       pylsp = {
         plugins = {
@@ -106,6 +149,11 @@ M.servers = {
         },
       },
     },
+  },
+  {
+    "sqls",
+    { "sqls" },
+    { "sql", "mysql", "psql" },
   },
   {
     "sumneko_lua",

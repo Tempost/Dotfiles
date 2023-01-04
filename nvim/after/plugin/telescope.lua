@@ -39,11 +39,9 @@ require("telescope").setup({
       },
     },
     file_ignore_patterns = {
+      "__pycache__",
       "node_modules",
       "target",
-      ".git",
-      "python/",
-      "translation/",
       "%.jpg",
       "%.png",
       "%.svg",

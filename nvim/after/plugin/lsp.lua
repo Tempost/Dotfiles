@@ -21,6 +21,7 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  virtual_test = true,
   float = {
     border = "single",
   },
@@ -51,6 +52,19 @@ for _, server in pairs(config.servers) do
   })
 end
 
+require("typescript").setup({
+  disable_commands = false,
+  debug = false,
+  go_to_source_definition = {
+    fallback = true,
+  },
+  server = {
+    on_attach = config.on_attach,
+    capabilities = config.capabilities,
+    flags = config.lsp_flags,
+  }
+})
+
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
   return
@@ -61,130 +75,19 @@ local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
   debug = false,
+  debounce = 80,
+  border = "single",
   sources = {
-    diagnostics.djlint,
     diagnostics.tidy,
+    diagnostics.eslint_d,
     formatting.prettier,
     formatting.stylua,
     formatting.black.with({ extra_args = { "--fast" } }),
+    formatting.google_java_format,
+    require("typescript.extensions.null-ls.code-actions"),
   },
 })
 
--- require("lspconfig").pylsp.setup({
---   cmd = { "pylsp" },
---   on_attach = on_attach,
---   capabilities = capabilities,
---   settings = {
---     pylsp = {
---       plugins = {
---         jedi_completion = {
---           eager = true,
---         },
---         rope_completion = {
---           enable = true,
---           eager = true,
---         },
---         ruff = {
---           enabled = true,
---           lineLength = 100,
---         },
---       },
---     },
---   },
--- })
-
--- nvim_lsp.sqls.setup({
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = { "sql", "mysql", "psql" },
--- })
-
--- nvim_lsp.tailwindcss.setup({
---   cmd = { "tailwindcss-language-server", "--stdio" },
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = {
---     "javascript",
---     "javascriptreact",
---     "javascript.jsx",
---     "typescript",
---     "typescriptreact",
---     "typescript.tsx",
---   },
--- })
-
--- nvim_lsp.tsserver.setup({
---   cmd = { "typescript-language-server", "--stdio" },
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = {
---     "javascript",
---     "javascriptreact",
---     "javascript.jsx",
---     "typescript",
---     "typescriptreact",
---     "typescript.tsx",
---   },
--- })
-
--- nvim_lsp.cssls.setup({
---   cmd = { "vscode-css-language-server", "--stdio" },
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = { "css", "scss" },
--- })
-
--- nvim_lsp.jsonls.setup({
---   cmd = { "vscode-json-language-server", "--stdio" },
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetype = { "json" },
--- })
-
--- nvim_lsp.rust_analyzer.setup({
---   cmd = { "rust-analyzer" },
---   on_attach = on_attach,
---   capabilities = capabilities,
--- })
-
--- nvim_lsp.gopls.setup({
---   capabilities = capabilities,
---   on_attach = on_attach,
---   cmd = { "gopls" },
--- })
-
--- nvim_lsp.html.setup({
---   cmd = { "vscode-html-language-server", "--stdio" },
---   on_attach = on_attach,
---   capabilities = capabilities,
--- })
-
--- -- Make runtime files discoverable to the server
--- local runtime_path = vim.split(package.path, ";")
--- table.insert(runtime_path, "lua/?.lua")
--- table.insert(runtime_path, "lua/?/init.lua")
-
--- nvim_lsp.sumneko_lua.setup({
---   on_attach = on_attach,
---   capabilities = capabilities,
---   settings = {
---     Lua = {
---       runtime = {
---         version = "LuaJIT",
---         path = runtime_path,
---       },
---       diagnostics = {
---         globals = { "vim" },
---       },
---       workspace = {
---         library = vim.api.nvim_get_runtime_file("", true),
---       },
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- })
 
 require("fidget").setup({
   text = {
