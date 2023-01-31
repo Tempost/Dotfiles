@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "json",
     "html",
     "lua",
+    "proto",
   },
   callback = function(e)
     vim.opt.tabstop = 2

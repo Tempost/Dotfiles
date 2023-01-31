@@ -12,7 +12,7 @@ M.on_attach = function(client, bufnr)
     { "definitionProvider", "n", "gd", vim.lsp.buf.definition },
     { "signatureHelpProvider", "i", "<c-space>", vim.lsp.buf.signature_help },
     { "workspaceSymbolProvider", "n", "gW", vim.lsp.buf.workspace_symbol },
-    { "codeActionProvider", { "n", "v" }, "<a-CR>", vim.lsp.buf.code_action },
+    { "codeActionProvider", { "n", "v" }, "<c-CR>", vim.lsp.buf.code_action },
     {
       "codeActionProvider",
       "n",
@@ -115,7 +115,7 @@ M.servers = {
   { "html", { "vscode-html-language-server", "--stdio" } },
   { "jsonls", { "vscode-json-language-server", "--stdio" } },
   { "cssls", { "vscode-css-language-server", "--stdio" } },
-  { "clangd" },
+  { "clangd", { "clangd" }, { ".c", ".cpp", ".h", ".hpp" } },
   { "bashls", { "bash-language-server", "start" } },
   { "rust_analyzer", { "rust-analyzer" }, { "rust" } },
   { "prismals", { "prisma-language-server", "--stdio" }, { "prisma" } },

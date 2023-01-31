@@ -10,7 +10,8 @@ export JAVA_HOME=/opt/jdk-19.0.1
 export JAVA_LSP=/opt/eclipse.jdt.ls
 export MAVEN=/opt/apache-maven-3.8.6
 export SPRING=/opt/spring-3.0.0
-export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin:$MAVEN/bin:$SPRING/bin"
+export GRADLE=/opt/gradle/gradle-7.6
+export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin:$MAVEN/bin:$SPRING/bin:$GRADLE/bin"
 export AWS_PROFILE=823298410396_AWSPowerUserAccess
 
 if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then

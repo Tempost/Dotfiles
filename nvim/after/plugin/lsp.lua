@@ -80,8 +80,10 @@ null_ls.setup({
   sources = {
     diagnostics.tidy,
     diagnostics.eslint_d,
+    diagnostics.protolint,
     formatting.prettier,
     formatting.stylua,
+    formatting.xmlformat,
     formatting.black.with({ extra_args = { "--fast" } }),
     formatting.google_java_format,
     require("typescript.extensions.null-ls.code-actions"),

@@ -36,6 +36,9 @@ nnoremap(
 nnoremap("<leader>w", "<cmd>w<cr>")
 nnoremap("<leader>e", "<cmd>q<cr>")
 nnoremap("<leader>`", "<cmd>source /home/cody/.config/nvim/init.lua<cr>")
+nnoremap("<leader>co", "<cmd>cw<cr>")
+nnoremap("<leader>cn", "<cmd>cn<cr>")
+nnoremap("<leader>cp", "<cmd>cp<cr>")
 
 nnoremap("<leader>bn", "<cmd>bn<cr>")
 nnoremap("<leader>bp", "<cmd>bp<cr>")

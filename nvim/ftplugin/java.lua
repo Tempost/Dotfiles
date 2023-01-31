@@ -23,12 +23,12 @@ local on_attach = function(_, bufnr)
   nnoremap("<leader>D", vim.lsp.buf.type_definition, bufopts)
   nnoremap("<leader>r", vim.lsp.buf.rename, bufopts)
   nnoremap("<A-o>", jdtls.organize_imports, bufopts)
-  nnoremap(
-    "<space>lw",
-    function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-    bufopts
-  )
+
+  nnoremap("<leader>dn", jdtls.test_nearest_method, bufopts)
   vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
+
+  require("jdtls.setup").add_commands()
+  require("jdtls").setup_dap({ hotcodreplace = "auto" })
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -38,6 +38,15 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
+local bundles = {
+  vim.fn.glob("/opt/java-debug/com.microsoft.java.debug.plugin-0.44.0.jar", 1),
+}
+
+vim.list_extend(
+  bundles,
+  vim.split(vim.fn.glob("/opt/vscode-java-test/*jar", 1), "\n")
+)
 
 local config = {
   java = {
@@ -68,6 +77,12 @@ local config = {
   on_attach = on_attach,
   capabilities = capabilities,
   extendedClientCapabilities = extendedClientCapabilities,
+  root_dir = vim.fs.dirname(
+    vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1]
+  ),
+  init_options = {
+    bundles = bundles,
+  },
 }
 
 require("jdtls").start_or_attach(config)
