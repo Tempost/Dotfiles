@@ -6,7 +6,7 @@ ZSH_THEME="fwalch"
 plugins=(git)
 
 export GOPATH="$HOME/.local/share/go/bin"
-export JAVA_HOME=/opt/jdk-19.0.1
+export JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64
 export JAVA_LSP=/opt/eclipse.jdt.ls
 export MAVEN=/opt/apache-maven-3.8.6
 export SPRING=/opt/spring-3.0.0

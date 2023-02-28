@@ -14,6 +14,7 @@ alias update-pkgs='sudo apt-get update && sudo apt-get -y upgrade'
 alias api-activate='. ~/.virtualenvs/credenti-apis/bin/activate'
 alias line-count='find . -name \*.py | xargs wc -l'
 alias kgp='kubectl get pods'
+alias kgs='kubectl get svc'
 alias kcl='kubectl logs'
 alias kc='kubectl'
 alias ...="cd ../.."

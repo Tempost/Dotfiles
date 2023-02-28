@@ -11,19 +11,17 @@ M.on_attach = function(client, bufnr)
     { "implementationProvider", "n", "gi", vim.lsp.buf.implementation },
     { "definitionProvider", "n", "gd", vim.lsp.buf.definition },
     { "signatureHelpProvider", "i", "<c-space>", vim.lsp.buf.signature_help },
-    { "workspaceSymbolProvider", "n", "gW", vim.lsp.buf.workspace_symbol },
-    { "codeActionProvider", { "n", "v" }, "<c-CR>", vim.lsp.buf.code_action },
+    {
+      "workspaceSymbolProvider",
+      "n",
+      "gW",
+      vim.lsp.buf.workspace_symbol,
+    },
     {
       "codeActionProvider",
       "n",
       "<leader>r",
-      "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>",
-    },
-    {
-      "codeActionProvider",
-      "v",
-      "<leader>r",
-      "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>",
+      vim.lsp.buf.code_action,
     },
     { "codeLensProvider", "n", "<leader>gr", vim.lsp.codelens.refresh },
     { "codeLensProvider", "n", "<leader>ge", vim.lsp.codelens.run },
@@ -115,10 +113,18 @@ M.servers = {
   { "html", { "vscode-html-language-server", "--stdio" } },
   { "jsonls", { "vscode-json-language-server", "--stdio" } },
   { "cssls", { "vscode-css-language-server", "--stdio" } },
-  { "clangd", { "clangd" }, { ".c", ".cpp", ".h", ".hpp" } },
+  {
+    "clangd",
+    { "clangd" },
+    { ".c", ".cpp", ".h", ".hpp" },
+  },
   { "bashls", { "bash-language-server", "start" } },
   { "rust_analyzer", { "rust-analyzer" }, { "rust" } },
-  { "prismals", { "prisma-language-server", "--stdio" }, { "prisma" } },
+  {
+    "prismals",
+    { "prisma-language-server", "--stdio" },
+    { "prisma" },
+  },
   {
     "tailwindcss",
     { "tailwindcss-language-server", "--stdio" },
@@ -156,7 +162,7 @@ M.servers = {
     { "sql", "mysql", "psql" },
   },
   {
-    "sumneko_lua",
+    "lua_ls",
     { "lua-language-server" },
     { "lua" },
     {

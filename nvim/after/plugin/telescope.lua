@@ -84,9 +84,11 @@ require("telescope").setup({
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("ui-select")
+require("telescope").load_extension("dap")
 
 --Add leader shortcuts
 nnoremap("<leader><space>", [[<cmd>Telescope file_browser<CR>]])
+nnoremap("<leader>sq", [[<cmd>lua require('telescope.builtin').quickfix()<CR>]])
 nnoremap(
   "<leader>sf",
   [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]]

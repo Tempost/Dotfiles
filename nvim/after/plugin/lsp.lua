@@ -6,7 +6,7 @@ require("mason").setup({
 
 require("mason-lspconfig").setup({
   ensure_installed = {
-    "sumneko_lua",
+    "lua_ls",
     "tsserver",
     "cssls",
     "jsonls",
@@ -53,11 +53,6 @@ for _, server in pairs(config.servers) do
 end
 
 require("typescript").setup({
-  disable_commands = false,
-  debug = false,
-  go_to_source_definition = {
-    fallback = true,
-  },
   server = {
     on_attach = config.on_attach,
     capabilities = config.capabilities,
@@ -79,13 +74,14 @@ null_ls.setup({
   border = "single",
   sources = {
     diagnostics.tidy,
-    diagnostics.eslint_d,
+    diagnostics.eslint,
     diagnostics.protolint,
     formatting.prettier,
     formatting.stylua,
     formatting.xmlformat,
     formatting.black.with({ extra_args = { "--fast" } }),
     formatting.google_java_format,
+    formatting.beautysh,
     require("typescript.extensions.null-ls.code-actions"),
   },
 })

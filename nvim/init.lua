@@ -18,7 +18,6 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.hidden = true
-vim.o.background = "dark"
 
 --Map blankline
 vim.g.indent_blankline_char = "|"
