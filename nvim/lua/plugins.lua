@@ -25,6 +25,7 @@ require("packer").startup(function()
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("nvim-telescope/telescope-file-browser.nvim")
+  use({ "nvim-telescope/telescope-ui-select.nvim" })
   -- Add indentation guides even on blank lines
   use("lukas-reineke/indent-blankline.nvim")
   -- Add git related info in the signs columns and popups
@@ -67,4 +68,5 @@ require("packer").startup(function()
   use("ggandor/leap.nvim")
 
   use("jose-elias-alvarez/null-ls.nvim")
+  use("jose-elias-alvarez/typescript.nvim")
 end)

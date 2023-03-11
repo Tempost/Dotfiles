@@ -11,7 +11,7 @@ require("mason").setup({
 
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"sumneko_lua",
+		"lua_ls",
 		"tsserver",
 		"cssls",
 		"jsonls",
@@ -56,6 +56,14 @@ for _, server in pairs(config.servers) do
 		settings = server[4],
 	})
 end
+
+require("typescript").setup({
+  server = {
+    on_attach = config.on_attach,
+    capabilities = config.capabilities,
+    flags = config.lsp_flags,
+  }
+})
 
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
