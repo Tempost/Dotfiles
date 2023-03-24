@@ -27,8 +27,16 @@ M.on_attach = function(client, bufnr)
     { "codeLensProvider", "n", "<leader>ge", vim.lsp.codelens.run },
   }
 
+  if client.name == "clangd" then
+    nnoremap("<c-h>", "<CMD>ClangdSwitchSourceHeader<CR>", bufopts)
+  end
+
   nnoremap("grr", vim.lsp.buf.rename, bufopts)
-  nnoremap("<leader>f", vim.lsp.buf.format, bufopts)
+  nnoremap(
+    "<leader>f",
+    function() vim.lsp.buf.format({ async = true }) end,
+    bufopts
+  )
   nnoremap("<leader>gf", vim.diagnostic.open_float, bufopts)
   nnoremap("<leader>gj", vim.diagnostic.goto_next, bufopts)
   nnoremap("<leader>gk", vim.diagnostic.goto_prev, bufopts)
@@ -116,7 +124,7 @@ M.servers = {
   {
     "clangd",
     { "clangd" },
-    { ".c", ".cpp", ".h", ".hpp" },
+    { "c", "cpp", "h", "hpp" },
   },
   { "bashls", { "bash-language-server", "start" } },
   { "rust_analyzer", { "rust-analyzer" }, { "rust" } },
@@ -142,15 +150,54 @@ M.servers = {
     { "python" },
     {
       pylsp = {
+        configurationSources = "flake8",
         plugins = {
-          jedi_completion = { eager = true },
+          jedi_completion = { eager = true, fuzzy = true },
           rope_completion = {
             enable = true,
             eager = true,
           },
+          rope_autoimport = {
+            enabled = true,
+            memory = true,
+          },
           ruff = {
             enabled = true,
             lineLength = 100,
+            select = {
+              "E",
+              "F",
+              "B",
+              "Q",
+              "ANN",
+              "W",
+              "C90",
+              "N",
+              "UP",
+              "S",
+              "A",
+              "COM",
+              "C4",
+              "SIM",
+              "ARG",
+              "TID",
+              "PTH",
+              "PLE",
+              "PLR",
+              "TRY",
+              "RUF",
+            },
+            unfixable = "B",
+          },
+          autopep8 = {
+            enabled = false,
+          },
+          yapf = {
+            enabled = false,
+          },
+          maccabe = {
+            enabled = true,
+            max_complexity = 10,
           },
         },
       },

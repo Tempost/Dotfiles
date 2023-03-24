@@ -12,11 +12,11 @@ local winhighlight = {
 
 if cmp ~= nil then
   cmp.setup({
-    -- snippet = {
-    --   expand = function(args)
-    --     require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-    --   end,
-    -- },
+    snippet = {
+      expand = function(args)
+        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+      end,
+    },
     window = {
       completion = cmp.config.window.bordered(winhighlight),
       documentation = cmp.config.window.bordered(winhighlight),
@@ -34,7 +34,7 @@ if cmp ~= nil then
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp", max_item_count = 20 },
-      -- { name = "luasnip" },
+      { name = "luasnip" },
       { name = "path" },
       { name = "buffer", keyword_length = 2 },
       { name = "cmp_tabnine" },

@@ -55,9 +55,13 @@ activate() {
             . ~/.virtualenvs/scheduler/bin/activate;
             clear
             ;;
-        django-poc)
-            . ~/.virtualenvs/django-poc/bin/activate;
-            clear
-            ;;
     esac
+}
+
+function finstall {
+    PACKAGE_NAME=$(apt-cache search $1 | fzf | cut --delimiter=" " --fields=1)
+    if [ "$PACKAGE_NAME" ]; then
+        echo "Installing $PACKAGE_NAME"
+        sudo apt install $PACKAGE_NAME
+    fi
 }

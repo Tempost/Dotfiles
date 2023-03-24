@@ -57,7 +57,9 @@ require("packer").startup(function()
   use("hrsh7th/cmp-path")
   use("hrsh7th/cmp-buffer")
 
-  -- use("saadparwaiz1/cmp_luasnip")
+  use("L3MON4D3/LuaSnip")
+  use("saadparwaiz1/cmp_luasnip")
+
   use("j-hui/fidget.nvim")
 
   use("akinsho/toggleterm.nvim")
@@ -68,7 +70,6 @@ require("packer").startup(function()
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
   })
   use("onsails/lspkind-nvim")
-  -- use("L3MON4D3/LuaSnip")
   use("kyazdani42/nvim-web-devicons")
   use("ThePrimeagen/vim-be-good")
   use("ggandor/leap.nvim")

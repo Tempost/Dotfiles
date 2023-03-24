@@ -9,8 +9,8 @@
     ~/.Xresources: .Xresources
     ~/.bash_aliases: .bash_aliases
     ~/.fonts: .fonts
-    ~/.zprofile: .zprofile
-    ~/.zshrc: .zshrc
+    ~/.config/zsh/.zprofile: .zprofile
+    ~/.config/zsh/.zshrc: .zshrc
     ~/.config/nvim: nvim 
 - create:
 

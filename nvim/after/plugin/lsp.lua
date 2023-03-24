@@ -75,7 +75,6 @@ null_ls.setup({
   sources = {
     diagnostics.tidy,
     diagnostics.eslint,
-    diagnostics.protolint,
     formatting.prettier,
     formatting.stylua,
     formatting.xmlformat,
