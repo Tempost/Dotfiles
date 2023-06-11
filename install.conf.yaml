@@ -5,19 +5,15 @@
 - clean: ['~']
 
 - link:
-    ~/.tmux.conf: .tmux.conf
+    ~/.config/tmux/tmux.conf: .tmux.conf
+    ~/.config/npm/npmrc: npmrc
     ~/.Xresources: .Xresources
     ~/.bash_aliases: .bash_aliases
-    ~/.fehbg: .fehbg
-    ~/.fonts: .fonts
-    ~/.gtkrc-2.0: .gtkrc-2.0
-    ~/.xinitrc: .xinitrc
-    ~/.zprofile: .zprofile
-    ~/.zshrc: .zshrc
+    ~/.local/share/fonts: .fonts
+    ~/.config/X11/xinitrc: .xinitrc
+    ~/.config/zsh: .zshrc
+    ~/.config/zsh: .zprofile
     ~/.config/dunst: dunst
-    ~/.config/gtk-2.0: gtk-2.0
-    ~/.config/gtk-3.0: gtk-3.0
-    ~/.config/i3: i3
     ~/.config/nvim: nvim
     ~/.config/picom.conf: picom.conf
     ~/.config/polybar: polybar
@@ -28,6 +24,10 @@
 
 - create:
   - ~/.config/
+  - ~/.config/npm
+  - ~/.config/tmux
+  - ~/.config/X11
+  - ~/.local/share/fonts
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
