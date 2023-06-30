@@ -1,20 +1,19 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 #
-ZSH=~/.oh-my-zsh
+ZSH=/usr/share/oh-my-zsh
 ZSH_THEME="fwalch"
 plugins=(git)
 
-export GOPATH="$HOME/.local/share/go/bin"
-export JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64
+export GOPATH="$HOME/.local/share/go"
+export GOBIN="$GOPATH/bin"
+export JAVA_HOME=/usr/lib/jvm/java-17-temurin
 export JAVA_LSP=/opt/eclipse.jdt.ls
 export MAVEN=/opt/apache-maven-3.8.6
 export SPRING=/opt/spring-3.0.0
 export GRADLE=/opt/gradle/gradle-7.6
 export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin:$MAVEN/bin:$SPRING/bin:$GRADLE/bin"
 export AWS_PROFILE=823298410396_AWSPowerUserAccess
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
@@ -35,7 +34,7 @@ if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
   [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1
 fi
 
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
@@ -59,6 +58,7 @@ if [ -e /home/cody/.nix-profile/etc/profile.d/nix.sh ]; then . /home/cody/.nix-p
 export PNPM_HOME="/home/cody/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

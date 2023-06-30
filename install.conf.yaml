@@ -4,6 +4,9 @@
 
 - clean: ['~']
 
+- create:
+    - ~/.config/zsh
+
 - link:
     ~/.tmux.conf: .tmux.conf
     ~/.Xresources: .Xresources
@@ -12,7 +15,6 @@
     ~/.config/zsh/.zprofile: .zprofile
     ~/.config/zsh/.zshrc: .zshrc
     ~/.config/nvim: nvim 
-- create:
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

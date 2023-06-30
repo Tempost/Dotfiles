@@ -18,6 +18,7 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.hidden = true
+vim.opt.filetype = 'on'
 
 --Map blankline
 vim.g.indent_blankline_char = "|"
@@ -41,7 +42,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "c",
     "cpp",
     "h",
-    "hpp"
+    "hpp",
+    "svelte"
   },
   callback = function(e)
     vim.opt.tabstop = 2
@@ -50,4 +52,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.g.python3_host_prog = "~/.virtualenvs/neovim/bin/python3.9"
+vim.g.python3_host_prog = "/home/cody/.local/share/virtualenvs/neovim/bin/python3.10"

@@ -27,6 +27,13 @@ M.on_attach = function(client, bufnr)
     { "codeLensProvider", "n", "<leader>ge", vim.lsp.codelens.run },
   }
 
+  if client.name == "tsserver" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+  -- if client.name == "svelte" then
+  --   client.server_capabilities.documentFormattingProvider = false
+  -- end
+
   if client.name == "clangd" then
     nnoremap("<c-h>", "<CMD>ClangdSwitchSourceHeader<CR>", bufopts)
   end
@@ -56,7 +63,7 @@ M.on_attach = function(client, bufnr)
       local opts = {
         focusable = false,
         close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = "single",
+        border = "rounded",
         source = "always",
         prefix = " ",
         scope = "cursor",
@@ -117,9 +124,12 @@ M.lsp_flags = {
   debounce_text_changes = 80,
 }
 
+local util = require("lspconfig.util")
+
 M.servers = {
   { "html", { "vscode-html-language-server", "--stdio" } },
   { "jsonls", { "vscode-json-language-server", "--stdio" } },
+  { "svelte", { "svelteserver", "--stdio" }, { "svelte" } },
   { "cssls", { "vscode-css-language-server", "--stdio" } },
   {
     "clangd",
@@ -127,7 +137,18 @@ M.servers = {
     { "c", "cpp", "h", "hpp" },
   },
   { "bashls", { "bash-language-server", "start" } },
-  { "rust_analyzer", { "rust-analyzer" }, { "rust" } },
+  {
+    "rust_analyzer",
+    { "rust-analyzer" },
+    { "rust" },
+    {
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
   {
     "prismals",
     { "prisma-language-server", "--stdio" },
@@ -141,9 +162,15 @@ M.servers = {
       "javascript.jsx",
       "typescriptreact",
       "typescript.tsx",
+      "html",
+      "svelte",
     },
   },
-  { "gopls", { "gopls" }, { ".go" } },
+  {
+    "gopls",
+    { "gopls" },
+    { "go", "gomod", "gowork", "gotmpl" },
+  },
   {
     "pylsp",
     { "pylsp" },
@@ -157,14 +184,11 @@ M.servers = {
             enable = true,
             eager = true,
           },
-          rope_autoimport = {
-            enabled = true,
-            memory = true,
-          },
           ruff = {
             enabled = true,
-            lineLength = 100,
+            format = { "I", "COM" },
             select = {
+              "I",
               "E",
               "F",
               "B",
@@ -173,7 +197,6 @@ M.servers = {
               "W",
               "C90",
               "N",
-              "UP",
               "S",
               "A",
               "COM",
@@ -188,24 +211,38 @@ M.servers = {
               "RUF",
             },
             unfixable = "B",
+            ignore = {
+              "ANN101",
+              "ANN001",
+              "ANN201",
+              "ANN204"
+            }
           },
-          autopep8 = {
-            enabled = false,
-          },
-          yapf = {
-            enabled = false,
-          },
-          maccabe = {
+          black = {
             enabled = true,
-            max_complexity = 10,
+            line_length = 100,
+            cache_config = true,
           },
         },
       },
     },
+    function(fname)
+      local root_files = {
+        "pyproject.toml",
+        "setup.py",
+        "setup.cfg",
+        "requirements.txt",
+        "Pipfile",
+      }
+
+      return util.root_pattern(unpack(root_files))(fname)
+        or util.find_git_ancestor(fname)
+        or vim.fn.expand("%:p:h")
+    end,
   },
   {
-    "sqls",
-    { "sqls" },
+    "sqlls",
+    { "sqlls" },
     { "sql", "mysql", "psql" },
   },
   {

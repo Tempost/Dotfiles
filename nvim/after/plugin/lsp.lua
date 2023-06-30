@@ -1,6 +1,6 @@
 require("mason").setup({
   ui = {
-    border = "single",
+    border = "rounded",
   },
 })
 
@@ -17,25 +17,27 @@ require("mason-lspconfig").setup({
 })
 
 vim.diagnostic.config({
-  signs = true,
+  signs = false,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
-  virtual_test = true,
+  virtual_text = true,
   float = {
-    border = "single",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
   },
 })
 
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "single",
+  border = "rounded",
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] =
-vim.lsp.with(vim.lsp.handlers.signatureHelp, {
-  border = "single",
-})
+  vim.lsp.with(vim.lsp.handlers.signatureHelp, {
+    border = "rounded",
+  })
 
 local config = require("config")
 local nvim_lsp = require("lspconfig")
@@ -49,6 +51,7 @@ for _, server in pairs(config.servers) do
     filetypes = server[3],
     flags = config.lsp_flags,
     settings = server[4],
+    root_dir = server[5],
   })
 end
 
@@ -57,7 +60,13 @@ require("typescript").setup({
     on_attach = config.on_attach,
     capabilities = config.capabilities,
     flags = config.lsp_flags,
-  }
+    filetypes = {
+      "typescriptreact",
+      "typescript.tsx",
+      "typescript",
+      "svelte",
+    }
+  },
 })
 
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
@@ -71,24 +80,21 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
   debug = false,
   debounce = 80,
-  border = "single",
+  border = "rounded",
   sources = {
     diagnostics.tidy,
     diagnostics.eslint,
     formatting.prettier,
     formatting.stylua,
     formatting.xmlformat,
-    formatting.black.with({ extra_args = { "--fast" } }),
-    formatting.google_java_format,
     formatting.beautysh,
     require("typescript.extensions.null-ls.code-actions"),
   },
 })
 
-
 require("fidget").setup({
   text = {
-    spinner = "dots", -- animation shown when tasks are ongoing
+    spinner = "flip", -- animation shown when tasks are ongoing
     done = "", -- character shown when all tasks are complete
     commenced = "Started", -- message shown when task starts
     completed = "Completed", -- message shown when task completes
@@ -98,7 +104,7 @@ require("fidget").setup({
     right = true, -- align fidgets along right edge of buffer
   },
   timer = {
-    spinner_rate = 144, -- frame rate of spinner animation, in ms
+    spinner_rate = 60, -- frame rate of spinner animation, in ms
     fidget_decay = 2000, -- how long to keep around empty fidget, in ms
     task_decay = 1000, -- how long to keep around completed task, in ms
   },

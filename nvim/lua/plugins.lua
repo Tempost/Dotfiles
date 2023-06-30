@@ -60,7 +60,7 @@ require("packer").startup(function()
   use("L3MON4D3/LuaSnip")
   use("saadparwaiz1/cmp_luasnip")
 
-  use("j-hui/fidget.nvim")
+  use({ "j-hui/fidget.nvim", tag = "legacy" })
 
   use("akinsho/toggleterm.nvim")
   use("akinsho/bufferline.nvim")
@@ -75,4 +75,14 @@ require("packer").startup(function()
   use("ggandor/leap.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
   use("jose-elias-alvarez/typescript.nvim")
+
+  use("simrat39/rust-tools.nvim")
+
+  use({
+    "saecki/crates.nvim",
+    tag = "v0.3.0",
+    requires = { { "nvim-lua/plenary.nvim" } },
+    config = function() end,
+  })
 end)
+require("crates").setup()

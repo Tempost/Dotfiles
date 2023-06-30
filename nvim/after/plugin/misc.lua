@@ -20,17 +20,17 @@ require("lualine").setup({
   options = {
     icons_enabled = true,
     theme = "gruvbox-baby",
-    component_separators = { left = "|", right = "|" },
+    component_separators = { left = "│", right = "│" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = {},
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = { "branch", "mode" },
+    lualine_a = { "os.date('%H:%M')", "branch", "mode" },
     lualine_b = {},
     lualine_c = {},
     lualine_x = { "diagnostics" },
-    lualine_y = {},
+    lualine_y = { "progress", "location" },
     lualine_z = { "filesize" },
   },
   inactive_sections = {
@@ -48,11 +48,12 @@ require("lualine").setup({
 -- Gitsigns
 require("gitsigns").setup({
   signs = {
-    add = { hl = "GitGutterAdd", text = "" },
-    change = { hl = "GitGutterChange", text = "ﰣ" },
-    delete = { hl = "GitGutterDelete", text = "" },
-    topdelete = { hl = "GitGutterDelete", text = "⎴" },
-    changedelete = { hl = "GitGutterChange", text = "≂" },
+    add          = { text = '│' },
+    change       = { text = '│' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
   },
 })
 
@@ -80,7 +81,7 @@ require("toggleterm").setup({
     -- see :h nvim_open_win for details on borders however
     -- the 'curved' border is a custom border type
     -- not natively supported but implemented in this plugin.
-    border = "single",
+    border = "rounded",
     height = 50,
     width = 150,
   },

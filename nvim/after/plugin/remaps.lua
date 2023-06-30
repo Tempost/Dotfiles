@@ -1,4 +1,4 @@
-local nnoremap = require("keymap").nnoremap
+local map = require("keymap")
 
 vim.cmd([[
   nnoremap <C-J> <C-W><C-J>
@@ -21,28 +21,28 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 --Remap for dealing with word wrap
-nnoremap(
+map.nnoremap(
   "k",
   "v:count == 0 ? 'gk' : 'k'",
   { noremap = true, expr = true, silent = true }
 )
-nnoremap(
+map.nnoremap(
   "j",
   "v:count == 0 ? 'gj' : 'j'",
   { noremap = true, expr = true, silent = true }
 )
 
 -- Custom maps i use often
-nnoremap("<leader>w", "<cmd>w<cr>")
-nnoremap("<leader>e", "<cmd>q<cr>")
-nnoremap("<leader>`", "<cmd>source /home/cody/.config/nvim/init.lua<cr>")
-nnoremap("<leader>co", "<cmd>cw<cr>")
-nnoremap("<leader>cn", "<cmd>cn<cr>")
-nnoremap("<leader>cp", "<cmd>cp<cr>")
+map.nnoremap("<leader>w", "<cmd>w<cr>")
+map.nnoremap("<leader>e", "<cmd>q<cr>")
+map.nnoremap("<leader>`", "<cmd>source /home/cody/.config/nvim/init.lua<cr>")
+map.nnoremap("<leader>co", "<cmd>cw<cr>")
+map.nnoremap("<leader>cn", "<cmd>cn<cr>")
+map.nnoremap("<leader>cp", "<cmd>cp<cr>")
 
-nnoremap("<leader>bn", "<cmd>bn<cr>")
-nnoremap("<leader>bp", "<cmd>bp<cr>")
-nnoremap("<leader>bd", "<cmd>bd<cr>")
+map.nnoremap("<leader>bn", "<cmd>bn<cr>")
+map.nnoremap("<leader>bp", "<cmd>bp<cr>")
+map.nnoremap("<leader>bd", "<cmd>bd<cr>")
 
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
@@ -66,5 +66,8 @@ function lazygit_toggle() lazygit:toggle() end
 
 function yarndev_toggle() yarndev:spawn() end
 
-nnoremap("<leader>tg", "<cmd>lua lazygit_toggle()<cr>")
-nnoremap("<leader>ty", "<cmd>lua yarndev_toggle()<cr>")
+map.nnoremap("<leader>tg", "<cmd>lua lazygit_toggle()<cr>")
+map.nnoremap("<leader>ty", "<cmd>lua yarndev_toggle()<cr>")
+
+map.vnoremap("<leader>d64", "c<c-r>=system('base64 --decode', @\")<cr><esc>")
+map.vnoremap("<leader>n64", "c<c-r>=system('base64', @\")<cr><esc>")

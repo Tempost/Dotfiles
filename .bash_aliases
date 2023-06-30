@@ -13,12 +13,18 @@ alias vim='nvim'
 alias update-pkgs='sudo apt-get update && sudo apt-get -y upgrade'
 alias api-activate='. ~/.virtualenvs/credenti-apis/bin/activate'
 alias line-count='find . -name \*.py | xargs wc -l'
-alias kgp='kubectl get pods'
 alias kgs='kubectl get svc'
 alias kcl='kubectl logs'
 alias kc='kubectl'
+alias test-jump='ssh 3.82.250.136'
 alias ...="cd ../.."
 alias ....="cd ../../.."
+
+iter-resources() {
+    arg=$1
+    namespace="${:-default}"
+    kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $namespace
+}
 
 alias nvimconf=neovim_config()
 neovim_config() {
@@ -27,10 +33,50 @@ neovim_config() {
 }
 
 VENV_COLOR="#74d494"
+KUBE_COLOR="#326ce5"
 
 venv_colors() {
     text=$1
     gum style --foreground "$VENV_COLOR" "$text"
+}
+
+kube_colors() {
+    text=$1
+    gum style --foreground "$KUBE_COLOR" "$text"
+}
+
+pod-logs() {
+    gum style \
+        --border rounded \
+        --margin "1" \
+        --padding "1" \
+        --border-foreground "$KUBE_COLOR" \
+        "Choose a $(kube_colors "⎈ Pod")."
+
+    pods=$(
+        gum spin --spinner dot --title "Fetching pods..." --show-output -- \
+            kubectl get po --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+    )
+
+    if [ -z $pods ]; then
+        return;
+    fi
+    pod_choice=$(echo $pods | gum filter --height=10)
+    choice=$(gum choose "info" "logs" "access")
+
+    case $choice in
+        info)
+            gum spin --spinner dot --title "Fetching pod info..." --show-output -- kubectl get po $pod_choice
+            ;;
+        logs)
+            clear
+            kubectl logs $pod_choice --follow
+            ;;
+        access)
+            clear
+            kubectl exec $pod_choice -it -- bash
+    esac
+
 }
 
 activate() {
@@ -40,19 +86,31 @@ activate() {
         --padding "1" \
         --border-foreground "$VENV_COLOR" \
         "Choose a $(venv_colors "🐍Python VENV") to activate."
-    choice=$(gum choose "api" "migration" "scheduler" "django-poc")
+    choice=$(gum choose "portal" "auth" "internal" "migration" "scheduler" "playground")
 
     case $choice in
-        api)
-            .  ~/.virtualenvs/credenti-apis/bin/activate;
+        portal)
+            . /home/cody/.local/share/virtualenvs/portal/bin/activate;
+            clear
+            ;;
+        auth)
+            . /home/cody/.local/share/virtualenvs/auth-api/bin/activate;
             clear
             ;;
         migration)
-            . ~/.virtualenvs/credenti-migration/bin/activate;
+            . /home/cody/.local/share/virtualenvs/credenti-migration/bin/activate;
             clear
             ;;
         scheduler)
-            . ~/.virtualenvs/scheduler/bin/activate;
+            . /home/cody/.local/share/virtualenvs/scheduler/bin/activate;
+            clear
+            ;;
+        internal)
+            . /home/cody/.local/share/virtualenvs/internal/bin/activate;
+            clear
+            ;;
+        playground)
+            . /home/cody/Source/python/playground/playground/bin/activate;
             clear
             ;;
     esac
