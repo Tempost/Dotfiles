@@ -5,6 +5,7 @@
 [[ $- != *i* ]] && return
 
 alias ls='lsd'
+alias cat='bat'
 alias brc='nvim ~/.bashrc'
 alias rex='nvim ~/.Xresources'
 alias urex='xrdb ~/.Xresources'

@@ -186,7 +186,19 @@ M.servers = {
           },
           ruff = {
             enabled = true,
-            format = { "I", "COM" },
+            format = {
+              "I",
+              "COM",
+              "F",
+              "E",
+              "B",
+              "C4",
+              "PIE",
+              "Q",
+              "RET",
+              "SIM",
+              "PERF",
+            },
             select = {
               "I",
               "E",
@@ -209,14 +221,19 @@ M.servers = {
               "PLR",
               "TRY",
               "RUF",
+              "ASYNC",
+              "FBT",
+              "PIE",
+              "RET",
+              "PERF",
             },
             unfixable = "B",
             ignore = {
               "ANN101",
               "ANN001",
               "ANN201",
-              "ANN204"
-            }
+              "ANN204",
+            },
           },
           black = {
             enabled = true,

@@ -3,7 +3,8 @@
 #
 ZSH=/usr/share/oh-my-zsh
 ZSH_THEME="fwalch"
-plugins=(git)
+plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab)
+autoload -U compinit && compinit
 
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$GOPATH/bin"
@@ -27,6 +28,7 @@ export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export FZF_PATH="$XDG_CONFIG_HOME"/fzf
 
 export DPCPP_HOME=~/Source/c_cpp/sycl_workspace
 
