@@ -6,11 +6,11 @@ M.on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   local key_mappings = {
-    { "referencesProvider", "n", "gr", vim.lsp.buf.references },
-    { "hoverProvider", "n", "K", vim.lsp.buf.hover },
-    { "implementationProvider", "n", "gi", vim.lsp.buf.implementation },
-    { "definitionProvider", "n", "gd", vim.lsp.buf.definition },
-    { "signatureHelpProvider", "i", "<c-space>", vim.lsp.buf.signature_help },
+    { "referencesProvider",     "n", "gr",        vim.lsp.buf.references },
+    { "hoverProvider",          "n", "K",         vim.lsp.buf.hover },
+    { "implementationProvider", "n", "gi",        vim.lsp.buf.implementation },
+    { "definitionProvider",     "n", "gd",        vim.lsp.buf.definition },
+    { "signatureHelpProvider",  "i", "<c-space>", vim.lsp.buf.signature_help },
     {
       "workspaceSymbolProvider",
       "n",
@@ -127,14 +127,15 @@ M.lsp_flags = {
 local util = require("lspconfig.util")
 
 M.servers = {
-  { "html", { "vscode-html-language-server", "--stdio" } },
-  { "jsonls", { "vscode-json-language-server", "--stdio" } },
-  { "svelte", { "svelteserver", "--stdio" }, { "svelte" } },
-  { "cssls", { "vscode-css-language-server", "--stdio" } },
+  { "html",     { "vscode-html-language-server", "--stdio" } },
+  { "jsonls",   { "vscode-json-language-server", "--stdio" } },
+  { "svelte",   { "svelteserver", "--stdio" },               { "svelte" } },
+  { "cssls",    { "vscode-css-language-server", "--stdio" } },
+  { "omnisharp" },
   {
     "clangd",
     { "clangd" },
-    { "c", "cpp", "h", "hpp" },
+    { "c",     "cpp", "h", "hpp" },
   },
   { "bashls", { "bash-language-server", "start" } },
   {
@@ -169,7 +170,7 @@ M.servers = {
   {
     "gopls",
     { "gopls" },
-    { "go", "gomod", "gowork", "gotmpl" },
+    { "go",   "gomod", "gowork", "gotmpl" },
   },
   {
     "pylsp",
@@ -253,14 +254,14 @@ M.servers = {
       }
 
       return util.root_pattern(unpack(root_files))(fname)
-        or util.find_git_ancestor(fname)
-        or vim.fn.expand("%:p:h")
+          or util.find_git_ancestor(fname)
+          or vim.fn.expand("%:p:h")
     end,
   },
   {
     "sqlls",
     { "sqlls" },
-    { "sql", "mysql", "psql" },
+    { "sql",  "mysql", "psql" },
   },
   {
     "lua_ls",

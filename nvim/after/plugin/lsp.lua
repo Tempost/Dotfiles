@@ -85,7 +85,6 @@ null_ls.setup({
     diagnostics.tidy,
     diagnostics.eslint,
     formatting.prettier,
-    formatting.stylua,
     formatting.xmlformat,
     formatting.beautysh,
     require("typescript.extensions.null-ls.code-actions"),

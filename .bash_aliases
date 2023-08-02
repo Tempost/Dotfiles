@@ -33,6 +33,10 @@ neovim_config() {
     nvim
 }
 
+bin-diff() {
+    diff -yw200 <(xxd $1) <(xxd $2)
+}
+
 VENV_COLOR="#74d494"
 KUBE_COLOR="#326ce5"
 
