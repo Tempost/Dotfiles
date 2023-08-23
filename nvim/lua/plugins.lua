@@ -1,6 +1,6 @@
 -- Install packer
 local install_path = vim.fn.stdpath("data")
-  .. "/site/pack/packer/start/packer.nvim"
+    .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.execute(
@@ -22,9 +22,6 @@ require("packer").startup(function()
   -- Colors
   use("rktjmp/lush.nvim")
   use("luisiacc/gruvbox-baby")
-  use("EdenEast/nightfox.nvim")
-  use("folke/tokyonight.nvim")
-  use("ellisonleao/gruvbox.nvim")
 
   use("tpope/vim-commentary") -- 'gc' to comment visual regions/lines
   use("tpope/vim-fugitive")
@@ -48,7 +45,6 @@ require("packer").startup(function()
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
 
-  use("mfussenegger/nvim-lint")
   use("mfussenegger/nvim-jdtls")
   use("mfussenegger/nvim-dap")
 
@@ -71,7 +67,6 @@ require("packer").startup(function()
   })
   use("onsails/lspkind-nvim")
   use("kyazdani42/nvim-web-devicons")
-  use("ThePrimeagen/vim-be-good")
   use("ggandor/leap.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
   use("jose-elias-alvarez/typescript.nvim")

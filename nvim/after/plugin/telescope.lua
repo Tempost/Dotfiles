@@ -56,22 +56,7 @@ require("telescope").setup({
   extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({
-        -- even more opts
       }),
-
-      -- pseudo code / specification for writing custom displays, like the one
-      -- for "codeactions"
-      -- specific_opts = {
-      --   [kind] = {
-      --     make_indexed = function(items) -> indexed_items, width,
-      --     make_displayer = function(widths) -> displayer
-      --     make_display = function(displayer) -> function(e)
-      --     make_ordinal = function(e) -> string
-      --   },
-      --   -- for example to disable the custom builtin "codeactions" display
-      --      do the following
-      --   codeactions = false,
-      -- }
     },
     fzf = {
       fuzzy = true,
@@ -87,30 +72,14 @@ require("telescope").load_extension("ui-select")
 require("telescope").load_extension("dap")
 
 --Add leader shortcuts
-nnoremap("<leader><space>", [[<cmd>Telescope file_browser<CR>]])
-nnoremap("<leader>sq", [[<cmd>lua require('telescope.builtin').quickfix()<CR>]])
-nnoremap(
-  "<leader>sf",
-  [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]]
-)
-nnoremap(
-  "<leader>sb",
-  [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]]
-)
-nnoremap(
-  "<leader>sh",
-  [[<cmd>lua require('telescope.builtin').help_tags()<CR>]]
-)
-nnoremap("<leader>st", [[<cmd>lua require('telescope.builtin').tags()<CR>]])
-nnoremap(
-  "<leader>ss",
-  [[<cmd>lua require('telescope.builtin').grep_string()<CR>]]
-)
-nnoremap(
-  "<leader>sg",
-  [[<cmd>lua require('telescope.builtin').live_grep()<CR>]]
-)
-nnoremap("<leader>sd", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-nnoremap("<leader>sr", [[<cmd>lua require('telescope.builtin').reloader()<CR>]])
-nnoremap("<leader>sk", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
-nnoremap("<leader>tt", "<cmd>TroubleToggle document_diagnostics<cr>")
+nnoremap("<leader><space>", "<cmd>Telescope file_browser<cr>")
+nnoremap("<leader>sq", "<cmd>Telescope quickfix<cr>")
+nnoremap( "<leader>sf", "<cmd>Telescope find_files<cr>")
+nnoremap( "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
+nnoremap( "<leader>sh", "<cmd>Telescope help_tags<cr>")
+nnoremap("<leader>st", "<cmd>Telescope tags<cr>")
+nnoremap( "<leader>ss", "<cmd>Telescope grep_string<cr>")
+nnoremap("<leader>sg", "<cmd>Telescope live_grep<cr>")
+nnoremap("<leader>sd", "<cmd>Telescope oldfiles<cr>")
+nnoremap("<leader>sk", "<cmd>Telescope keymaps<cr>")
+nnoremap("<leader>tt", "<cmd>Telescope diagnostics<cr>")

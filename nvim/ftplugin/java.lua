@@ -28,7 +28,6 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
 
   require("jdtls").setup_dap({ hotcodreplace = "auto" })
-  require("jdtls.setup").add_commands()
 end
 
 -- nvim-cmp supports additional completion capabilities

@@ -46,28 +46,14 @@ map.nnoremap("<leader>bd", "<cmd>bd<cr>")
 
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
-local yarndev = Terminal:new({
-  md = "yarn run start",
-  hidden = true,
-  on_open = function(term)
-    vim.cmd("stopinsert")
-    vim.api.nvim_buf_set_keymap(
-      term.bufnr,
-      "n",
-      "q",
-      "<cmd>close<CR>",
-      { noremap = true, silent = true }
-    )
-  end,
-  count = 2,
-})
+local lazydocker = Terminal:new({ cmd = "lazydocker", dir = "git_dir", hidden = true })
 
-function lazygit_toggle() lazygit:toggle() end
+function LazyGitToggle() lazygit:toggle() end
+function LazyDockerToggle() lazydocker:toggle() end
 
-function yarndev_toggle() yarndev:spawn() end
 
-map.nnoremap("<leader>tg", "<cmd>lua lazygit_toggle()<cr>")
-map.nnoremap("<leader>ty", "<cmd>lua yarndev_toggle()<cr>")
+map.nnoremap("<leader>tg", "<cmd>lua LazyGitToggle()<cr>")
+map.nnoremap("<leader>td", "<cmd>lua LazyDockerToggle()<cr>")
 
 map.vnoremap("<leader>d64", "c<c-r>=system('base64 --decode', @\")<cr><esc>")
 map.vnoremap("<leader>n64", "c<c-r>=system('base64', @\")<cr><esc>")

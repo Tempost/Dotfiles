@@ -125,11 +125,6 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/gruvbox-baby",
     url = "https://github.com/luisiacc/gruvbox-baby"
   },
-  ["gruvbox.nvim"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
-    url = "https://github.com/ellisonleao/gruvbox.nvim"
-  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -165,11 +160,6 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
-  ["nightfox.nvim"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
-    url = "https://github.com/EdenEast/nightfox.nvim"
-  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -189,11 +179,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/nvim-jdtls",
     url = "https://github.com/mfussenegger/nvim-jdtls"
-  },
-  ["nvim-lint"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/nvim-lint",
-    url = "https://github.com/mfussenegger/nvim-lint"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -255,11 +240,6 @@ _G.packer_plugins = {
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
-  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/trouble.nvim",
@@ -269,11 +249,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/cody/.local/share/nvim/site/pack/packer/start/typescript.nvim",
     url = "https://github.com/jose-elias-alvarez/typescript.nvim"
-  },
-  ["vim-be-good"] = {
-    loaded = true,
-    path = "/home/cody/.local/share/nvim/site/pack/packer/start/vim-be-good",
-    url = "https://github.com/ThePrimeagen/vim-be-good"
   },
   ["vim-commentary"] = {
     loaded = true,

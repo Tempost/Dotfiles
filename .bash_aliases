@@ -17,9 +17,12 @@ alias line-count='find . -name \*.py | xargs wc -l'
 alias kgs='kubectl get svc'
 alias kcl='kubectl logs'
 alias kc='kubectl'
-alias test-jump='ssh 3.82.250.136'
 alias ...="cd ../.."
 alias ....="cd ../../.."
+
+alias test-jump='ssh 3.82.250.136'
+alias kube-node='ssh 192.168.1.21'
+alias db-node='ssh 192.168.1.20'
 
 iter-resources() {
     arg=$1
