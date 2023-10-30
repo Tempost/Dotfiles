@@ -24,7 +24,6 @@ require("packer").startup(function()
   use("luisiacc/gruvbox-baby")
 
   use("tpope/vim-commentary") -- 'gc' to comment visual regions/lines
-  use("tpope/vim-fugitive")
   use({
     "nvim-telescope/telescope.nvim",
     requires = { "nvim-lua/plenary.nvim" },
@@ -68,7 +67,7 @@ require("packer").startup(function()
   use("onsails/lspkind-nvim")
   use("kyazdani42/nvim-web-devicons")
   use("ggandor/leap.nvim")
-  use("jose-elias-alvarez/null-ls.nvim")
+  use("nvimtools/none-ls.nvim")
   use("jose-elias-alvarez/typescript.nvim")
 
   use("simrat39/rust-tools.nvim")
@@ -77,7 +76,8 @@ require("packer").startup(function()
     "saecki/crates.nvim",
     tag = "v0.3.0",
     requires = { { "nvim-lua/plenary.nvim" } },
-    config = function() end,
+    config = function()
+      require("crates").setup()
+    end,
   })
 end)
-require("crates").setup()

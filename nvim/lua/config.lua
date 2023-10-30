@@ -173,6 +173,9 @@ M.servers = {
     { "go",   "gomod", "gowork", "gotmpl" },
   },
   {
+    "lemminx",
+  },
+  {
     "pylsp",
     { "pylsp" },
     { "python" },
@@ -238,7 +241,7 @@ M.servers = {
           },
           black = {
             enabled = true,
-            line_length = 100,
+            line_length = 88,
             cache_config = true,
           },
         },

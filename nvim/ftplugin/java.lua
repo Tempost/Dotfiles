@@ -55,7 +55,7 @@ local config = {
       signatureHelp = { enabled = true },
       contentProvider = { preferred = "fernflower" },
       format = {
-        enabled = true,
+        enabled = false,
         settings = {
           profile = "GoogleStyle",
           url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
@@ -81,7 +81,7 @@ local config = {
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
     "-noverify",
-    "-Xmx4G",
+    "-Xmx8G",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
     "java.base/java.util=ALL-UNNAMED",
@@ -118,22 +118,22 @@ require("fidget").setup({
   },
   align = {
     bottom = true, -- align fidgets along bottom edge of buffer
-    right = true, -- align fidgets along right edge of buffer
+    right = true,  -- align fidgets along right edge of buffer
   },
   timer = {
-    spinner_rate = 60, -- frame rate of spinner animation, in ms
+    spinner_rate = 60,   -- frame rate of spinner animation, in ms
     fidget_decay = 2000, -- how long to keep around empty fidget, in ms
-    task_decay = 1000, -- how long to keep around completed task, in ms
+    task_decay = 1000,   -- how long to keep around completed task, in ms
   },
   window = {
     relative = "editor", -- where to anchor, either "win" or "editor"
-    blend = 0, -- &winblend for the window
-    zindex = 10, -- the zindex value for the window
+    blend = 0,           -- &winblend for the window
+    zindex = 10,         -- the zindex value for the window
   },
   fmt = {
-    leftpad = true, -- right-justify text in fidget box
+    leftpad = true,       -- right-justify text in fidget box
     stack_upwards = true, -- list of tasks grows upwards
-    max_width = 0, -- maximum width of the fidget box
+    max_width = 0,        -- maximum width of the fidget box
     -- function to format fidget title
     fidget = function(fidget_name, spinner)
       return string.format("%s %s", spinner, fidget_name)
