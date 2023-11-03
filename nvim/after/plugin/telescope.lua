@@ -47,7 +47,6 @@ require("telescope").setup({
       "%.svg",
       "%.jpeg",
       "build/",
-      "bin/",
     },
   },
   file_previewer = require("telescope.previewers").vim_buffer_cat.new,
