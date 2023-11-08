@@ -5,6 +5,7 @@
 - clean: ['~']
 
 - create:
+    - ~/.config/
     - ~/.config/zsh
 
 - link:
