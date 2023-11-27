@@ -1,55 +1,21 @@
-require("plugins")
+require "core"
 
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.o.hlsearch = false
-vim.o.mouse = "a"
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.updatetime = 30
-vim.o.termguicolors = true
-vim.wo.signcolumn = "yes"
-vim.opt.scrolloff = 10
-vim.opt.wrap = true
-vim.opt.undofile = true
-vim.opt.pumheight = 10
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
-vim.opt.hidden = true
-vim.opt.filetype = 'on'
+local custom_init_path = vim.api.nvim_get_runtime_file("lua/custom/init.lua", false)[1]
 
---Map blankline
-vim.g.indent_blankline_char = "|"
-vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
-vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
-vim.g.indent_blankline_show_trailing_blankline_indent = false
+if custom_init_path then
+  dofile(custom_init_path)
+end
 
-vim.g.gruvbox_baby_transparent_mode = 1
+require("core.utils").load_mappings()
 
-vim.cmd.colorscheme("gruvbox-baby")
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = {
-    "typescriptreact",
-    "typescript",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "html",
-    "lua",
-    "c",
-    "cpp",
-    "h",
-    "hpp",
-    "svelte"
-  },
-  callback = function(e)
-    vim.opt.tabstop = 2
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
-  end,
-})
+-- bootstrap lazy.nvim!
+if not vim.loop.fs_stat(lazypath) then
+  require("core.bootstrap").gen_chadrc_template()
+  require("core.bootstrap").lazy(lazypath)
+end
 
-vim.g.python3_host_prog = "/home/cody/.local/share/virtualenvs/neovim/bin/python3.10"
+dofile(vim.g.base46_cache .. "defaults")
+vim.opt.rtp:prepend(lazypath)
+require "plugins"
