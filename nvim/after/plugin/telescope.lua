@@ -7,7 +7,7 @@ require("telescope").setup({
     prompt_prefix = "",
     selection_caret = "",
     winblend = 0,
-    layout_strategy = "horizontal",
+    layout_strategy = "vertical",
     layout_config = {
       width = 0.75,
       height = 0.90,

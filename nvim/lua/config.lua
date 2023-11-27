@@ -3,7 +3,6 @@ local nnoremap = require("keymap").nnoremap
 
 local completion = require("cmp_nvim_lsp")
 M.on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   local key_mappings = {
     { "referencesProvider",     "n", "gr",        vim.lsp.buf.references },
@@ -30,9 +29,6 @@ M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
   end
-  -- if client.name == "svelte" then
-  --   client.server_capabilities.documentFormattingProvider = false
-  -- end
 
   if client.name == "clangd" then
     nnoremap("<c-h>", "<CMD>ClangdSwitchSourceHeader<CR>", bufopts)

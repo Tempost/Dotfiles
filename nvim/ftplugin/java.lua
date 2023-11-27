@@ -9,7 +9,6 @@ local workspace_dir = "/home/cody/.local/share/eclipse/" .. project_name
 
 -- some generic keybinds
 local on_attach = function(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   nnoremap("K", vim.lsp.buf.hover, bufopts)
   nnoremap("gd", vim.lsp.buf.definition, bufopts) -- zero means current buffer
@@ -88,7 +87,7 @@ local config = {
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
     "-jar",
-    "/opt/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+    "/opt/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.6.600.v20231012-1237.jar",
     "-configuration",
     "/opt/eclipse.jdt.ls/config_linux",
     "-data",
@@ -100,7 +99,7 @@ local config = {
     vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1]
   ),
   init_options = {
-    bundles = bundles,
+    -- bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
   },
   handlers = {
@@ -109,6 +108,7 @@ local config = {
 }
 
 require("jdtls").start_or_attach(config)
+require("jdtls").jol_path = "/opt/jol-cli.jar"
 require("fidget").setup({
   text = {
     spinner = "flip", -- animation shown when tasks are ongoing
