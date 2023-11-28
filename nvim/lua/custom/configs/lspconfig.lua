@@ -5,6 +5,7 @@ local capabilities = config.capabilities
 local lspconfig = require "lspconfig"
 local util = require "lspconfig.util"
 
+vim.g.python3_host_prog = "/home/cody/.local/share/virtualenvs/neovim/bin/python3.10"
 local servers = {
   "html",
   "ccls",
@@ -15,6 +16,7 @@ local servers = {
   "gopls",
   "rust_analyzer",
   "sqlls",
+  "prismals",
 }
 
 for _, lsp in ipairs(servers) do
@@ -184,6 +186,5 @@ lspconfig.jdtls.setup {
   end,
   handlers = {
     ["language/status"] = function() end,
-  },
-  filetype = {"java"}
+  }
 }

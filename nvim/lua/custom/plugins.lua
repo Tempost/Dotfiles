@@ -1,5 +1,4 @@
 local plugins = {
-  {},
   {
     "williamboman/mason.nvim",
     dependencies = {
@@ -11,6 +10,9 @@ local plugins = {
         end,
       },
     },
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
         "lua-language-server",
