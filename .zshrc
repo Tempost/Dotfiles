@@ -4,7 +4,6 @@
 ZSH=/usr/share/oh-my-zsh
 ZSH_THEME="fwalch"
 plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab)
-autoload -U compinit && compinit
 
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$GOPATH/bin"
@@ -80,4 +79,7 @@ _dotnet_zsh_complete()
 
 compdef _dotnet_zsh_complete dotnet
 
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C '/usr/local/bin/aws_completer' aws
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

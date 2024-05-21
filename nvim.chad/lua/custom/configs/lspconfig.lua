@@ -18,10 +18,15 @@ local servers = {
   "sqlls",
   "prismals",
 }
+local my_on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
+end
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    on_attach = on_attach,
+    on_attach = my_on_attach,
     capabilities = capabilities,
   }
 end
@@ -64,19 +69,6 @@ lspconfig.pylsp.setup {
         },
         ruff = {
           enabled = true,
-          format = {
-            "I",
-            "COM",
-            "F",
-            "E",
-            "B",
-            "C4",
-            "PIE",
-            "Q",
-            "RET",
-            "SIM",
-            "PERF",
-          },
           select = {
             "I",
             "E",
@@ -107,39 +99,37 @@ lspconfig.pylsp.setup {
           },
           unfixable = "B",
           ignore = {
+            "Q000",
             "ANN101",
             "ANN001",
+            "ANN002",
+            "ANN003",
             "ANN201",
             "ANN204",
+            "S105",
           },
-        },
-        black = {
-          enabled = true,
-          line_length = 88,
-          cache_config = true,
         },
       },
     },
   },
-  root_dir = function(fname)
-    local root_files = {
-      "pyproject.toml",
-      "setup.py",
-      "setup.cfg",
-      "requirements.txt",
-      "Pipfile",
-    }
-
-    return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname) or vim.fn.expand "%:p:h"
-  end,
 }
+
+lspconfig.spectral.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
 
 lspconfig.jdtls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = {
+    allow_incremental_sync = true,
+  },
   settings = {
     java = {
-      signatureHelp = { enabled = true },
+      home = "user/lib/jvm/java-17-temurin",
       contentProvider = { preferred = "fernflower" },
       format = {
         enabled = false,
@@ -155,6 +145,10 @@ lspconfig.jdtls.setup {
         downloadSources = true,
         updateSnapshots = true,
       },
+      signatureHelp = { enabled = true },
+      references = {
+        includeDecompiledSources = true,
+      },
       telemetry = {
         enabled = false,
       },
@@ -167,24 +161,35 @@ lspconfig.jdtls.setup {
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
-    "-noverify",
-    "-Xmx8G",
+    -- "-noverify",
+    "-Xmx4G",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
     "-jar",
-    "/opt/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.6.600.v20231012-1237.jar",
+    jdtls_path .. "/plugins/org.eclipse.equinox.launcher_1.6.800.v20240304-1850.jar",
     "-configuration",
-    "/opt/eclipse.jdt.ls/config_linux",
+    jdtls_path .. "/config_linux",
     "-data",
     "/home/cody/.local/share/eclipse/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
   },
   root_dir = function()
-    return vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1])
+    return vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw", "pom.xml" }, { upward = true })[1])
   end,
   handlers = {
     ["language/status"] = function() end,
-  }
+  },
 }
+
+vim.diagnostic.config {
+  severity_sort = true,
+  float = {
+    style = "minimal",
+    header = "",
+    source = "always",
+    wrap_at = 80,
+  },
+}
+

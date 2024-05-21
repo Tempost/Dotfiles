@@ -1,42 +1,89 @@
 local plugins = {
   {
-    "williamboman/mason.nvim",
-    dependencies = {
-      {
-        "nvimtools/none-ls.nvim",
-        event = "VeryLazy",
-        config = function()
-          require "custom.configs.none-ls"
-        end,
-      },
-    },
+    "mfussenegger/nvim-dap",
+    config = function(_, opts)
+      require("core.utils").load_mappings "dap"
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require "dap"
+      local dapui = require "dapui"
+      dapui.setup()
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.after.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+
+      dap.listeners.after.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = { "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui" },
+    config = function(_, opts)
+      local path = "$HOME/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      require("dap-python").setup(path)
+      require("core.utils").load_mappings "dap_python"
+    end,
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.none-ls"
+    end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    cmd = { "PyLspInstall", "JdtShowLogs" },
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = {
+          ensure_installed = {
+            "stylua",
+            "prettier",
+            "google-java-format",
+            "debugpy",
+          },
+        },
+      },
+    },
     opts = {
       ensure_installed = {
-        "lua-language-server",
-        "html-lsp",
-        "css-lsp",
-        "tailwindcss-language-server",
-        "prisma-language-server",
-        "stylua",
-        "prettier",
-        "eslint-lsp",
-        "python-lsp-server",
-        "rust-analyzer",
-        "typescript-language-server",
+        "lua_ls",
+        "html",
+        "cssls",
+        "tailwindcss",
+        "prismals",
+        "pylsp",
+        "rust_analyzer",
+        "tsserver",
         "gopls",
-        "google-java-format",
-        "black",
         "jdtls",
         "sqlls",
-        "bash-language-server",
+        "bashls",
+        "spectral",
       },
     },
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "nvimtools/none-ls.nvim",
+        "williamboman/mason-lspconfig.nvim",
+      },
+    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"

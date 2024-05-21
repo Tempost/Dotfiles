@@ -26,7 +26,7 @@ alias db-node='ssh 192.168.1.20'
 
 iter-resources() {
     arg=$1
-    namespace="${:-default}"
+    namespace="${arg:-default}"
     kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $namespace
 }
 
@@ -34,6 +34,43 @@ alias nvimconf=neovim_config()
 neovim_config() {
     cd /home/cody/.config/nvim/
     nvim
+}
+
+json-logs() {
+    gum style \
+        --border rounded \
+        --margin "1" \
+        --padding "1" \
+        --border-foreground "$KUBE_COLOR" \
+        "Choose a $(kube_colors "Namespace")."
+
+    namespaces=$(gum spin --spinner dot --title "Fetching namespaces.." --show-output -- \
+        kubectl get namespace --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+
+    if [ -z $namespaces ]; then
+        return;
+    fi
+    namespace_choice=$(echo $namespaces | gum filter --height=10)
+    clear
+
+    gum style \
+        --border rounded \
+        --margin "1" \
+        --padding "1" \
+        --border-foreground "$KUBE_COLOR" \
+        "Choose a $(kube_colors "⎈ Pod"). ($namespace_choice)"
+
+    pods=$(
+        gum spin --spinner dot --title "Fetching pods..." --show-output -- \
+            kubectl get po -n $namespace_choice --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+    )
+
+    if [ -z $pods ]; then
+        return;
+    fi
+    pod_choice=$(echo $pods | gum filter --height=10)
+
+    kcl -n $namespace_choice $pod_choice -f | jq -R '. as $line | try (fromjson) catch $line'
 }
 
 bin-diff() {
@@ -53,40 +90,6 @@ kube_colors() {
     gum style --foreground "$KUBE_COLOR" "$text"
 }
 
-pod-logs() {
-    gum style \
-        --border rounded \
-        --margin "1" \
-        --padding "1" \
-        --border-foreground "$KUBE_COLOR" \
-        "Choose a $(kube_colors "⎈ Pod")."
-
-    pods=$(
-        gum spin --spinner dot --title "Fetching pods..." --show-output -- \
-            kubectl get po --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
-    )
-
-    if [ -z $pods ]; then
-        return;
-    fi
-    pod_choice=$(echo $pods | gum filter --height=10)
-    choice=$(gum choose "info" "logs" "access")
-
-    case $choice in
-        info)
-            gum spin --spinner dot --title "Fetching pod info..." --show-output -- kubectl get po $pod_choice
-            ;;
-        logs)
-            clear
-            kubectl logs $pod_choice --follow
-            ;;
-        access)
-            clear
-            kubectl exec $pod_choice -it -- bash
-    esac
-
-}
-
 activate() {
     gum style \
         --border rounded \
@@ -94,11 +97,15 @@ activate() {
         --padding "1" \
         --border-foreground "$VENV_COLOR" \
         "Choose a $(venv_colors "🐍Python VENV") to activate."
-    choice=$(gum choose "portal" "auth" "internal" "migration" "scheduler" "playground")
+    choice=$(gum choose "portal" "idp-api" "auth" "internal" "migration" "scheduler" "playground", "analytics")
 
     case $choice in
         portal)
             . /home/cody/.local/share/virtualenvs/portal/bin/activate;
+            clear
+            ;;
+        idp-api)
+            . /home/cody/.local/share/virtualenvs/idp-api/bin/activate;
             clear
             ;;
         auth)
@@ -115,6 +122,10 @@ activate() {
             ;;
         internal)
             . /home/cody/.local/share/virtualenvs/internal/bin/activate;
+            clear
+            ;;
+        analytics)
+            . /home/cody/.local/share/virtualenvs/analytics-api/bin/activate;
             clear
             ;;
         playground)

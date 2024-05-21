@@ -12,9 +12,7 @@ null_ls.setup {
   border = "rounded",
   sources = {
     diagnostics.tidy.with { disabled_filetypes = { "xml" } },
-    diagnostics.eslint,
     formatting.prettier.with { disabled_filetypes = { "json" } },
-    formatting.beautysh,
     formatting.google_java_format,
     formatting.stylua,
   },
