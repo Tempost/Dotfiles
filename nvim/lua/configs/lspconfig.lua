@@ -7,13 +7,13 @@ local servers = {
   "html",
   "ccls",
   "clangd",
-  "jsonls",
   "bashls",
   "tailwindcss",
   "gopls",
   "rust_analyzer",
   "sqlls",
   "prismals",
+  "jsonls",
   "spectral",
 }
 
@@ -62,7 +62,6 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
--- typescript
 lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -98,6 +97,142 @@ lspconfig.lua_ls.setup {
         },
         maxPreload = 100000,
         preloadFileSize = 10000,
+      },
+    },
+  },
+}
+
+local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
+local launcher_path = vim.fs.find(function(name, _)
+  return name:match "org.eclipse.equinox.launcher_.*"
+end, { path = jdtls_path .. "/plugins" })[1]
+
+lspconfig.jdtls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    allow_incremental_sync = true,
+  },
+  settings = {
+    java = {
+      home = "user/lib/jvm/java-17-temurin",
+      contentProvider = { preferred = "fernflower" },
+      format = {
+        enabled = false,
+        settings = {
+          profile = "GoogleStyle",
+          url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+        },
+      },
+      eclipse = {
+        downloadSources = true,
+      },
+      maven = {
+        downloadSources = true,
+        updateSnapshots = true,
+      },
+      signatureHelp = { enabled = true },
+      references = {
+        includeDecompiledSources = true,
+      },
+      telemetry = {
+        enabled = false,
+      },
+    },
+  },
+  cmd = {
+    "java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    -- "-noverify",
+    "-Xmx4G",
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens",
+    "java.base/java.util=ALL-UNNAMED",
+    "--add-opens",
+    "java.base/java.lang=ALL-UNNAMED",
+    "-jar",
+    launcher_path,
+    "-configuration",
+    jdtls_path .. "/config_linux",
+    "-data",
+    "/home/cody/.local/share/eclipse/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
+  },
+  root_dir = function()
+    return vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw", "pom.xml" }, { upward = true })[1])
+  end,
+  handlers = {
+    ["language/status"] = function() end,
+  },
+}
+
+local enable_providers = {
+  "python3_provider",
+}
+
+-- TODO: Move this to a util file
+for _, plugin in pairs(enable_providers) do
+  vim.g["loaded_" .. plugin] = nil
+  vim.cmd("runtime " .. plugin)
+end
+
+vim.g.python3_host_prog = vim.fn.stdpath "data" .. "/virtualenvs/neovim/bin/python3.10"
+
+lspconfig.pylsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    pylsp = {
+      configurationSources = "flake8",
+      plugins = {
+        jedi_completion = { eager = true, fuzzy = true },
+        rope_completion = { enable = true, eager = true },
+        ruff = {
+          enabled = true,
+          select = {
+            "I",
+            "E",
+            "F",
+            "B",
+            "Q",
+            "ANN",
+            "W",
+            "C90",
+            "N",
+            "S",
+            "A",
+            "COM",
+            "C4",
+            "SIM",
+            "ARG",
+            "TID",
+            "PTH",
+            "PLE",
+            "PLR",
+            "TRY",
+            "RUF",
+            "ASYNC",
+            "FBT",
+            "PIE",
+            "RET",
+            "PERF",
+          },
+          targetVersion = "py38",
+          unfixable = "B",
+          ignore = {
+            "Q000",
+            "ANN101",
+            "ANN001",
+            "ANN002",
+            "ANN003",
+            "ANN201",
+            "ANN204",
+            "S105",
+          },
+        },
       },
     },
   },

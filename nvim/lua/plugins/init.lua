@@ -48,6 +48,7 @@ return {
         "lua-language-server",
         "typescript-language-server",
         "prettier",
+        "json-ls",
         "tailwindcss-language-server",
         "prisma-language-server",
         "python-lsp-server",
