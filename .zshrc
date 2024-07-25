@@ -5,6 +5,8 @@ ZSH=/usr/share/oh-my-zsh
 ZSH_THEME="fwalch"
 plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab)
 
+export COLORTERM="truecolor"
+
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$GOPATH/bin"
 export JAVA_HOME=/usr/lib/jvm/java-17-temurin
