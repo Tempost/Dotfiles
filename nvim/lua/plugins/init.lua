@@ -31,7 +31,6 @@ return {
           package_installed = "󰄳 ",
           package_uninstalled = " 󰚌",
         },
-
         keymaps = {
           toggle_server_expand = "<CR>",
           install_server = "i",
@@ -42,23 +41,6 @@ return {
           uninstall_server = "X",
           cancel_installation = "<C-c>",
         },
-      },
-      ensure_installed = {
-        "stylua",
-        "lua-language-server",
-        "typescript-language-server",
-        "prettier",
-        "json-ls",
-        "tailwindcss-language-server",
-        "prisma-language-server",
-        "python-lsp-server",
-        "rust-analyzer",
-        "gopls",
-        "jdtls",
-        "google-java-format",
-        "sqlls",
-        "bash-language-server",
-        "spectral-language-server",
       },
     },
   },
@@ -128,5 +110,5 @@ return {
         end)
       end
     end,
-  }
+  },
 }

@@ -15,6 +15,7 @@ local servers = {
   "prismals",
   "jsonls",
   "spectral",
+  "nginx_language_server",
 }
 
 require("neodev").setup()
@@ -24,7 +25,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local map = vim.keymap.set
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
-    if client.name == "tsserver" then
+    if client.name == "ts_ls" then
       client.server_capabilities.documentFormattingProvider = false
     end
 
@@ -62,7 +63,7 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {

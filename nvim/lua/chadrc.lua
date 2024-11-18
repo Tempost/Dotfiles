@@ -1,21 +1,44 @@
--- This file  needs to have same structure as nvconfig.lua 
+-- This file  needs to have same structure as nvconfig.lua
 -- https://github.com/NvChad/NvChad/blob/v2.5/lua/nvconfig.lua
 
----@type ChadrcConfig
+---@class ChadrcConfig
 local M = {}
 
 M.ui = {
-	theme = "everforest",
-  transparency = false,
   lsp_semantic_tokens = true,
-  telescope = {
-    style = "bordered"
-  }
+    telescope = {
+      style = "bordered",
+    },
+}
 
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+M.base46 = {
+  theme = "everforest",
+  transparency = false,
+  hl_override = {
+    Comment = { italic = true },
+    ["@comment"] = { italic = true },
+  },
+}
+
+M.mason = {
+  cmd = true,
+  pkgs = {
+    "stylua",
+    "lua-language-server",
+    "typescript-language-server",
+    "prettier",
+    "json-ls",
+    "tailwindcss-language-server",
+    "prisma-language-server",
+    "python-lsp-server",
+    "rust-analyzer",
+    "gopls",
+    "jdtls",
+    "google-java-format",
+    "sqlls",
+    "bash-language-server",
+    "spectral-language-server",
+  },
 }
 
 return M
