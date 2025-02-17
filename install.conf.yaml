@@ -2,19 +2,18 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - create:
     - ~/.config/zsh
 
 - link:
     ~/.tmux.conf: .tmux.conf
-    ~/.Xresources: .Xresources
     ~/.bash_aliases: .bash_aliases
     ~/.fonts: .fonts
     ~/.config/zsh/.zprofile: .zprofile
     ~/.config/zsh/.zshrc: .zshrc
-    ~/.config/nvim: nvim 
+    ~/.config/nvim: nvim
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]

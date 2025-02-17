@@ -9,4 +9,4 @@ export SHELL="zsh"
 export PATH=${PATH}":$HOME/.local/scripts:$XDG_DATA_HOME/cargo/bin:/usr/local/go/bin"
 . "$XDG_DATA_HOME/cargo/env"
 
-export PAGER=most man ls
+export PAGER="most -s"
