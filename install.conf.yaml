@@ -8,7 +8,7 @@
     - ~/.config/zsh
 
 - link:
-    ~/.tmux.conf: .tmux.conf
+    ~/tmux/tmux.conf: .tmux.conf
     ~/.bash_aliases: .bash_aliases
     ~/.fonts: .fonts
     ~/.config/zsh/.zprofile: .zprofile

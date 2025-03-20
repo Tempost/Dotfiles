@@ -11,27 +11,20 @@ export GOPATH="$HOME/.local/share/go"
 export GOBIN="$GOPATH/bin"
 export JAVA_HOME=/usr/lib/jvm/java-17-temurin
 export JAVA_LSP=/opt/eclipse.jdt.ls
-export MAVEN=/opt/apache-maven-3.8.6
-export SPRING=/opt/spring-3.0.0
-export GRADLE=/opt/gradle/gradle-7.6
-export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin:$MAVEN/bin:$SPRING/bin:$GRADLE/bin"
+export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin"
 export AWS_PROFILE=823298410396_AWSPowerUserAccess
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
-export OMNISHARPHOME="$XDG_CONFIG_HOME"/omnisharp
-export NVM_DIR="$XDG_DATA_HOME"/nvm
-export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
-export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
-export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
-export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
-export CARGO_HOME="$XDG_DATA_HOME"/cargo
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-export FZF_PATH="$XDG_CONFIG_HOME"/fzf
-
-export DPCPP_HOME=~/Source/c_cpp/sycl_workspace
+export NVM_DIR="$XDG_DATA_HOME/nvm"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
+export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export FZF_PATH="$XDG_CONFIG_HOME/fzf"
 
 if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
   [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1
@@ -39,7 +32,7 @@ fi
 
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
-ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
@@ -55,31 +48,12 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-if [ -e /home/cody/.nix-profile/etc/profile.d/nix.sh ]; then . /home/cody/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 # pnpm
 export PNPM_HOME="/home/cody/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
-
-_dotnet_zsh_complete()
-{
-  local completions=("$(dotnet complete "$words")")
-
-  # If the completion list is empty, just continue with filename selection
-  if [ -z "$completions" ]
-  then
-    _arguments '*::arguments: _normal'
-    return
-  fi
-
-  # This is not a variable assignment, don't remove spaces!
-  _values = "${(ps:\n:)completions}"
-}
-
-compdef _dotnet_zsh_complete dotnet
 
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit

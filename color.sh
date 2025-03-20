@@ -2,7 +2,7 @@
 # Based on: https://gist.github.com/XVilka/8346728
 
 awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
-    s="/\\";
+    s="  ";
     for (colnum = 0; colnum<term_cols; colnum++) {
         r = 255-(colnum*255/term_cols);
         g = (colnum*510/term_cols);
