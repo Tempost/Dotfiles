@@ -1,0 +1,187 @@
+{
+  "layer": "top",
+  "modules-left": ["hyprland/workspaces", "systemd-failed-units"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [
+    "custom/power-left-end",
+    "group/power",
+    "cpu",
+    "temperature",
+    "custom/tray-left-end",
+    "group/sys-tray",
+    "pulseaudio",
+    "custom/clock-icon",
+    "clock",
+    "custom/notifications",
+  ],
+
+  "group/cpu": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "temperature"],
+  },
+
+  "temperature": {
+    "interval": 1,
+    "format": "  {temperatureC}°C",
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input",
+  },
+
+  "cpu": {
+    "format": "   {usage}%",
+    "interval": 1,
+  },
+
+  "custom/notifications": {
+    "tooltip": false,
+    "format": " {icon} ",
+    "format-icons": {
+      "notification": "",
+      "none": "",
+      "dnd-notification": "",
+      "dnd-none": "",
+      "inhibited-notification": "",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "",
+      "dnd-inhibited-none": "",
+    },
+
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+  },
+
+  "custom/shutdown": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "$HOME/Scripts/Power -s",
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "rewrite": {
+      "(.*)Legcord(.*)": "Discord",
+    },
+  },
+
+  "systemd-failed-units": {
+    "hide-on-ok": true, // Do not hide if there is zero failed units.
+    "format": "✗ {nr_failed}",
+    "system": true, // Monitor failed systemwide units.
+    "user": true, // Ignore failed user units.
+  },
+
+  "custom/reboot": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "$HOME/Scripts/Power -r",
+  },
+
+  "custom/logout": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "$HOME/Scripts/Power -l",
+  },
+
+  "custom/firmware": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "$HOME/Scripts/Power -f",
+  },
+
+  "custom/suspend": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "hyprlock & sleep 1; systemctl suspend",
+  },
+
+  "custom/divider": {
+    "format": "|",
+    "tooltip": "flase",
+  },
+
+  "custom/power-left-end": {
+    "format": " ",
+    "tooltip": false,
+  },
+
+  "group/power": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 600,
+      "transition-left-to-right": false,
+    },
+    "modules": [
+      "custom/shutdown",
+      "custom/firmware",
+      "custom/divider",
+      "custom/suspend",
+      "custom/divider",
+      "custom/logout",
+      "custom/divider",
+      "custom/reboot",
+      "custom/divider",
+    ],
+  },
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 12,
+  },
+
+  "custom/tray-collapsed": {
+    "format": "󰇙",
+    "tooltip": false,
+  },
+
+  "custom/tray-left-end": {
+    "format": " ",
+    "tooltip": false,
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "show-special": true,
+    "format-icons": {
+      "active": "",
+      "default": "",
+      "special": "",
+      "urgent": "",
+    },
+  },
+
+  "group/sys-tray": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 600,
+      "transition-left-to-right": false,
+    },
+    "modules": ["custom/tray-collapsed", "tray"],
+  },
+
+  "custom/clock-icon": {
+    "format": " ",
+    "tooltip": false,
+  },
+
+  "clock": {
+    "format": "{:%I:%M:%S %p} ",
+    "interval": 1,
+    "tooltip": false,
+  },
+
+  "pulseaudio": {
+    "format": "{icon}    {volume}%",
+    "format-muted": "{icon}",
+    "format-icons": {
+      "alsa_output.usb-JDS_Labs_JDS_Labs_Atom_DAC-00.analog-stereo": "󰋋",
+      "alsa_output.usb-JDS_Labs_JDS_Labs_Atom_DAC-00.analog-stereo-muted": "󰟎",
+      "alsa_output.pci-0000_00_1f.3.iec958-stereo": ["", ""],
+      "alsa_output.pci-0000_00_1f.3.iec958-stereo-muted": "",
+    },
+    "tooltip": false,
+    "scroll-step": 2,
+    "on-click": "pavucontrol",
+  },
+}

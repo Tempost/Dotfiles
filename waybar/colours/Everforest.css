@@ -1,0 +1,7 @@
+@define-color bg #2D353B;
+@define-color bg-light #323F44;
+@define-color border #514045;
+@define-color fg #D3C6AA;
+@define-color accent #A7C080;
+@define-color icons @accent;
+@define-color inactive #4F585E;

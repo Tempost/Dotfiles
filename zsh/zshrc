@@ -1,0 +1,45 @@
+ZSH=/usr/share/oh-my-zsh
+ZSH_THEME="fwalch"
+plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab tmux)
+fpath+=~/.config/zsh/.zfunc
+autoload -U compinit
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+
+export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_AUTOSTART_ONCE=true
+export ZSH_TMUX_AUTOQUIT=false
+export GOPATH="$XDG_DATA_HOME"/go
+export GOBIN="$GOPATH/bin"
+export PATH="$PATH:/home/cody/.local/bin:$GOPATH"
+export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export FZF_PATH="$XDG_CONFIG_HOME"/fzf
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
+export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
+export NVM_DIR="$XDG_DATA_HOME"/nvm
+export MANPAGER='nvim +Man! +"set nocul" +"set noshowcmd" +"set noruler" +"set noshowmode" +"set laststatus=0"'
+
+ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
+
+source $ZSH/oh-my-zsh.sh
+
+# pnpm
+export PNPM_HOME="/home/cody/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+source $HOME/.bash_aliases
+alias ls='lsd'
+source /usr/share/nvm/init-nvm.sh

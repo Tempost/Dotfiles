@@ -2,20 +2,31 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - create:
     - ~/.config/
-    - ~/.config/zsh
+    - ~/.config/tmux/plugins
+    - ~/.local/share/fonts
+    - ~/.cache/zsh
 
 - link:
-    ~/.tmux.conf: .tmux.conf
-    ~/.Xresources: .Xresources
     ~/.bash_aliases: .bash_aliases
-    ~/.fonts: .fonts
-    ~/.config/zsh/.zprofile: .zprofile
-    ~/.config/zsh/.zshrc: .zshrc
-    ~/.config/nvim: nvim 
+    ~/.local/share/fonts: fonts
+    ~/.config/zsh:
+      create: true
+      path: zsh/**
+      glob: true
+      prefix: "."
+    ~/.config/nvim: nvim
+    ~/.config/hypr: hypr
+    ~/.config/waybar: waybar
+    ~/.config/tmux/tmux.conf: tmux/tmux.conf
+    ~/.config/rofi: rofi
+    ~/.config/kitty: kitty
+    ~/.config/swaync: swaync
+    ~/.config/gtk-3.0: gtk-3.0
+    ~/.config/gtk-4.0: gtk-4.0
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]
