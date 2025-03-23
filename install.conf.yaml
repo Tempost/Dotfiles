@@ -27,6 +27,12 @@
     ~/.config/swaync: swaync
     ~/.config/gtk-3.0: gtk-3.0
     ~/.config/gtk-4.0: gtk-4.0
+    ~/.local/scripts/workspaces:
+      create: false
+      glob: true
+      path: scripts/workspaces
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - command: chmod +x scripts/*
+      description: Making scripts executable
