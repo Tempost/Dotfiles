@@ -9,7 +9,7 @@ export COLORTERM="truecolor"
 
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$GOPATH/bin"
-export JAVA_HOME=/usr/lib/jvm/java-17-temurin
+export JAVA_HOME=/usr/lib/jvm/java-21-temurin
 export JAVA_LSP=/opt/eclipse.jdt.ls
 export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin"
 export AWS_PROFILE=823298410396_AWSPowerUserAccess
@@ -60,3 +60,5 @@ autoload -Uz compinit && compinit
 complete -C '/usr/local/bin/aws_completer' aws
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source /usr/share/nvm/init-nvm.sh
+
+. "$HOME/.local/share/../bin/env"

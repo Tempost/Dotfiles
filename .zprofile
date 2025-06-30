@@ -11,3 +11,5 @@ export PATH=${PATH}":$HOME/.local/scripts:$XDG_DATA_HOME/cargo/bin:/usr/local/go
 
 export PAGER="most -s"
 export MANPAGER="nvim +Man!"
+
+export GPG_TTY=$(tty)
