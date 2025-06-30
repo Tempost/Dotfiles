@@ -19,6 +19,7 @@ alias kcl='kubectl logs'
 alias kc='kubectl'
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias vim-new='NVIM_APPNAME="nvim-new" nvim'
 
 alias test-jump='ssh 3.82.250.136'
 alias kube-node='ssh 192.168.1.21'
