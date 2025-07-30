@@ -1,7 +1,7 @@
 {
   "layer": "top",
-  "modules-left": ["hyprland/workspaces", "systemd-failed-units"],
-  "modules-center": ["hyprland/window"],
+  "modules-left": ["niri/workspaces", "systemd-failed-units"],
+  "modules-center": ["niri/window"],
   "modules-right": [
     "custom/power-left-end",
     "group/power",
@@ -9,7 +9,7 @@
     "temperature",
     "custom/tray-left-end",
     "group/sys-tray",
-    "pulseaudio",
+    "wireplumber",
     "custom/clock-icon",
     "clock",
     "custom/notifications",
@@ -23,7 +23,7 @@
   "temperature": {
     "interval": 1,
     "format": "  {temperatureC}°C",
-    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input",
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input",
   },
 
   "cpu": {
@@ -58,7 +58,7 @@
     "tooltip": false,
     "on-click": "$HOME/Scripts/Power -s",
   },
-  "hyprland/window": {
+  "niri/window": {
     "format": "{title}",
     "rewrite": {
       "(.*)Legcord(.*)": "Discord",
@@ -171,17 +171,13 @@
     "tooltip": false,
   },
 
-  "pulseaudio": {
+  "wireplumber": {
     "format": "{icon}    {volume}%",
-    "format-muted": "{icon}",
-    "format-icons": {
-      "alsa_output.usb-JDS_Labs_JDS_Labs_Atom_DAC-00.analog-stereo": "󰋋",
-      "alsa_output.usb-JDS_Labs_JDS_Labs_Atom_DAC-00.analog-stereo-muted": "󰟎",
-      "alsa_output.pci-0000_00_1f.3.iec958-stereo": ["", ""],
-      "alsa_output.pci-0000_00_1f.3.iec958-stereo-muted": "",
-    },
-    "tooltip": false,
+    "format-muted": "",
+    "format-icons": ["", ""],
+    "tooltip": true,
     "scroll-step": 2,
-    "on-click": "pavucontrol",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": ".local/scripts/chsink",
   },
 }

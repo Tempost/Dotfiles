@@ -20,6 +20,7 @@
       prefix: "."
     ~/.config/nvim: nvim
     ~/.config/hypr: hypr
+    ~/.config/niri: niri
     ~/.config/waybar: waybar
     ~/.config/tmux/tmux.conf: tmux/tmux.conf
     ~/.config/rofi: rofi

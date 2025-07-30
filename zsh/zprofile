@@ -1,4 +1,4 @@
-export XDF_RUNTIME_DIR=/run/user/$UID
+export XDG_RUNTIME_DIR=/run/user/$UID
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
@@ -15,4 +15,4 @@ export PAGER=most man ls
 export BROWSER=zen-browser
 
 # [ "$(tty)" = "/dev/tty1" ] && exec systemd-cat --identifier=sway sway
-[ "$(tty)" = "/dev/tty1" ] && exec hyprland 
+# [ "$(tty)" = "/dev/tty1" ] && exec hyprland 

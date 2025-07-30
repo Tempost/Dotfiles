@@ -2,7 +2,7 @@ configuration {
   modes: "window,drun,run,ssh";
   font: "JetBrainsMono Nerd Font 12";
   show-icons: true;
-  terminal: "alacritty";
+  terminal: "kitty";
   hover-select: true;
   fixed-num-lines: false;
 
