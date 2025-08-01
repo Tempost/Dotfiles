@@ -1,9 +1,9 @@
 return {
   {
-    'neanias/everforest-nvim',
+    "neanias/everforest-nvim",
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme everforest]])
+      require("everforest").load()
     end,
   },
 }
