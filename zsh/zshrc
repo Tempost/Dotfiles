@@ -38,6 +38,7 @@ source $ZSH/oh-my-zsh.sh
 export PNPM_HOME="/home/cody/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 source $HOME/.bash_aliases

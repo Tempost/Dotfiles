@@ -5,6 +5,7 @@
   "modules-right": [
     "custom/power-left-end",
     "group/power",
+    "memory",
     "cpu",
     "temperature",
     "custom/tray-left-end",
@@ -23,12 +24,19 @@
   "temperature": {
     "interval": 1,
     "format": "  {temperatureC}°C",
+    "tooltip": false,
     "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input",
   },
 
   "cpu": {
     "format": "   {usage}%",
     "interval": 1,
+  },
+
+  "memory": {
+    "interval": 1,
+    "format": "   {percentage}%",
+    "tooltip-format": "Phsyical: {used:0.1f}GiB/{total}GiB\nSwap:      {swapUsed:0.1f}GiB/{swapTotal}GiB",
   },
 
   "custom/notifications": {
@@ -98,7 +106,7 @@
 
   "custom/divider": {
     "format": "|",
-    "tooltip": "flase",
+    "tooltip": false,
   },
 
   "custom/power-left-end": {
@@ -175,7 +183,6 @@
     "format": "{icon}    {volume}%",
     "format-muted": "",
     "format-icons": ["", ""],
-    "tooltip": true,
     "scroll-step": 2,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-click-right": ".local/scripts/chsink",

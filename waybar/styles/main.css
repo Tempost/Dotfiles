@@ -10,6 +10,10 @@ window#waybar.empty #window {
   transition: none;
 }
 
+tooltip {
+  background-color: @bg-light;
+}
+
 #workspaces,
 #custom-notifications {
   border-radius: 8px;
@@ -27,6 +31,7 @@ window#waybar.empty #window {
 #workspaces,
 #clock,
 #cpu,
+#memory,
 #temperature,
 #tray,
 #window,
@@ -72,6 +77,7 @@ window#waybar.empty #window {
 #custom-suspend,
 #clock,
 #cpu,
+#memory,
 #temperature,
 #wireplumber,
 #custom-clock-icon,
@@ -103,7 +109,9 @@ window#waybar.empty #window {
   margin-right: 15px;
 }
 
+tooltip,
 #cpu,
+#memory,
 #temperature,
 #wireplumber {
   color: @fg;
