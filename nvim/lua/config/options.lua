@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.g.python3_host_prog = "/home/cody/.local/share/virtualenvs/neovim/bin/python3"
+-- vim.g.lazyvim_python_lsp = "basedpyright"

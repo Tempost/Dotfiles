@@ -20,7 +20,7 @@ return {
     },
   },
   {
-    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = { "lua_ls" },
     },

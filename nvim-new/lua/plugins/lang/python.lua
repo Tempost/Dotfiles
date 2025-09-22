@@ -12,7 +12,7 @@ return {
     opts = { ensure_installed = { "python", "jinja", "jinja_inline", "ninja", "rst" } },
   },
   {
-    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
         "ruff",

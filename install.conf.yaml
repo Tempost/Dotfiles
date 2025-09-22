@@ -5,15 +5,15 @@
 - clean: ["~"]
 
 - create:
+    - ~/.config/tmux
     - ~/.config/zsh
 
 - link:
-    ~/tmux/tmux.conf: .tmux.conf
-    ~/.bash_aliases: .bash_aliases
-    ~/.fonts: .fonts
-    ~/.config/zsh/.zprofile: .zprofile
-    ~/.config/zsh/.zshrc: .zshrc
     ~/.config/nvim: nvim
+    ~/.bash_aliases: .bash_aliases
+    ~/.config/tmux/tmux.conf: tmux/tmux.conf
+    ~/.config/zsh/.zprofile: zsh/zprofile
+    ~/.config/zsh/.zshrc: zsh/zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

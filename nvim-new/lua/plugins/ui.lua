@@ -15,7 +15,7 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      scroll = { enabled = false },
+      scroll = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
       notifier = { enabled = true },
@@ -50,6 +50,10 @@ return {
         },
       },
     },
+  },
+  {
+    "folke/snacks.nvim",
+    opts = {},
   },
   {
     "folke/noice.nvim",

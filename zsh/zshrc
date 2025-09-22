@@ -3,7 +3,9 @@
 #
 ZSH=/usr/share/oh-my-zsh
 ZSH_THEME="fwalch"
-plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab)
+plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab kubectl)
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export COLORTERM="truecolor"
 
@@ -62,3 +64,4 @@ complete -C '/usr/local/bin/aws_completer' aws
 source /usr/share/nvm/init-nvm.sh
 
 . "$HOME/.local/share/../bin/env"
+[ -f $XDG_CONFIG_HOME/zsh/fubectl.source ] && source $XDG_CONFIG_HOME/zsh/fubectl.source
