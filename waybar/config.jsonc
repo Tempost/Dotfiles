@@ -3,14 +3,13 @@
   "modules-left": ["niri/workspaces", "systemd-failed-units"],
   "modules-center": ["niri/window"],
   "modules-right": [
-    "custom/power-left-end",
-    "group/power",
     "memory",
     "cpu",
-    "temperature",
+    "temperature#cpu",
+    "temperature#gpu",
     "custom/tray-left-end",
     "group/sys-tray",
-    "wireplumber",
+    "pulseaudio",
     "custom/clock-icon",
     "clock",
     "custom/notifications",
@@ -21,11 +20,18 @@
     "modules": ["cpu", "temperature"],
   },
 
-  "temperature": {
+  "temperature#cpu": {
     "interval": 1,
     "format": "  {temperatureC}°C",
     "tooltip": false,
-    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input",
+    "hwmon-path": "/sys/devices/platform/nct6775.656/hwmon/hwmon2/temp13_input",
+  },
+
+  "temperature#gpu": {
+    "interval": 1,
+    "format": "  {temperatureC}°C",
+    "tooltip": false,
+    "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon1/temp1_input",
   },
 
   "cpu": {
@@ -61,11 +67,6 @@
     "escape": true,
   },
 
-  "custom/shutdown": {
-    "format": " ",
-    "tooltip": false,
-    "on-click": "$HOME/Scripts/Power -s",
-  },
   "niri/window": {
     "format": "{title}",
     "rewrite": {
@@ -80,57 +81,9 @@
     "user": true, // Ignore failed user units.
   },
 
-  "custom/reboot": {
-    "format": "  ",
-    "tooltip": false,
-    "on-click": "$HOME/Scripts/Power -r",
-  },
-
-  "custom/logout": {
-    "format": "  ",
-    "tooltip": false,
-    "on-click": "$HOME/Scripts/Power -l",
-  },
-
-  "custom/firmware": {
-    "format": "  ",
-    "tooltip": false,
-    "on-click": "$HOME/Scripts/Power -f",
-  },
-
-  "custom/suspend": {
-    "format": "  ",
-    "tooltip": false,
-    "on-click": "hyprlock & sleep 1; systemctl suspend",
-  },
-
   "custom/divider": {
     "format": "|",
     "tooltip": false,
-  },
-
-  "custom/power-left-end": {
-    "format": " ",
-    "tooltip": false,
-  },
-
-  "group/power": {
-    "orientation": "horizontal",
-    "drawer": {
-      "transition-duration": 600,
-      "transition-left-to-right": false,
-    },
-    "modules": [
-      "custom/shutdown",
-      "custom/firmware",
-      "custom/divider",
-      "custom/suspend",
-      "custom/divider",
-      "custom/logout",
-      "custom/divider",
-      "custom/reboot",
-      "custom/divider",
-    ],
   },
 
   "tray": {
@@ -179,12 +132,21 @@
     "tooltip": false,
   },
 
-  "wireplumber": {
+  // "wireplumber": {
+  //   "format": "{icon}    {volume}%",
+  //   "format-muted": "",
+  //   "format-icons": ["", ""],
+  //   "scroll-step": 2,
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+  //   "on-click-right": ".local/scripts/chsink",
+  // },
+
+  "pulseaudio": {
     "format": "{icon}    {volume}%",
     "format-muted": "",
     "format-icons": ["", ""],
     "scroll-step": 2,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-click-right": ".local/scripts/chsink",
+    "on-click-right": "pavucontrol",
   },
 }

@@ -2,9 +2,11 @@ prefer-no-csd
 
 environment {
     QT_QPA_PLATFORM "wayland"
-    DISPLAY ":0"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     _JAVA_AWT_WM_NONREPARENTING "1"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
 }
 
 cursor {
@@ -41,7 +43,6 @@ input {
     }
 
     focus-follows-mouse
-    warp-mouse-to-focus
     workspace-auto-back-and-forth
 }
 
@@ -58,14 +59,8 @@ output "HDMI-A-1" {
 }
 
 workspace "general"
-
-workspace "steam" {
-    open-on-output "HDMI-A-1"
-}
-
-workspace "discord" {
-    open-on-output "HDMI-A-1"
-}
+workspace "steam"
+workspace "discord"
 
 window-rule {
     geometry-corner-radius 1
@@ -118,11 +113,13 @@ layout {
     }
 }
 
-spawn-at-startup "nm-applet"
 spawn-at-startup "waybar"
 spawn-at-startup "swaync"
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "legcord"
+spawn-at-startup "steam"
+spawn-sh-at-startup "swww-daemon"
+spawn-sh-at-startup "swww img ~/Pictures/ruins.png"
+spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -142,6 +139,13 @@ window-rule {
     focus-ring {
         off
     }
+}
+
+window-rule {
+    match app-id=r#"org\.cachyos\$"#
+    open-floating true
+    default-column-width { proportion 0.35;}
+    default-window-height { fixed 500; }
 }
 
 window-rule {
@@ -388,5 +392,5 @@ binds {
 
     Ctrl+Alt+Delete { quit; }
 
-    Mod+Shift+P { power-off-monitors; }
+    Mod+Shift+P { spawn-sh "$HOME/.local/scripts/power"; }
 }

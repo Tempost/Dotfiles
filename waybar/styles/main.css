@@ -35,7 +35,7 @@ tooltip {
 #temperature,
 #tray,
 #window,
-#wireplumber {
+#pulseaudio {
   background: @bg-light;
 }
 
@@ -79,7 +79,7 @@ tooltip {
 #cpu,
 #memory,
 #temperature,
-#wireplumber,
+#pulseaudio,
 #custom-clock-icon,
 #systemd-failed-units,
 #custom-audio-icon {
@@ -113,7 +113,7 @@ tooltip,
 #cpu,
 #memory,
 #temperature,
-#wireplumber {
+#pulseaudio {
   color: @fg;
   border-radius: 8px;
   margin-right: 15px;

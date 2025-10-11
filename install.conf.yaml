@@ -7,19 +7,12 @@
 - create:
     - ~/.config/
     - ~/.config/tmux/plugins
-    - ~/.local/share/fonts
     - ~/.cache/zsh
 
 - link:
     ~/.bash_aliases: .bash_aliases
-    ~/.local/share/fonts: fonts
-    ~/.config/zsh:
-      create: true
-      path: zsh/**
-      glob: true
-      prefix: "."
+    ~/.config/zsh: zsh
     ~/.config/nvim: nvim
-    ~/.config/hypr: hypr
     ~/.config/niri: niri
     ~/.config/waybar: waybar
     ~/.config/tmux/tmux.conf: tmux/tmux.conf
@@ -28,11 +21,7 @@
     ~/.config/swaync: swaync
     ~/.config/gtk-3.0: gtk-3.0
     ~/.config/gtk-4.0: gtk-4.0
-    ~/.local/scripts/workspaces:
-      create: false
-      glob: true
-      path: scripts/workspaces
-
+    ~/.local/scripts: scripts
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - command: chmod +x scripts/*
