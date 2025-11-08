@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Get focused output
+output="$(mmsg -g | grep "selmon 1" | awk '{print$1}')"
+
+case $1 in
+selected-region)
+	# Take a screenshot of the selected region
+	grim -t jpeg -g "$(slurp)" ~/Pictures/Screenshots/"$(date +%Y-%m-%d_%H-%m-%s)".jpg
+	;;
+save-to-clipboard)
+	# Take a screenshot and save it to the clipboard
+	grim -g "$(slurp -d)" - | wl-copy
+	;;
+focused-window)
+	# Take a screenshot of the focused window
+	xpos=$(mmsg -g -x -o "$output" | grep "x" | awk '{print$2}')
+	xpos=$((xpos - 2))
+	ypos=$(mmsg -g -x -o "$output" | grep "y" | awk '{print$2}')
+	ypos=$((ypos - 2))
+	xsize=$(mmsg -g -x -o "$output" | grep "width" | awk '{print$2}')
+	ysize=$(mmsg -g -x -o "$output" | grep "height" | awk '{print$2}')
+	xsize=$((xsize + 4)) # Value added is 2 times the border width
+	ysize=$((ysize + 4)) # Value added is 2 times the border width
+	grim -g "$xpos"",""$ypos $xsize""x""$ysize" -t jpeg ~/Pictures/Screenshots/"$(date +%Y-%m-%d_%H-%m-%s)".jpg
+	;;
+*)
+	# Take a screenshot of the currently focused output and save it into screenshots
+	grim -o "$output" -t jpeg ~/Pictures/Screenshots/"$(date +%Y-%m-%d_%H-%m-%s)".jpg
+	;;
+esac

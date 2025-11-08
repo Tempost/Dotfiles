@@ -7,6 +7,8 @@
 alias ls='lsd'
 alias cat='bat'
 alias vim='nvim'
+alias vi='nvim'
+alias v='nvim'
 alias niri_conf='nvim $XDG_CONFIG_HOME/niri/config.kdl'
 alias line-count='find . -name \*.py | xargs wc -l'
 alias wget='wget --hsts-file=$XDG_DATA_HOME/wget-hsts'

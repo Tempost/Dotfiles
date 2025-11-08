@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export WINEPREFIX=~/Games/Wine/guild_wars
+export WINEDEBUG=-all
+export WINEFSYNC=1
+
+bash dhuum &
+wine start /d "C:\Program Files (x86)\Guild Wars" "C:\Program Files (x86)\Guild Wars\Gw.exe" -lodfull -fps 144 &
+sleep 1
+wine start /d "C:\Program Files (x86)\GWToolbox" "C:\Program Files (x86)\GWToolbox\GWToolbox.exe"

@@ -8,12 +8,14 @@
     - ~/.config/
     - ~/.config/tmux/plugins
     - ~/.cache/zsh
+    - ~/.config/fzf
 
 - link:
     ~/.bash_aliases: .bash_aliases
     ~/.config/zsh: zsh
     ~/.config/nvim: nvim
     ~/.config/niri: niri
+    ~/.config/mango: mango
     ~/.config/waybar: waybar
     ~/.config/tmux/tmux.conf: tmux/tmux.conf
     ~/.config/rofi: rofi
@@ -21,8 +23,12 @@
     ~/.config/swaync: swaync
     ~/.config/gtk-3.0: gtk-3.0
     ~/.config/gtk-4.0: gtk-4.0
+    ~/.config/pipewire/: pipewire
     ~/.local/scripts: scripts
+    ~/.icons: icons
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - command: chmod +x scripts/*
+      description: Making scripts executable
+    - command: chmod +x mango/autostart.sh
       description: Making scripts executable

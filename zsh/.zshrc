@@ -1,7 +1,7 @@
 ZSH=/usr/share/oh-my-zsh
 ZSH_THEME="fwalch"
-plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab tmux)
-fpath+=~/.config/zsh/.zfunc
+plugins=(git fzf fzf-zsh-plugin fzf-tab tmux)
+fpath+="$ZDOTDIR"/.zfunc
 autoload -U compinit
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
@@ -11,7 +11,7 @@ export ZSH_TMUX_AUTOQUIT=false
 export GOPATH="$XDG_DATA_HOME"/go
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:/home/cody/.local/bin:$GOPATH"
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export HISTFILE="$ZDOTDIR"/history
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
@@ -27,7 +27,7 @@ export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 export NVM_DIR="$XDG_DATA_HOME"/nvm
 export MANPAGER='nvim +Man! +"set nocul" +"set noshowcmd" +"set noruler" +"set noshowmode" +"set laststatus=0"'
 
-ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+ZSH_CACHE_DIR="$XDG_CACHE_HOME"/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi

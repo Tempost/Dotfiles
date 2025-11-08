@@ -1,0 +1,2 @@
+#!/bin/bash
+pacman -Qq | fzf --tmux --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | most)'

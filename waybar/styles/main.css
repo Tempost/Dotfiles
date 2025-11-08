@@ -142,8 +142,10 @@ tooltip,
 }
 
 window#waybar {
-  background-color: @bg;
-  border-bottom: 1px solid @border;
+  /* background-color: @bg; */
+  background-color: transparent;
+  border: none;
+  /* border-bottom: 1px solid @border; */
 }
 
 #custom-notifications,

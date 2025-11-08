@@ -11,7 +11,7 @@ environment {
 
 cursor {
     xcursor-size 24
-    xcursor-theme "everforest-cursors"
+    xcursor-theme "everforest-cursors-light"
 }
 
 hotkey-overlay {
