@@ -23,9 +23,10 @@
     ~/.config/swaync: swaync
     ~/.config/gtk-3.0: gtk-3.0
     ~/.config/gtk-4.0: gtk-4.0
-    ~/.config/pipewire/: pipewire
+    ~/.config/pipewire: pipewire
     ~/.local/scripts: scripts
     ~/.icons: icons
+    ~/.themes: themes
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - command: chmod +x scripts/*

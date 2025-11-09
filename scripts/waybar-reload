@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+waybarpid=$(pgrep -i waybar)
+if [ "$waybarpid" ]; then
+	killall waybar
+fi
+
+waybar &

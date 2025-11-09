@@ -1,0 +1,5 @@
+#!/bin/bash
+
+awww-daemon -n background &
+awww-daemon -n overview &
+awww img -a ~/Pictures/everforest_noise.png

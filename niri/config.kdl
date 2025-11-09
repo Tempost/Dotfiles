@@ -2,6 +2,7 @@ prefer-no-csd
 
 environment {
     QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "qt5ct"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     _JAVA_AWT_WM_NONREPARENTING "1"
     XDG_CURRENT_DESKTOP "niri"
@@ -47,7 +48,7 @@ input {
 }
 
 output "DP-1" {
-    mode "2560x1440@164.8"
+    mode "2560x1440@143.972"
     scale 1
     transform "normal"
 }
@@ -62,9 +63,20 @@ workspace "general"
 workspace "steam"
 workspace "discord"
 
-window-rule {
-    geometry-corner-radius 1
-    clip-to-geometry true
+gestures {
+  hot-corners {
+    off
+  }
+}
+
+overview {
+  zoom 0.50
+  workspace-shadow {
+    softness 15
+    spread 5
+    offset x=0 y=5
+    color "#00000070"
+  }
 }
 
 layer-rule {
@@ -79,16 +91,10 @@ layer-rule {
     }
 }
 
-window-rule {
-    match is-floating=true
-    shadow {
-        on
-        softness 15
-        spread 5
-        offset x=0 y=5
-        draw-behind-window true
-        color "#00000070"
-    }
+
+layer-rule {
+  match namespace="awww-daemonoverview"
+  place-within-backdrop true
 }
 
 layout {
@@ -117,9 +123,7 @@ spawn-at-startup "waybar"
 spawn-at-startup "swaync"
 spawn-at-startup "legcord"
 spawn-at-startup "steam"
-spawn-sh-at-startup "swww-daemon"
-spawn-sh-at-startup "swww img ~/Pictures/ruins.png"
-spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &"
+spawn-sh-at-startup "wallpaper"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -128,8 +132,46 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
 animations {
   horizontal-view-movement {
-    spring damping-ratio=2.0 stiffness=1000 epsilon=0.0001
+    duration-ms 150
+    curve "cubic-bezier" 1 0 0 1
   }
+
+  workspace-switch {
+    duration-ms 150
+    curve "cubic-bezier" 1 0 0 1
+  }
+
+  overview-open-close {
+    duration-ms 150
+    curve "cubic-bezier" 1 0 0 1
+  }
+
+  window-open {
+    duration-ms 150
+    curve "cubic-bezier" 1 0 0 1
+  }
+
+  window-close {
+    duration-ms 150
+    curve "cubic-bezier" 1 0 0 1
+  }
+}
+
+window-rule {
+    geometry-corner-radius 1
+    clip-to-geometry true
+}
+
+window-rule {
+    match is-floating=true
+    shadow {
+        on
+        softness 15
+        spread 5
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000070"
+    }
 }
 
 window-rule {
@@ -142,13 +184,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"org\.cachyos\$"#
-    open-floating true
-    default-column-width { proportion 0.35;}
-    default-window-height { fixed 500; }
-}
-
-window-rule {
     match app-id=r#"org\.pulseaudio\.pavucontrol$"#
     open-floating true
     default-column-width { proportion 0.35;}
@@ -156,7 +191,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"thunar$"#
+    match app-id=r#"Thunar$"#
     open-floating true
     default-column-width { proportion 0.35;}
     default-window-height { fixed 750; }
@@ -176,24 +211,14 @@ window-rule {
 
 window-rule {
     match app-id=r#"steam"# title="^Steam$"
-    exclude title="^Friends List"
-    open-on-workspace "steam"
     open-maximized true
 }
 
 window-rule {
-    match app-id=r#"steam"# title="^Friends List$"
-    open-on-workspace "steam"
+    match app-id=r#"steam"#
+    exclude title="^Steam$"
     open-floating true
     default-column-width { proportion 0.2; }
-    default-window-height { fixed 1000; }
-}
-
-window-rule {
-    match app-id=r#"steam"# title="^Steam Settings$"
-    open-on-workspace "steam"
-    open-floating true
-    default-column-width { proportion 0.35; }
     default-window-height { fixed 750; }
 }
 
@@ -209,13 +234,6 @@ window-rule {
 }
 
 window-rule {
-    match title="^Battle.net$"
-    focus-ring {
-        off
-    }
-}
-
-window-rule {
     match app-id=r#"legcord"#
     open-on-workspace "discord"
     open-maximized true
@@ -225,44 +243,25 @@ window-rule {
 }
 
 window-rule {
-  match title=r#"Guild Wars 2"#
-  shadow {
-    off
-  }
-  focus-ring {
-    off
-  }
-}
-
-window-rule {
-    match app-id=r#"zen$"# title="Zen Browser"
+    match app-id=r#"zen$"# title=r#"Zen Browser"#
     open-on-workspace "general"
 }
 
 window-rule {
-    match app-id=r#"net-runelite-client-RuneLite"#
+    match app-id=r#"net-runelite"#
     open-floating true
     focus-ring {
       off
     }
 }
 
-window-rule {
-  match title=r#"SWGLegends Launcher"#
-  shadow {
-    off
-  }
-  focus-ring {
-    off
-  }
-}
-
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return repeat=false{ spawn "kitty"; }
-    Alt+Space repeat=false{ spawn "rofi" "-show" "drun" "-show-icon"; }
+    Mod+Return repeat=false { spawn "kitty"; }
+    Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
     Mod+E repeat=false { spawn "thunar"; }
+    Mod+Shift+Ctrl+W repeat=false { spawn-sh "waybar-reload"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
@@ -271,77 +270,28 @@ binds {
 
     Mod+Shift+Q { close-window; }
 
-    Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
-    Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
-
-    Mod+Ctrl+Left  { move-column-left; }
-    Mod+Ctrl+Down  { move-window-down; }
-    Mod+Ctrl+Up    { move-window-up; }
-    Mod+Ctrl+Right { move-column-right; }
+    Mod+H          { focus-column-left; }
+    Mod+J          { focus-window-down; }
+    Mod+K          { focus-window-up; }
+    Mod+L          { focus-column-right; }
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+J     { move-window-down; }
     Mod+Ctrl+K     { move-window-up; }
     Mod+Ctrl+L     { move-column-right; }
+    Mod+Home       { focus-column-first; }
+    Mod+End        { focus-column-last; }
+    Mod+Ctrl+Home  { move-column-to-first; }
+    Mod+Ctrl+End   { move-column-to-last; }
 
-    // Alternative commands that move across workspaces when reaching
-    // the first or last window in a column.
-    // Mod+J     { focus-window-or-workspace-down; }
-    // Mod+K     { focus-window-or-workspace-up; }
-    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
-
-    Mod+Home { focus-column-first; }
-    Mod+End  { focus-column-last; }
-    Mod+Ctrl+Home { move-column-to-first; }
-    Mod+Ctrl+End  { move-column-to-last; }
-
-    Mod+Shift+Left  { focus-monitor-left; }
-    Mod+Shift+Down  { focus-monitor-down; }
-    Mod+Shift+Up    { focus-monitor-up; }
-    Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H     { focus-monitor-left; }
-    Mod+Shift+J     { focus-monitor-down; }
-    Mod+Shift+K     { focus-monitor-up; }
-    Mod+Shift+L     { focus-monitor-right; }
-
-    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
     Mod+U              { focus-workspace-down; }
     Mod+I              { focus-workspace-up; }
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+U         { move-column-to-workspace-down; }
     Mod+Ctrl+I         { move-column-to-workspace-up; }
 
-    Mod+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+U         { move-workspace-down; }
-    Mod+Shift+I         { move-workspace-up; }
-
-    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
-
-    Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+    Mod+WheelScrollDown      cooldown-ms=50 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=50 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=50 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=50 { move-column-to-workspace-up; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -363,6 +313,7 @@ binds {
     Mod+Shift+9 { move-column-to-workspace 9; }
 
     Mod+Tab { focus-workspace-previous; }
+    Alt+Tab { toggle-overview; }
 
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }

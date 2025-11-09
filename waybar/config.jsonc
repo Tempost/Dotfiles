@@ -1,16 +1,15 @@
 {
   "layer": "top",
-  // "modules-left": ["niri/workspaces", "systemd-failed-units"],
-  // "modules-center": ["niri/window"],
-  "modules-left": ["ext/workspaces", "systemd-failed-units"],
-  "modules-center": ["dwl/window"],
+  "modules-left": ["niri/workspaces", "systemd-failed-units"],
+  "modules-center": ["niri/window"],
+  // "modules-left": ["ext/workspaces", "systemd-failed-units"],
+  // "modules-center": ["dwl/window"],
   "modules-right": [
     "memory",
     "cpu",
     "temperature#cpu",
     "temperature#gpu",
-    "custom/tray-left-end",
-    "group/sys-tray",
+    "tray",
     "pulseaudio",
     "custom/clock-icon",
     "clock",
@@ -24,32 +23,32 @@
 
   "temperature#cpu": {
     "interval": 1,
-    "format": "  {temperatureC}°C",
+    "format": " {temperatureC}°C",
     "tooltip": false,
     "hwmon-path": "/sys/devices/platform/nct6775.656/hwmon/hwmon0/temp13_input",
   },
 
   "temperature#gpu": {
     "interval": 1,
-    "format": "  {temperatureC}°C",
+    "format": " {temperatureC}°C",
     "tooltip": false,
     "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon3/temp1_input",
   },
 
   "cpu": {
-    "format": "   {usage}%",
+    "format": "  {usage}%",
     "interval": 1,
   },
 
   "memory": {
     "interval": 1,
-    "format": "   {percentage}%",
+    "format": "  {percentage}%",
     "tooltip-format": "Phsyical: {used:0.1f}GiB/{total}GiB\nSwap:      {swapUsed:0.1f}GiB/{swapTotal}GiB",
   },
 
   "custom/notifications": {
     "tooltip": false,
-    "format": " {icon} ",
+    "format": " {icon}",
     "format-icons": {
       "notification": "",
       "none": "",
@@ -75,19 +74,19 @@
       "(.*)Legcord(.*)": "Discord",
     },
   },
-  "ext/worspaces": {
-    "format": "{icon}",
-    "ignore-hidden": true,
-    "on-click": "activate",
-    "on-click-right": "deactivate",
-    "sort-by-id": true,
-  },
-  "dwl/window": {
-    "format": "{title}",
-    "rewrite": {
-      "(.*)Legcord(.*)": "Discord",
-    },
-  },
+  // "ext/worspaces": {
+  //   "format": "{icon}",
+  //   "ignore-hidden": true,
+  //   "on-click": "activate",
+  //   "on-click-right": "deactivate",
+  //   "sort-by-id": true,
+  // },
+  // "dwl/window": {
+  //   "format": "{title}",
+  //   "rewrite": {
+  //     "(.*)Legcord(.*)": "Discord",
+  //   },
+  // },
 
   "systemd-failed-units": {
     "hide-on-ok": true, // Do not hide if there is zero failed units.
@@ -96,24 +95,10 @@
     "user": true, // Ignore failed user units.
   },
 
-  "custom/divider": {
-    "format": "|",
-    "tooltip": false,
-  },
-
   "tray": {
-    "icon-size": 18,
-    "spacing": 12,
-  },
-
-  "custom/tray-collapsed": {
-    "format": "󰇙",
-    "tooltip": false,
-  },
-
-  "custom/tray-left-end": {
-    "format": " ",
-    "tooltip": false,
+    "icon-size": 16,
+    "show-passive-items": true,
+    "spacing": 10,
   },
 
   "hyprland/workspaces": {
@@ -127,22 +112,13 @@
     },
   },
 
-  "group/sys-tray": {
-    "orientation": "horizontal",
-    "drawer": {
-      "transition-duration": 600,
-      "transition-left-to-right": false,
-    },
-    "modules": ["custom/tray-collapsed", "tray"],
-  },
-
   "custom/clock-icon": {
-    "format": " ",
+    "format": "",
     "tooltip": false,
   },
 
   "clock": {
-    "format": "{:%I:%M:%S %p} ",
+    "format": "{:%I:%M:%S %p}",
     "interval": 1,
     "tooltip": false,
   },
@@ -157,7 +133,7 @@
   // },
 
   "pulseaudio": {
-    "format": "{icon}    {volume}%",
+    "format": "{icon}  {volume}%",
     "format-muted": "",
     "format-icons": ["", ""],
     "scroll-step": 2,
