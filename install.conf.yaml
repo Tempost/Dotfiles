@@ -19,6 +19,7 @@
     ~/.config/waybar: waybar
     ~/.config/tmux/tmux.conf: tmux/tmux.conf
     ~/.config/rofi: rofi
+    ~/.config/walker: walker
     ~/.config/kitty: kitty
     ~/.config/swaync: swaync
     ~/.config/gtk-3.0: gtk-3.0

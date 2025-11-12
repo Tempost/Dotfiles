@@ -1,0 +1,21 @@
+theme = "everforest"
+selection_wrap = true
+page_jump_items = 5
+
+[keybinds]
+page_down = ["ctrl d"]
+page_up = ["ctrl u"]
+next = ["Down", "ctrl n"]
+previous = ["Up", "ctrl p"]
+quick_activate = []
+
+[providers]
+default = [
+  "desktopapplications"
+]
+
+[providers.actions]
+desktopapplications = [
+  {action = "pin", bind = "ctrl i", after = "AsyncReload"},
+  {action = "unpin", bind = "ctrl i", after = "AsyncReload"},
+]

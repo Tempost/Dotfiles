@@ -120,6 +120,8 @@ layout {
 }
 
 spawn-at-startup "waybar"
+spawn-at-startup "elephant"
+spawn-at-startup "walker --gapplication-service"
 spawn-at-startup "swaync"
 spawn-at-startup "legcord"
 spawn-at-startup "steam"
@@ -184,6 +186,11 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"zen$"# title="^Library$"
+    open-floating true
+}
+
+window-rule {
     match app-id=r#"org\.pulseaudio\.pavucontrol$"#
     open-floating true
     default-column-width { proportion 0.35;}
@@ -191,7 +198,14 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"Thunar$"#
+    match app-id=r#"(?i:thunar$)"#
+    open-floating true
+    default-column-width { proportion 0.35;}
+    default-window-height { fixed 750; }
+}
+
+window-rule {
+    match app-id=r#"(?i:nautilus$)"#
     open-floating true
     default-column-width { proportion 0.35;}
     default-window-height { fixed 750; }
@@ -259,7 +273,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return repeat=false { spawn "kitty"; }
-    Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
+    // Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
+    Alt+Space repeat=false { spawn "nc" "-U" "/run/user/1000/walker/walker.sock"; }
     Mod+E repeat=false { spawn "thunar"; }
     Mod+Shift+Ctrl+W repeat=false { spawn-sh "waybar-reload"; }
 
