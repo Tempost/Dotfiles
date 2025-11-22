@@ -44,6 +44,7 @@ input {
     }
 
     focus-follows-mouse
+    warp-mouse-to-focus
     workspace-auto-back-and-forth
 }
 
@@ -119,7 +120,6 @@ layout {
     }
 }
 
-spawn-at-startup "waybar"
 spawn-at-startup "elephant"
 spawn-at-startup "walker --gapplication-service"
 spawn-at-startup "swaync"
@@ -229,7 +229,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"steam"#
+    match app-id="steam"
     exclude title="^Steam$"
     open-floating true
     default-column-width { proportion 0.2; }
@@ -273,10 +273,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return repeat=false { spawn "kitty"; }
-    // Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
-    Alt+Space repeat=false { spawn "nc" "-U" "/run/user/1000/walker/walker.sock"; }
+    Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
     Mod+E repeat=false { spawn "thunar"; }
-    Mod+Shift+Ctrl+W repeat=false { spawn-sh "waybar-reload"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
