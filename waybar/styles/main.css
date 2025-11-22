@@ -5,11 +5,6 @@
   margin-bottom: 1px;
 }
 
-window#waybar.empty #window {
-  background-color: transparent;
-  transition: none;
-}
-
 tooltip {
   background-color: @bg-light;
   border: 0px;
@@ -52,17 +47,15 @@ tooltip {
   background: @red;
 }
 
-#tray menu {
+menu {
   background: @bg;
   color: @fg;
 }
 
 #systemd-failed-units,
 #window,
+#info,
 #tray,
-#cpu,
-#memory,
-#temperature,
 #pulseaudio,
 #custom-clock-icon,
 #clock {
@@ -72,44 +65,56 @@ tooltip {
   padding-right: 10px;
 }
 
-#clock {
-  border-radius: 0 0 5px 0;
-}
-
 #systemd-failed-units {
   background: @red;
   margin-left: 15px;
 }
 
-#cpu,
-#tray,
-#memory,
-#temperature,
-#pulseaudio {
-  margin-right: 15px;
-}
-
-#custom-clock-icon {
-  border-radius: 0 0 0 5px;
-}
-
-#clock {
-  padding-left: 0px;
-  margin-right: 15px;
+window#waybar.empty #window {
+  background-color: transparent;
+  transition: none;
 }
 
 window#waybar {
   background-color: transparent;
 }
 
-#custom-notifications {
-  background: @bg-light;
-  border-radius: 0 0 0 5px;
-  padding: 0 10px 0 0;
-  font-size: 16px;
+#info {
+  margin-right: 15px;
 }
 
-#custom-notifications,
+#cpu,
+#temperature {
+  margin-right: 15px;
+}
+
+#tray,
+#pulseaudio {
+  margin-right: 15px;
+}
+
 #custom-clock-icon {
   color: @icons;
+  border-radius: 0 0 0 5px;
+}
+
+#clock {
+  border-radius: 0 0 5px 0;
+  padding-left: 0px;
+  margin-right: 15px;
+}
+
+#system {
+  background: @bg-light;
+  border-radius: 0 0 0 5px;
+}
+
+#custom-power,
+#custom-notifications {
+  color: @icons;
+  font-size: 14px;
+}
+
+#custom-power {
+  margin-left: 5px;
 }

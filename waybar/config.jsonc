@@ -2,23 +2,27 @@
   "layer": "top",
   "modules-left": ["niri/workspaces", "systemd-failed-units"],
   "modules-center": ["niri/window"],
-  // "modules-left": ["ext/workspaces", "systemd-failed-units"],
-  // "modules-center": ["dwl/window"],
   "modules-right": [
-    "memory",
-    "cpu",
-    "temperature#cpu",
-    "temperature#gpu",
+    "group/info",
     "tray",
     "pulseaudio",
-    "custom/clock-icon",
-    "clock",
-    "custom/notifications",
+    "group/clock-group",
+    "group/system",
   ],
 
-  "group/cpu": {
+  "group/info": {
     "orientation": "horizontal",
-    "modules": ["cpu", "temperature"],
+    "modules": ["cpu", "temperature#cpu", "temperature#gpu", "memory"],
+  },
+
+  "group/system": {
+    "orientation": "horizontal",
+    "modules": ["custom/notifications", "custom/power"],
+  },
+
+  "group/clock-group": {
+    "orientation": "horizontal",
+    "modules": ["custom/clock-icon", "clock"],
   },
 
   "temperature#cpu": {
@@ -48,16 +52,12 @@
 
   "custom/notifications": {
     "tooltip": false,
-    "format": " {icon}",
+    "format": " {icon} ",
     "format-icons": {
       "notification": "",
       "none": "",
       "dnd-notification": "",
       "dnd-none": "",
-      "inhibited-notification": "",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": "",
-      "dnd-inhibited-none": "",
     },
 
     "return-type": "json",
@@ -139,5 +139,19 @@
     "scroll-step": 2,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-click-right": "pavucontrol",
+  },
+  "custom/power": {
+    "format": "  ",
+    "tooltip": false,
+    "menu": "on-click",
+    "on-click-right": "",
+    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+    "menu-actions": {
+      "lock": "",
+      "logout": "niri msg action quit",
+      "shutdown": "systemctl poweroff",
+      "reboot": "systemctl reboot",
+      "bios": "systemctl reboot --firmware-setup",
+    },
   },
 }
