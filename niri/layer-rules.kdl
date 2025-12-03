@@ -1,0 +1,18 @@
+
+layer-rule {
+    match namespace="rofi"
+    shadow {
+        on
+        softness 15
+        spread 5
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000070"
+    }
+}
+
+
+layer-rule {
+  match namespace="awww-daemonoverview"
+  place-within-backdrop true
+}

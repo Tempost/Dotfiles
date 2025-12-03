@@ -1,0 +1,119 @@
+window-rule {
+    geometry-corner-radius 1
+    clip-to-geometry true
+}
+
+window-rule {
+    match is-floating=true
+    shadow {
+        on
+        softness 15
+        spread 5
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000070"
+    }
+}
+
+window-rule {
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
+    open-floating true
+
+    focus-ring {
+        off
+    }
+}
+
+window-rule {
+    match app-id=r#"zen$"# title="^Library$"
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"org\.pulseaudio\.pavucontrol$"#
+    open-floating true
+    default-column-width { proportion 0.35;}
+    default-window-height { fixed 500; }
+}
+
+window-rule {
+    match app-id=r#"(?i:thunar$)"#
+    open-floating true
+    default-column-width { proportion 0.35;}
+    default-window-height { fixed 750; }
+}
+
+window-rule {
+    match app-id=r#"(?i:nautilus$)"#
+    open-floating true
+    default-column-width { proportion 0.35;}
+    default-window-height { fixed 750; }
+}
+
+window-rule {
+    match app-id=r#"nm-connection-editor"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"steam"#
+    focus-ring {
+        off 
+    }
+}
+
+window-rule {
+    match app-id=r#"steam"# title="^Steam$"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="steam"
+    exclude title="^Steam$"
+    open-floating true
+    default-column-width { proportion 0.2; }
+    default-window-height { fixed 750; }
+}
+
+window-rule {
+  match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+  default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+window-rule {
+    match app-id=r#"steam_app_.*"#
+    match app-id=r#"steam_proton"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"legcord"#
+    open-on-workspace "discord"
+    open-maximized true
+    focus-ring {
+        off
+    }
+}
+
+window-rule {
+    match app-id=r#"zen$"# title=r#"Zen Browser"#
+    open-on-workspace "general"
+}
+
+window-rule {
+    match app-id=r#"net-runelite"#
+    open-floating true
+    focus-ring {
+      off
+    }
+}
+
+window-rule {
+  match app-id="spotify-qt" title="Select device"
+  open-floating true
+}
+
+window-rule {
+  match app-id="zoom"
+  open-floating true
+}

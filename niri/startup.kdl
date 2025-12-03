@@ -1,0 +1,21 @@
+environment {
+    QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    _JAVA_AWT_WM_NONREPARENTING "1"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+}
+
+cursor {
+    xcursor-size 24
+    xcursor-theme "everforest-cursors-light"
+}
+
+spawn-at-startup "swaync"
+spawn-at-startup "legcord"
+spawn-at-startup "steam"
+spawn-at-startup "wl-clip-persist --clipboard regular --reconnect-tries 0 &"
+spawn-at-startup "wl-paste --type text --watch cliphist store &"
+spawn-sh-at-startup "wallpaper"
