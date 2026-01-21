@@ -5,6 +5,12 @@ return {
       scroll = {
         enabled = false,
       },
+      picker = {
+        exclude = {
+          -- "**/bin/**",
+          "**/build/**",
+        },
+      },
       dashboard = {
         preset = {
           header = [[

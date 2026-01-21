@@ -6,17 +6,9 @@
 
 alias ls='lsd'
 alias cat='bat'
-alias brc='nvim ~/.bashrc'
-alias rex='nvim ~/.Xresources'
-alias urex='xrdb ~/.Xresources'
-alias vrc='nvim ~/.config/nvim/init.lua'
 alias vim='nvim'
-alias update-pkgs='sudo apt-get update && sudo apt-get -y upgrade'
-alias api-activate='. ~/.virtualenvs/credenti-apis/bin/activate'
+alias v='nvim'
 alias line-count='find . -name \*.py | xargs wc -l'
-alias kgs='kubectl get svc'
-alias kcl='kubectl logs'
-alias kc='kubectl'
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias vim-new='NVIM_APPNAME="nvim-new" nvim'

@@ -1,19 +1,23 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 #
-ZSH=/usr/share/oh-my-zsh
+ZSH=$ZDOTDIR/ohmyzsh
 ZSH_THEME="fwalch"
 plugins=(git fzf fzf-zsh-plugin zsh-completions fzf-tab kubectl)
 
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# unset SSH_AGENT_PID
+# if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+#   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# fi
 
 export COLORTERM="truecolor"
 
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$GOPATH/bin"
-export JAVA_HOME=/usr/lib/jvm/java-21-temurin
+export JAVA_HOME=/usr/lib/jvm/java-21-temurin-jdk
 export JAVA_LSP=/opt/eclipse.jdt.ls
-export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$JAVA_HOME/bin:$JAVA_LSP/bin"
+export GRADLE_BIN_HOME=/opt/gradle/gradle-9.2.1/bin/
+export PATH="$PATH:/home/cody/.local/bin:$GOPATH:$GOBIN:$JAVA_HOME/bin:$JAVA_LSP/bin:${KREW_ROOT:-$HOME/.krew}/bin:$GRADLE_BIN_HOME"
 export AWS_PROFILE=823298410396_AWSPowerUserAccess
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
@@ -32,14 +36,14 @@ if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
   [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1
 fi
 
-[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
-
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.config/zsh/ohmyzsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -61,7 +65,10 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 complete -C '/usr/local/bin/aws_completer' aws
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /usr/share/nvm/init-nvm.sh
-
-. "$HOME/.local/share/../bin/env"
+# source /usr/share/nvm/init-nvm.sh
+#
+# . "$HOME/.local/share/../bin/env"
 [ -f $XDG_CONFIG_HOME/zsh/fubectl.source ] && source $XDG_CONFIG_HOME/zsh/fubectl.source
+
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
