@@ -72,3 +72,6 @@ complete -C '/usr/local/bin/aws_completer' aws
 
 alias j!=jbang
 export PATH="$HOME/.jbang/bin:$PATH"
+
+# opencode
+export PATH=/home/cody/.opencode/bin:$PATH

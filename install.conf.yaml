@@ -10,10 +10,11 @@
 
 - link:
     ~/.config/nvim: nvim
-    ~/.bash_aliases: .bash_aliases
+    ~/.bash_aliases: aliases
     ~/.config/tmux/tmux.conf: tmux/tmux.conf
     ~/.config/zsh/.zprofile: zsh/zprofile
     ~/.config/zsh/.zshrc: zsh/zshrc
+    ~/.local/scripts: scripts
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

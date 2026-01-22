@@ -12,4 +12,8 @@ export PATH=${PATH}":$HOME/.local/scripts:$XDG_DATA_HOME/cargo/bin:/usr/local/go
 export PAGER="most -s"
 export MANPAGER="nvim +Man!"
 
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval $(ssh-agent -s)
+fi
+
 export GPG_TTY=$(tty)
