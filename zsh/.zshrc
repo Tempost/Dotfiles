@@ -11,7 +11,10 @@ export ZSH_TMUX_AUTOQUIT=false
 export GOPATH="$XDG_DATA_HOME"/go
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:/home/cody/.local/bin:$GOPATH"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export RANDFILE="$XDG_DATA_HOME/rnd"
 export HISTFILE="$ZDOTDIR"/history
+export PYTHON_HISTORY="$XDG_STATE_HOME/python_history"
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
@@ -25,6 +28,7 @@ export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
 export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 export NVM_DIR="$XDG_DATA_HOME"/nvm
+
 export MANPAGER='nvim +Man! +"set nocul" +"set noshowcmd" +"set noruler" +"set noshowmode" +"set laststatus=0"'
 
 ZSH_CACHE_DIR="$XDG_CACHE_HOME"/oh-my-zsh

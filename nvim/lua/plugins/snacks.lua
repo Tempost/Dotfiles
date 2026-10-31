@@ -8,7 +8,6 @@ return {
       picker = {
         exclude = {
           "**/build/*",
-          "**/bin/*",
         },
       },
 

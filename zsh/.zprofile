@@ -1,4 +1,4 @@
-export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons:$HOME/.icons
+export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
 
 export PATH=${PATH}":$HOME/.local/scripts:/usr/local/go/bin:$XDG_DATA_HOME/cargo/bin:$XDG_DATA_HOME/cargo/env"
 

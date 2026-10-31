@@ -1,0 +1,2 @@
+export WINEPREFIX="$HOME/Games/Wine/pd2/"
+wine start /d "C:\Games\Diablo II\ProjectD2" "C:\Games\Diablo II\ProjectD2\PD2Launcher.exe"

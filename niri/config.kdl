@@ -26,8 +26,6 @@ input {
         accel-profile "flat"
     }
 
-    focus-follows-mouse
-    warp-mouse-to-focus
     workspace-auto-back-and-forth
 }
 
@@ -72,14 +70,13 @@ layout {
     default-column-width { proportion 0.5; }
     focus-ring {
         width 1
-        active-gradient from="#e69875" to="#d699b6" angle=90
-        inactive-gradient from="#7a8478" to="#859289" angle=90
     }
 
     insert-hint {
         color "#e6987550"
     }
 }
+
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 workspace "general"
@@ -90,3 +87,5 @@ include "animations.kdl"
 include "window-rules.kdl"
 include "bindings.kdl"
 include "layer-rules.kdl"
+include "startup.kdl"
+

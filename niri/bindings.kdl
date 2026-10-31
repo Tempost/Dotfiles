@@ -2,7 +2,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return repeat=false { spawn "kitty"; }
-    Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
+    // Alt+Space repeat=false { spawn "rofi" "-show" "drun" "-show-icon"; }
+    Alt+Space repeat=false { spawn "noctalia" "msg" "panel-open" "launcher"; }
     Mod+E repeat=false { spawn "thunar"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
@@ -85,5 +86,5 @@ binds {
 
     Ctrl+Alt+Delete { quit; }
 
-    Mod+Shift+P { spawn-sh "$HOME/.local/scripts/power"; }
+    Mod+Shift+P { spawn "noctalia" "msg" "panel-open" "session"; }
 }

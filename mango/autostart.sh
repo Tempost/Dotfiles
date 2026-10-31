@@ -5,7 +5,7 @@ set +e
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots
 
 # notify
-swaync &
+# swaync &
 
 # background
 sh "$HOME"/.local/scripts/wallpaper
@@ -31,5 +31,5 @@ wl-paste --type text --watch cliphist store &
 pkill -f steam
 steam -silent &
 
-pkill -f legcord
-legcord &
+pkill -f discord
+discord &

@@ -39,6 +39,11 @@ window-rule {
 window-rule {
     match app-id=r#"(?i:thunar$)"#
     open-floating true
+}
+
+window-rule {
+    match app-id=r#"(?i:thunar$)"#
+    exclude title=r#"File Operation Progress"#
     default-column-width { proportion 0.35;}
     default-window-height { fixed 750; }
 }
@@ -63,14 +68,15 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"steam"# title="^Steam$"
-    open-maximized true
+    match app-id="steam"
+    match title="^Steam$"
+    open-floating true
+    open-on-workspace "steam"
 }
 
 window-rule {
     match app-id="steam"
     exclude title="^Steam$"
-    open-floating true
     default-column-width { proportion 0.2; }
     default-window-height { fixed 750; }
 }
@@ -81,13 +87,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"steam_app_.*"#
-    match app-id=r#"steam_proton"#
-    open-floating true
-}
-
-window-rule {
-    match app-id=r#"legcord"#
+    match app-id="discord"
     open-on-workspace "discord"
     open-maximized true
     focus-ring {
@@ -116,4 +116,37 @@ window-rule {
 window-rule {
   match app-id="zoom"
   open-floating true
+}
+
+window-rule {
+  match title="Project Diablo 2 Launcher"
+  open-floating true
+  default-window-height { fixed 920; }
+  default-column-width { proportion 0.35;}
+}
+
+window-rule {
+  match title=r#"Winetricks.*"#
+  open-floating true
+}
+window-rule {
+  match title=r#"Protontricks.*"#
+  open-floating true
+}
+
+window-rule {
+  match app-id=r#"steam_app_376210"#
+  open-fullscreen true
+}
+
+window-rule {
+  match title=r#"World of Warcraft"#
+  open-fullscreen true
+}
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
 }
