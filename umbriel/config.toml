@@ -1,0 +1,269 @@
+[include]
+files = []
+
+[include.optional]
+files = []
+
+[general]
+autostart = [
+  "swaync",
+  "wallpaper",
+  "noctalia",
+]
+xwayland_native_resolution = true
+# Select the monitor X11 games use as primary, using a connector or monitor identity from `umbriel outputs`.
+# xwayland_primary_output = "DP-1"
+nvidia_sync_workaround = false
+
+[environment]
+QT_QPA_PLATFORM = "wayland"
+QT_QPA_PLATFORMTHEME = "gtk3"
+QT_WAYLAND_DISABLE_WINDOWDECORATION = "1"
+ELECTRON_OZONE_PLATFORM_HINT = "auto"
+_JAVA_AWT_WM_NONREPARENTING = "1"
+SDL_VIDEODRIVER = "wayland"
+
+[output."HDMI-A-1"]
+mode = "2560x1440@143.972"
+
+[input.keyboard]
+layout = "us"
+options = "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+
+[input.mouse]
+accel_profile = "flat"
+
+[input.cursor]
+theme = "everforest-cursors-light"
+size = 24
+
+[appearance]
+border_width  = 1
+corner_radius = 1
+
+[appearance.blur]
+enabled = false
+
+[colors.border]
+focused = "#7FBBB3"
+unfocused = "#543A48"
+
+[workspaces]
+back_and_forth = true
+
+[[workspace]]
+name = "General"
+layout.mode = "dwindle"
+
+[[workspace]]
+name = "Discord"
+layout.mode = "dwindle"
+
+[[workspace]]
+name = "Games"
+layout.mode = "stacking"
+
+[keybinds]
+"Mod+Return" = { action = "spawn kitty", repeat = false }
+"Alt+Space" = { action = "spawn noctalia msg panel-toggle launcher", repeat = false }
+"Mod+Shift+Q" = { action = "window-close", repeat = false }
+"Mod+E" = { action = "spawn thunar", repeat = false }
+"Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle", allow_when_inhibited = true, repeat = false }
+"Mod+Shift+P" = { action = "spawn noctalia msg panel-open session", repeat = false }
+
+"XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down", allow_when_locked = true }
+"XF86AudioMute" = { action = "spawn noctalia msg volume-mute", allow_when_locked = true, repeat = false }
+"XF86AudioPlay" = { action = "spawn noctalia msg media toggle", allow_when_locked = true, repeat = false }
+"XF86AudioNext" = { action = "spawn noctalia msg media next", allow_when_locked = true }
+"XF86AudioPrev" = { action = "spawn noctalia msg media previous", allow_when_locked = true }
+
+"Mod+H" = "window-focus-left"
+"Mod+J" = "window-focus-down"
+"Mod+K" = "window-focus-up"
+"Mod+L" = "window-focus-right"
+"Mod+Shift+H" = "column-move-left"
+"Mod+Shift+J" = "window-move-down"
+"Mod+Shift+K" = "window-move-up"
+"Mod+Shift+L" = "column-move-right"
+
+# Window state and layout
+"Mod+V" = { action = "window-toggle-floating", repeat = false }
+"Mod+Shift+V" = { action = "window-focus-switch-floating", repeat = false }
+"Mod+P" = { action = "window-toggle-pinned", repeat = false }
+"Mod+M" = { action = "window-toggle-maximize-to-edges", repeat = false }
+"Mod+F" = { action = "window-toggle-maximize", repeat = false }
+"Mod+Shift+F" = { action = "window-toggle-fullscreen", repeat = false }
+"Mod+R" = "window-cycle-primary-extent"
+"Mod+Shift+R" = "window-cycle-primary-extent-back"
+"Mod+Comma" = "window-consume-left"
+"Mod+Period" = "window-consume-right"
+"Mod+Ctrl+Comma" = "window-consume-from-left"
+"Mod+Ctrl+Period" = "window-consume-from-right"
+"Mod+Alt+T" = "layout-toggle-split"
+"Mod+W" = { action = "column-toggle-tabbed", repeat = false }
+"Mod+Alt+Right" = "column-focus-tab-next"
+"Mod+Alt+Left" = "column-focus-tab-previous"
+"Mod+WheelUp" = "window-focus-left"
+"Mod+WheelDown" = "window-focus-right"
+"Mod+O" = { action = "overview-toggle", repeat = false }
+
+# Workspaces
+"Mod+1" = "workspace-switch 1"
+"Mod+2" = "workspace-switch 2"
+"Mod+3" = "workspace-switch 3"
+"Mod+4" = "workspace-switch 4"
+"Mod+5" = "workspace-switch 5"
+"Mod+6" = "workspace-switch 6"
+"Mod+7" = "workspace-switch 7"
+"Mod+8" = "workspace-switch 8"
+"Mod+9" = "workspace-switch 9"
+"Mod+Shift+1" = "window-move-to-workspace 1"
+"Mod+Shift+2" = "window-move-to-workspace 2"
+"Mod+Shift+3" = "window-move-to-workspace 3"
+"Mod+Shift+4" = "window-move-to-workspace 4"
+"Mod+Shift+5" = "window-move-to-workspace 5"
+"Mod+Shift+6" = "window-move-to-workspace 6"
+"Mod+Shift+7" = "window-move-to-workspace 7"
+"Mod+Shift+8" = "window-move-to-workspace 8"
+"Mod+Shift+9" = "window-move-to-workspace 9"
+
+# Screenshot
+"Mod+S" = { action = "submap screencapture", repeat = false }
+"submap[screencapture],1" = { action = "spawn grim $(xdg-user-dir PICTURES)/Screenshots/$(date +'%s_grim.png')", submap = "reset" }
+"submap[screencapture],2" = { action = "spawn grim -g \"$(slurp)\" $(xdg-user-dir PICTURES)/Screenshots/$(date +'%s_grim.png')", submap = "reset" }
+"submap[screencapture],Escape" = "submap reset"
+
+# Scratchpad
+"Mod+Shift+T" = { action = "window-move-to-scratchpad", repeat = false }
+"Mod+T" = "scratchpad-toggle"
+"Mod+Ctrl+T" = { action = "window-restore-from-scratchpad", repeat = false }
+"Mod+Tab" = "scratchpad-focus-next"
+
+# ==============================================================================
+# Layout
+# New scrolling-layout windows start at half the output width. Without this
+# setting, each application chooses its starting width. Stacked columns retain
+# their most recently focused row when focus leaves and later returns.
+# https://docs.noctalia.dev/umbriel/layout/
+[layout]
+mode = "dwindle" # "scrolling", "dwindle", "master", or "stacking".
+gap = 1
+client_maximize = "edges"
+
+[[window_rule]]
+blur = false
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_floating_size_px = { width = 1020, height = 900 }
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.UmbrielSharePicker$"
+default_floating = true
+default_floating_size_px = { width = 800, height = 600 }
+
+[[window_rule]]
+match.title = "^(Picture-in-Picture|Picture in picture)$"
+default_floating = true
+default_maximize = false
+default_position = { x = 20, y = 20, anchor = "bottom_right" }
+
+[[window_rule]]
+match.title = "^notificationtoasts_.+_desktop"
+default_position = { x = 0, y = 0, anchor = "bottom_right" }
+default_focused = false
+default_pinned = true
+
+# Keep game menus inside their window; a focus or workspace keybind releases the pointer.
+[[window_rule]]
+match.app_id = "^steam_app_.*$"
+confine_pointer = true
+
+[[window_rule]]
+match.app_id = "^steam$"
+default_workspace = "Games"
+border_width = 0
+
+[[window_rule]]
+match.app_id = "steam"
+match.title = "Steam"
+default_maximize = true
+
+[[window_rule]]
+match.app_id = "steam"
+match.title = "Friends List"
+
+[[window_rule]]
+match.app_id = "steam"
+match.title = "Steam Settings"
+
+[[window_rule]]
+match.title = "Battle.net"
+
+[[window_rule]]
+match.app_id = "thunar"
+default_floating = true
+default_floating_size_px = { width = 1280, height = 800 }
+
+[[window_rule]]
+match.is_floating = true
+default_position = { x = 0, y = 0, anchor = "center" }
+
+[[window_rule]]
+match.app_id = "net-runelite-client-RuneLite"
+match.title = "Exit"
+attach_to_parent = true
+default_workspace = "Games"
+
+[[window_rule]]
+match.title = ".*RuneLite .*$"
+default_workspace = "Games"
+
+[[window_rule]]
+match.app_id = "discord"
+default_workspace = "Discord"
+
+# Keep compositor shortcuts available while a virtual machine window is focused.
+# [[window_rule]]
+# match.app_id = "^virt-manager$"
+# allow_shortcuts_inhibit = false
+
+# Keep an application drawing while it is hidden on another workspace, for programs whose other work stalls without it.
+# [[window_rule]]
+# match.app_id = "^obs$"
+# background_render = true
+
+# Give scratchpad windows their own border colors.
+# [[window_rule]]
+# match.is_scratchpad = true
+# border_color_focused = "#E5C07BFF"
+# border_color_unfocused = "#5C4A2AFF"
+
+# Frame the window being screencast; viewers never see the frame.
+# [[window_rule]]
+# match.is_cast_target = true
+# border_color_focused = "#40C057FF"
+# border_color_unfocused = "#40C057FF"
+
+# Leave an application that draws its own corners and shadow undecorated.
+# [[window_rule]]
+# match.app_id = "^org[.]gnome[.]TextEditor$"
+# border_width = 0
+# corner_radius = 0
+# shadow = false
+
+# ==============================================================================
+[[layer_rule]]
+match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$"
+blur = false
+blur_ignore_alpha = 0.5
+blur_popups = true
+
+# Panels, the dock, notifications and OSDs open over windows, so they blur the
+# live content behind them. The bar and desktop widgets sit on the wallpaper and
+# keep the cached wallpaper blur.
+[[layer_rule]]
+match.namespace = "^noctalia-(notification|dock|panel|attached-panel|osd)$"
+blur_optimized = false

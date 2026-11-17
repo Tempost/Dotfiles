@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export WINEPREFIX=~/Games/Wine/guild_wars
+
+if pgrep -f "Gw.exe" >/dev/null; then
+  wine start /d "C:\Program Files (x86)\GWToolbox" "C:\Program Files (x86)\GWToolbox\GWToolbox.exe"
+fi
